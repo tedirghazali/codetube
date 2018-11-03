@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>PidieUi</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <style>
+        .pd-editor-wrap{
+            border: 1px solid #aaa;
+        }
+        .pd-editor-toolbar{
+            padding: 10px 20px;
+            border-bottom: 1px solid #aaa;
+        }
+        .pd-editor-content{
+            padding: 20px;
+            height: 500px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container mt-4">
+        <div class="pd-editor-wrap">
+            <div class="pd-editor-toolbar">
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-secondary pd-bold" title="Bold"><i class="fa fa-bold"></i></button>
+                    <button type="button" class="btn btn-secondary pd-italic" title="Italic"><i class="fa fa-italic"></i></button>
+                    <button type="button" class="btn btn-secondary pd-underline" title="Underline"><i class="fa fa-underline"></i></button>
+                </div>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-secondary pd-alignleft" title="Align Left"><i class="fa fa-align-left"></i></button>
+                    <button type="button" class="btn btn-secondary pd-aligncenter" title="Align Center"><i class="fa fa-align-center"></i></button>
+                    <button type="button" class="btn btn-secondary pd-alignright" title="Align Right"><i class="fa fa-align-right"></i></button>
+                    <button type="button" class="btn btn-secondary pd-alignjustify" title="Align Justify"><i class="fa fa-align-justify"></i></button>
+                </div>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-secondary pd-listol" title="Ordered List"><i class="fa fa-list-ol"></i></button>
+                    <button type="button" class="btn btn-secondary pd-listul" title="Unordered List"><i class="fa fa-list-ul"></i></button>
+                </div>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-secondary pd-indent" title="Indent"><i class="fa fa-indent"></i></button>
+                    <button type="button" class="btn btn-secondary pd-outdent" title="Outdent"><i class="fa fa-outdent"></i></button>
+                </div>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-secondary pd-cut" title="Cut"><i class="fa fa-cut"></i></button>
+                    <button type="button" class="btn btn-secondary pd-copy" title="Copy"><i class="fa fa-copy"></i></button>
+                    <button type="button" class="btn btn-secondary pd-paste" title="Paste"><i class="fa fa-paste"></i></button>
+                </div>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-secondary pd-paragraph" title="Paragraph"><i class="fa fa-paragraph"></i></button>
+                    <button type="button" class="btn btn-secondary pd-strikethrough" title="Strike Through"><i class="fa fa-strikethrough"></i></button>
+                    <button type="button" class="btn btn-secondary pd-superscript" title="Superscript"><i class="fa fa-superscript"></i></button>
+                    <button type="button" class="btn btn-secondary pd-subscript" title="Subscript"><i class="fa fa-subscript"></i></button>
+                    <button type="button" class="btn btn-secondary pd-eraser" title="Delete"><i class="fa fa-eraser"></i></button>
+                    <button type="button" class="btn btn-secondary pd-selectall" title="Select All"><i class="fa fa-clone"></i></button>
+                </div>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-secondary pd-undo" title="Undo"><i class="fa fa-undo"></i></button>
+                    <button type="button" class="btn btn-secondary pd-redo" title="Redo"><i class="fa fa-repeat"></i></button>
+                </div>
+            </div>
+            <div contenteditable="true" class="pd-editor-content">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam orci nisi, ultricies in volutpat et, rutrum id elit. Sed aliquet diam lectus, sit amet pretium sem dignissim pellentesque. Pellentesque gravida mi in dolor fringilla, sed gravida dui tempus. Nunc sapien augue, consectetur sed auctor ut, volutpat maximus diam. Nunc sit amet convallis risus. Fusce tristique arcu nec sem feugiat, eget vulputate nisl posuere. Aliquam quis mi sem. Donec nec tempor diam, quis pharetra erat. Vestibulum ut dignissim libero. Fusce pharetra luctus nibh eget convallis. Nullam ac felis pulvinar, tempor risus non, porttitor enim. Proin vulputate ac dui quis tempor.
+
+Aliquam eu tempor augue, ut aliquet tortor. Aenean dictum, purus congue pretium mollis, sapien sapien aliquam tortor, id elementum nisi magna sed augue. Duis hendrerit mauris sit amet nisi euismod consequat. Suspendisse mollis massa lorem, sit amet gravida velit luctus eu. Quisque a pharetra arcu. Mauris aliquam erat eu arcu rhoncus fermentum. Aliquam malesuada euismod finibus. Suspendisse potenti. Curabitur aliquet laoreet ex, ac vulputate tellus laoreet at.
+
+Fusce maximus, quam vitae commodo porttitor, arcu nisi hendrerit purus, vel tincidunt sem est sit amet quam. Nunc porta diam ut risus finibus, ac tincidunt tellus aliquet. Donec tellus erat, iaculis vitae porttitor sagittis, vulputate id eros. Nulla facilisi. Curabitur velit metus, ornare et tellus ut, cursus convallis nibh. Quisque convallis pellentesque augue, ac placerat ligula auctor sit amet. Pellentesque bibendum nunc id rhoncus fringilla. Duis sed urna tortor.
+
+Ut id dignissim ligula, nec euismod nibh. In diam sapien, pulvinar sit amet tempus ac, scelerisque vel lorem. Proin condimentum gravida leo sit amet elementum. In turpis libero, sollicitudin quis rutrum at, volutpat ut lacus. Duis accumsan eleifend velit, et feugiat erat semper vitae. Aliquam at suscipit quam. Ut cursus ante diam, ac ullamcorper mi interdum quis. Morbi luctus, nunc eget interdum vestibulum, lacus leo facilisis metus, eu euismod risus turpis eu lorem. Integer varius ipsum eget nisl egestas, ac egestas leo faucibus. Praesent varius augue tempor turpis aliquam, ac pulvinar ante molestie. Phasellus dapibus semper nulla id imperdiet. Sed non orci nunc.
+
+Sed at libero ut mi dapibus suscipit. Morbi sit amet dolor sodales, elementum lorem vel, euismod urna. Praesent eget risus est. Sed rutrum interdum turpis quis semper. Curabitur nec quam sollicitudin nulla hendrerit tincidunt. Suspendisse consectetur placerat ipsum vel tincidunt. Cras ornare rutrum eros in egestas. Ut laoreet eros tellus. Donec efficitur, sapien id cursus ornare, metus massa pellentesque felis, quis varius lacus felis at lorem. Nullam tincidunt lacus at nunc iaculis, vitae interdum libero tristique. Curabitur magna nulla, scelerisque eget fermentum finibus, viverra id felis. Nulla a urna tempor, aliquet libero at, ullamcorper dui. Vivamus mattis justo ut nisl gravida, vitae imperdiet ex fermentum. Vestibulum placerat, mauris posuere tristique pretium, velit orci tristique magna, ut dictum ligula urna nec nisi. Morbi id finibus nunc. 
+            </div>
+        </div>
+    </div>
+    
+    <footer class="text-center pt-3 pb-2">
+        <p>Apache License 2.0 Tedir Ghazali</p>
+    </footer>
+
+    <script>
+        var bold = document.querySelector('.pd-bold');
+        var italic = document.querySelector('.pd-italic');
+        var underline = document.querySelector('.pd-underline');
+        var alignleft = document.querySelector('.pd-alignleft');
+        var aligncenter = document.querySelector('.pd-aligncenter');
+        var alignright = document.querySelector('.pd-alignright');
+        var alignjustify = document.querySelector('.pd-alignjustify');
+        var listol = document.querySelector('.pd-listol');
+        var listul = document.querySelector('.pd-listul');
+        var indent = document.querySelector('.pd-indent');
+        var outdent = document.querySelector('.pd-outdent');
+        var cut = document.querySelector('.pd-cut');
+        var copy = document.querySelector('.pd-copy');
+        var paste = document.querySelector('.pd-paste');
+        var paragraph = document.querySelector('.pd-paragraph');
+        var strikethrough = document.querySelector('.pd-strikethrough');
+        var superscript = document.querySelector('.pd-superscript');
+        var subscript = document.querySelector('.pd-subscript');
+        var eraser = document.querySelector('.pd-eraser');
+        var selectall = document.querySelector('.pd-selectall');
+        var undo = document.querySelector('.pd-undo');
+        var redo = document.querySelector('.pd-redo');
+        
+        bold.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('bold');
+        })
+        italic.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('italic');
+        })
+        underline.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('underline');
+        })
+        alignleft.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('justifyLeft');
+        })
+        aligncenter.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('justifyCenter');
+        })
+        alignright.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('justifyRight');
+        })
+        alignjustify.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('justifyFull');
+        })
+        alignleft.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('justifyLeft');
+        })
+        listol.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('insertOrderedList');
+        })
+        listul.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('insertUnorderedList');
+        })
+        indent.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('indent');
+        })
+        outdent.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('outdent');
+        })
+        cut.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('cut');
+        })
+        copy.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('copy');
+        })
+        paste.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('paste');
+        })
+        paragraph.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('insertParagraph');
+        })
+        strikethrough.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('strikeThrough');
+        })
+        superscript.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('superscript');
+        })
+        subscript.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('subscript');
+        })
+        eraser.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('delete');
+        })
+        selectall.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('selectAll');
+        })
+        undo.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('undo');
+        })
+        redo.addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('redo');
+        })
+    </script>
+</body>
+</html>
