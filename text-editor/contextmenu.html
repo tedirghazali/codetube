@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>PidieUi</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <!--<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />-->
+    <style>
+        .pd-editor-wrap{
+            border:1px solid #aaa;
+        }
+        .pd-editor-toolbar{
+            padding: 10px 20px;
+            border-bottom: 1px solid #aaa;
+        }
+        .pd-editor-content{
+            padding: 20px;
+            height: 500px;
+            overflow-y: scroll;
+        }
+        .material-icons{
+            line-height: 1;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <div class="pd-editor-wrap">
+            <div class="pd-editor-toolbar">
+                <button type="button" class="btn btn-secondary pd-color-text" data-target="#my-modal">
+                    <i class="material-icons">format_color_text</i>
+                </button>
+                <button type="button" class="btn btn-secondary pd-color-fill">
+                    <i class="material-icons">format_color_fill</i>
+                </button>
+                <button type="button" class="btn btn-secondary pd-color-reset">
+                    <i class="material-icons">format_color_reset</i>
+                </button>
+                <button type="button" class="btn btn-secondary pd-color-border">
+                    <i class="material-icons">border_color</i>
+                </button>
+            </div>
+            <div class="pd-editor-content" contenteditable="true">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam orci nisi, ultricies in volutpat et, rutrum id elit. Sed aliquet diam lectus, sit amet pretium sem dignissim pellentesque. Pellentesque gravida mi in dolor fringilla, sed gravida dui tempus. Nunc sapien augue, consectetur sed auctor ut, volutpat maximus diam. Nunc sit amet convallis risus. Fusce tristique arcu nec sem feugiat, eget vulputate nisl posuere. Aliquam quis mi sem. Donec nec tempor diam, quis pharetra erat. Vestibulum ut dignissim libero. Fusce pharetra luctus nibh eget convallis. Nullam ac felis pulvinar, tempor risus non, porttitor enim. Proin vulputate ac dui quis tempor.
+
+Aliquam eu tempor augue, ut aliquet tortor. Aenean dictum, purus congue pretium mollis, sapien sapien aliquam tortor, id elementum nisi magna sed augue. Duis hendrerit mauris sit amet nisi euismod consequat. Suspendisse mollis massa lorem, sit amet gravida velit luctus eu. Quisque a pharetra arcu. Mauris aliquam erat eu arcu rhoncus fermentum. Aliquam malesuada euismod finibus. Suspendisse potenti. Curabitur aliquet laoreet ex, ac vulputate tellus laoreet at.
+
+Fusce maximus, quam vitae commodo porttitor, arcu nisi hendrerit purus, vel tincidunt sem est sit amet quam. Nunc porta diam ut risus finibus, ac tincidunt tellus aliquet. Donec tellus erat, iaculis vitae porttitor sagittis, vulputate id eros. Nulla facilisi. Curabitur velit metus, ornare et tellus ut, cursus convallis nibh. Quisque convallis pellentesque augue, ac placerat ligula auctor sit amet. Pellentesque bibendum nunc id rhoncus fringilla. Duis sed urna tortor.
+
+Ut id dignissim ligula, nec euismod nibh. In diam sapien, pulvinar sit amet tempus ac, scelerisque vel lorem. Proin condimentum gravida leo sit amet elementum. In turpis libero, sollicitudin quis rutrum at, volutpat ut lacus. Duis accumsan eleifend velit, et feugiat erat semper vitae. Aliquam at suscipit quam. Ut cursus ante diam, ac ullamcorper mi interdum quis. Morbi luctus, nunc eget interdum vestibulum, lacus leo facilisis metus, eu euismod risus turpis eu lorem. Integer varius ipsum eget nisl egestas, ac egestas leo faucibus. Praesent varius augue tempor turpis aliquam, ac pulvinar ante molestie. Phasellus dapibus semper nulla id imperdiet. Sed non orci nunc.
+
+Sed at libero ut mi dapibus suscipit. Morbi sit amet dolor sodales, elementum lorem vel, euismod urna. Praesent eget risus est. Sed rutrum interdum turpis quis semper. Curabitur nec quam sollicitudin nulla hendrerit tincidunt. Suspendisse consectetur placerat ipsum vel tincidunt. Cras ornare rutrum eros in egestas. Ut laoreet eros tellus. Donec efficitur, sapien id cursus ornare, metus massa pellentesque felis, quis varius lacus felis at lorem. Nullam tincidunt lacus at nunc iaculis, vitae interdum libero tristique. Curabitur magna nulla, scelerisque eget fermentum finibus, viverra id felis. Nulla a urna tempor, aliquet libero at, ullamcorper dui. Vivamus mattis justo ut nisl gravida, vitae imperdiet ex fermentum. Vestibulum placerat, mauris posuere tristique pretium, velit orci tristique magna, ut dictum ligula urna nec nisi. Morbi id finibus nunc.
+            </div>
+        </div>
+    </div>
+    
+    <footer class="text-center pt-3 pb-2">
+        <p>Apache License 2.0 Tedir Ghazali</p>
+    </footer>
+    
+    <script>
+        var colorText = document.querySelector('.pd-color-text');
+        var colorFill = document.querySelector('.pd-color-fill');
+        var colorReset = document.querySelector('.pd-color-reset');
+        var colorBorder = document.querySelector('.pd-color-border');
+        
+        function saveSelection(){
+            if (window.getSelection) {
+                sel = window.getSelection();
+                if (sel.getRangeAt && sel.rangeCount) {
+                    return sel.getRangeAt(0);
+                }
+            } else if (document.selection && document.selection.createRange) {
+                return document.selection.createRange();
+            }
+            return null;
+        }
+        function restoreSelection(range){
+            if (range) {
+                if (window.getSelection) {
+                    sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                } else if (document.selection && range.select) {
+                    range.select();
+                }
+            }
+        }
+        var selRange;
+        Array.prototype.forEach.call(document.querySelectorAll('.pd-modal'), function(elem){
+            
+            var target = elem.getAttribute('data-target');
+            var modal = document.querySelector(target);
+            
+            var close = modal.querySelector('#my-modal-close');
+            var title = modal.querySelector('#my-link-title');
+            var url = modal.querySelector('#my-link-url');
+            var target = modal.querySelector('#my-link-target');
+            var nofollow = modal.querySelector('#my-link-nofollow');
+            var download = modal.querySelector('#my-link-download');
+            var insert = modal.querySelector('#my-link-insert');
+            
+            elem.onclick = function(e){
+                e.preventDefault();
+                selRange = saveSelection();
+                modal.classList.add('show');
+                modal.style.display = "block";
+                title.value = sel;
+                url.value = '';
+                target.checked = false;
+                nofollow.checked = false;
+                download.checked = false;
+                url.focus();
+            }
+            
+            close.onclick = function(e){
+                e.preventDefault();
+                modal.classList.remove('show');
+                modal.style.display = "none";
+            }
+            
+            insert.onclick = function(e){
+                e.preventDefault();
+                restoreSelection(selRange);
+                var link = '<a ';
+                link += 'href="'+url.value+'"';
+                link += 'title="'+url.value+'"';
+                if(target.checked == true){
+                    link += 'target="_blank"';
+                }
+                if(nofollow.checked == true){
+                    link += 'rel="nofollow"';
+                }
+                if(download.checked == true){
+                    link += 'download="'+title.value+'"';
+                }
+                link += '>'+title.value+'</a>';
+                document.execCommand('insertHTML', false, link);
+                
+                modal.classList.remove('show');
+                modal.style.display = "none";
+            }
+            
+        })
+        document.querySelector('.pd-unlink').addEventListener('click', function(e){
+            e.preventDefault();
+            document.execCommand('unlink');
+        })
+    </script>
+    
+</body>
+</html>

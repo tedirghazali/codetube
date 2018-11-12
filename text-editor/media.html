@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>PidieUi</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        .pd-editor-wrap{
+            border:1px solid #aaa;
+        }
+        .pd-editor-toolbar{
+            padding: 10px 20px;
+            border-bottom: 1px solid #aaa;
+        }
+        .pd-editor-content{
+            padding: 20px;
+            height: 500px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- 
+    https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css
+    https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css
+    youtube: https://youtu.be/aqz-KE-bpKQ
+    dailymotion: https://dai.ly/x2su9ww
+    soundcloud: https://soundcloud.com/mercifulservant/mercifulservant-background-nasheed?in=ddhad/sets/merciful-servant
+    -->
+
+    <div class="container mt-4">
+        <div class="pd-editor-wrap">
+            <div class="pd-editor-toolbar">
+                <button type="button" class="btn btn-secondary btn-sm pd-modal" data-target="#my-modal">
+                    <i class="fa fa-film"></i>
+                </button>
+                <div class="modal fade" id="my-modal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Insert Media</h5>
+                                <button type="button" class="close" id="my-modal-close">
+                                    &times;
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>URL</label>
+                                    <input type="url" class="form-control" id="my-url"/>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col form-group">
+                                        <label>Width</label>
+                                        <input type="text" class="form-control" id="my-width"/>
+                                    </div>
+                                    <div class="col form-group">
+                                        <label>Height</label>
+                                        <input type="text" class="form-control" id="my-height"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>From</label>
+                                    <select id="my-embed" class="form-control">
+                                        <optgroup label="Video">
+                                            <option>Youtube</option>
+                                            <option>Dailymotion</option>
+                                        </optgroup>
+                                        <optgroup label="Audio">
+                                            <option>Soundcloud</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Position</label>
+                                    <select id="my-position" class="form-control">
+                                        <option value="text-left">Left</option>
+                                        <option value="text-center">Center</option>
+                                        <option value="text-right">Right</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="my-insert" class="btn btn-primary">Insert</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pd-editor-content" contenteditable="true">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam orci nisi, ultricies in volutpat et, rutrum id elit. Sed aliquet diam lectus, sit amet pretium sem dignissim pellentesque. Pellentesque gravida mi in dolor fringilla, sed gravida dui tempus. Nunc sapien augue, consectetur sed auctor ut, volutpat maximus diam. Nunc sit amet convallis risus. Fusce tristique arcu nec sem feugiat, eget vulputate nisl posuere. Aliquam quis mi sem. Donec nec tempor diam, quis pharetra erat. Vestibulum ut dignissim libero. Fusce pharetra luctus nibh eget convallis. Nullam ac felis pulvinar, tempor risus non, porttitor enim. Proin vulputate ac dui quis tempor.
+
+Aliquam eu tempor augue, ut aliquet tortor. Aenean dictum, purus congue pretium mollis, sapien sapien aliquam tortor, id elementum nisi magna sed augue. Duis hendrerit mauris sit amet nisi euismod consequat. Suspendisse mollis massa lorem, sit amet gravida velit luctus eu. Quisque a pharetra arcu. Mauris aliquam erat eu arcu rhoncus fermentum. Aliquam malesuada euismod finibus. Suspendisse potenti. Curabitur aliquet laoreet ex, ac vulputate tellus laoreet at.
+
+Fusce maximus, quam vitae commodo porttitor, arcu nisi hendrerit purus, vel tincidunt sem est sit amet quam. Nunc porta diam ut risus finibus, ac tincidunt tellus aliquet. Donec tellus erat, iaculis vitae porttitor sagittis, vulputate id eros. Nulla facilisi. Curabitur velit metus, ornare et tellus ut, cursus convallis nibh. Quisque convallis pellentesque augue, ac placerat ligula auctor sit amet. Pellentesque bibendum nunc id rhoncus fringilla. Duis sed urna tortor.
+
+Ut id dignissim ligula, nec euismod nibh. In diam sapien, pulvinar sit amet tempus ac, scelerisque vel lorem. Proin condimentum gravida leo sit amet elementum. In turpis libero, sollicitudin quis rutrum at, volutpat ut lacus. Duis accumsan eleifend velit, et feugiat erat semper vitae. Aliquam at suscipit quam. Ut cursus ante diam, ac ullamcorper mi interdum quis. Morbi luctus, nunc eget interdum vestibulum, lacus leo facilisis metus, eu euismod risus turpis eu lorem. Integer varius ipsum eget nisl egestas, ac egestas leo faucibus. Praesent varius augue tempor turpis aliquam, ac pulvinar ante molestie. Phasellus dapibus semper nulla id imperdiet. Sed non orci nunc.
+
+Sed at libero ut mi dapibus suscipit. Morbi sit amet dolor sodales, elementum lorem vel, euismod urna. Praesent eget risus est. Sed rutrum interdum turpis quis semper. Curabitur nec quam sollicitudin nulla hendrerit tincidunt. Suspendisse consectetur placerat ipsum vel tincidunt. Cras ornare rutrum eros in egestas. Ut laoreet eros tellus. Donec efficitur, sapien id cursus ornare, metus massa pellentesque felis, quis varius lacus felis at lorem. Nullam tincidunt lacus at nunc iaculis, vitae interdum libero tristique. Curabitur magna nulla, scelerisque eget fermentum finibus, viverra id felis. Nulla a urna tempor, aliquet libero at, ullamcorper dui. Vivamus mattis justo ut nisl gravida, vitae imperdiet ex fermentum. Vestibulum placerat, mauris posuere tristique pretium, velit orci tristique magna, ut dictum ligula urna nec nisi. Morbi id finibus nunc.
+            </div>
+        </div>
+    </div>
+    
+    <footer class="text-center pt-3 pb-2">
+        <p>Apache License 2.0 Tedir Ghazali</p>
+    </footer>
+    
+    <script>
+        function saveSelection(){
+            if (window.getSelection) {
+                sel = window.getSelection();
+                if (sel.getRangeAt && sel.rangeCount) {
+                    return sel.getRangeAt(0);
+                }
+            } else if (document.selection && document.selection.createRange) {
+                return document.selection.createRange();
+            }
+            return null;
+        }
+        function restoreSelection(range){
+            if (range) {
+                if (window.getSelection) {
+                    sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                } else if (document.selection && range.select) {
+                    range.select();
+                }
+            }
+        }
+        var selRange;
+        Array.prototype.forEach.call(document.querySelectorAll('.pd-modal'), function(elem){
+            
+            var target = elem.getAttribute('data-target');
+            var modal = document.querySelector(target);
+            
+            var close = modal.querySelector('#my-modal-close');
+            var url = modal.querySelector('#my-url');
+            var width = modal.querySelector('#my-width');
+            var height = modal.querySelector('#my-height');
+            var embed = modal.querySelector('#my-embed');
+            var position = modal.querySelector('#my-position');
+            var insert = modal.querySelector('#my-insert');
+            
+            elem.onclick = function(e){
+                e.preventDefault();
+                selRange = saveSelection();
+                modal.classList.add('show');
+                modal.style.display = "block";
+                url.value = '';
+                url.focus();
+            }
+            
+            close.onclick = function(e){
+                e.preventDefault();
+                modal.classList.remove('show');
+                modal.style.display = "none";
+            }
+            
+            insert.onclick = function(e){
+                e.preventDefault();
+                restoreSelection(selRange);
+                var link;
+                if(embed.value == 'Youtube'){
+                    link = 'https://www.youtube.com/embed/'+url.value.slice(17, 28);
+                } else if(embed.value == 'Dailymotion'){
+                    link = 'https://www.dailymotion.com/embed/video/'+url.value.slice(15, 22);     
+                } else if(embed.value == 'Soundcloud'){
+                    link = 'https://w.soundcloud.com/player/?url='+url.value;
+                }
+                var lebar;
+                if(width.value == ''){
+                    lebar = '853';
+                } else{
+                    lebar = width.value;
+                }
+                var tinggi;
+                if(height.value == ''){
+                    tinggi = '480';
+                } else{
+                    tinggi = height.value;
+                }
+                var output = '<p class="'+position.value+'"><iframe width="'+lebar+'" height="'+tinggi+'" src="'+link+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>';
+                
+                document.execCommand('insertHTML', false, output);
+                
+                modal.classList.remove('show');
+                modal.style.display = "none";
+            }
+            
+        })
+    </script>
+    
+</body>
+</html>
