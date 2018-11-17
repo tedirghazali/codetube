@@ -134,6 +134,18 @@ Sed at libero ut mi dapibus suscipit. Morbi sit amet dolor sodales, elementum lo
                     }
                 }
             })
+            if(colorText){
+                colorText.onclick = function(e){
+                    e.preventDefault();
+                    document.execCommand('foreColor', false, colorText.getAttribute('data-color'));
+                }
+            }
+            if(colorFill){
+                colorFill.onclick = function(e){
+                    e.preventDefault();
+                    document.execCommand('backColor', false, colorFill.getAttribute('data-color'));
+                }
+            }
         })
     </script>
     
