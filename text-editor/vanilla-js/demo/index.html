@@ -18,11 +18,9 @@
             height: 500px;
             overflow-y: scroll;
         }
-        .pd-color-text, .pd-color-fill{
-            line-height: 1;
-        }
         .material-icons{
             font-size: 12pt;
+            margin-top: 3px;
         }
         .dropdown-menu{
             width: 215px;
@@ -52,10 +50,10 @@
         <div class="pd-editor-wrap">
             <div class="pd-editor-toolbar">
                 <div class="btn-group btn-group-sm pd-dropdown">
-                    <button type="button" class="btn btn-secondary pd-color-text" data-color="#ffffff">
+                    <button type="button" class="btn btn-light pd-color-text" data-color="#ffffff">
                         <i class="material-icons">format_color_text</i>
                     </button>
-                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split">
+                    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split">
                         <span class="sr-only">&#9662;</span>
                     </button>
                     <div class="dropdown-menu">
@@ -63,10 +61,10 @@
                     </div>
                 </div>
                 <div class="btn-group btn-group-sm pd-dropdown">
-                    <button type="button" class="btn btn-secondary pd-color-fill" data-color="#ffffff">
+                    <button type="button" class="btn btn-light pd-color-fill" data-color="#ffffff">
                         <i class="material-icons">format_color_fill</i>
                     </button>
-                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split">
+                    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split">
                         <span class="sr-only">&#9662;</span>
                     </button>
                     <div class="dropdown-menu">
@@ -87,7 +85,7 @@ Sed at libero ut mi dapibus suscipit. Morbi sit amet dolor sodales, elementum lo
             </div>
         </div>
     </div>
-
+    
     <footer class="text-center pt-3 pb-2">
         <p>Apache License 2.0 Tedir Ghazali</p>
     </footer>
@@ -103,8 +101,8 @@ Sed at libero ut mi dapibus suscipit. Morbi sit amet dolor sodales, elementum lo
         ];
         let colorItem = '';
         colorArray.forEach(function(color){
-            colorItem += '<button type="button" class="pd-color-btn" data-color="'+color+'" style="background-color: '+color+';"></button>';
-        });
+            colorItem += '<button type="button" class="pd-color-btn" data-color="'+color+'" style="background-color:'+color+'"></button>'
+        })
         Array.prototype.forEach.call(document.querySelectorAll('.pd-dropdown'), function(elem){
             let dropdownToggle = elem.querySelector('.dropdown-toggle');
             let dropdownMenu = elem.querySelector('.dropdown-menu');
@@ -120,16 +118,16 @@ Sed at libero ut mi dapibus suscipit. Morbi sit amet dolor sodales, elementum lo
             Array.prototype.forEach.call(dropdownColor.querySelectorAll('.pd-color-btn'), function(element){
                 element.onclick = function(e){
                     e.preventDefault();
-                    var colorElem = element.getAttribute('data-color');
+                    let colorElm = element.getAttribute('data-color');
                     if(colorType == 'text'){
-                        document.execCommand('foreColor', false, colorElem);
-                        colorText.style.color = colorElem;
-                        colorText.setAttribute('data-color', colorElem);
+                        document.execCommand('foreColor', false, colorElm);
+                        colorText.style.color = colorElm;
+                        colorText.setAttribute('data-color', colorElm);
                         dropdownMenu.classList.remove('show');
                     } else if(colorType == 'fill'){
-                        document.execCommand('backColor', false, colorElem);
-                        colorFill.style.color = colorElem;
-                        colorFill.setAttribute('data-color', colorElem);
+                        document.execCommand('backColor', false, colorElm);
+                        colorFill.style.color = colorElm;
+                        colorFill.setAttribute('data-color', colorElm);
                         dropdownMenu.classList.remove('show');
                     }
                 }

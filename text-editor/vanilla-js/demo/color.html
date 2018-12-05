@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>PidieUi</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <style>
+        .pd-editor-wrap{
+            border:1px solid #aaa;
+        }
+        .pd-editor-toolbar{
+            padding: 10px 20px;
+            border-bottom: 1px solid #aaa;
+        }
+        .pd-editor-content{
+            padding: 20px;
+            height: 500px;
+            overflow-y: scroll;
+        }
+        .material-icons{
+            font-size: 12pt;
+            margin-top: 3px;
+        }
+        .dropdown-menu{
+            width: 215px;
+        }
+        .pd-color-list{
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 7px;
+        }
+        .pd-color-btn{
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+            margin: 3px;
+            cursor: pointer;
+            padding: 0;
+            border: none;
+        }
+        .pd-color-btn:nth-child(18){
+            border: 1px solid #eeeeee;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <div class="pd-editor-wrap">
+            <div class="pd-editor-toolbar">
+                <div class="btn-group btn-group-sm pd-dropdown">
+                    <button type="button" class="btn btn-light pd-color-text" data-color="#ffffff">
+                        <i class="material-icons">format_color_text</i>
+                    </button>
+                    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split">
+                        <span class="sr-only">&#9662;</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="pd-color-list" data-type="text"></div>
+                    </div>
+                </div>
+                <div class="btn-group btn-group-sm pd-dropdown">
+                    <button type="button" class="btn btn-light pd-color-fill" data-color="#ffffff">
+                        <i class="material-icons">format_color_fill</i>
+                    </button>
+                    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split">
+                        <span class="sr-only">&#9662;</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="pd-color-list" data-type="fill"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="pd-editor-content" contenteditable="true">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam orci nisi, ultricies in volutpat et, rutrum id elit. Sed aliquet diam lectus, sit amet pretium sem dignissim pellentesque. Pellentesque gravida mi in dolor fringilla, sed gravida dui tempus. Nunc sapien augue, consectetur sed auctor ut, volutpat maximus diam. Nunc sit amet convallis risus. Fusce tristique arcu nec sem feugiat, eget vulputate nisl posuere. Aliquam quis mi sem. Donec nec tempor diam, quis pharetra erat. Vestibulum ut dignissim libero. Fusce pharetra luctus nibh eget convallis. Nullam ac felis pulvinar, tempor risus non, porttitor enim. Proin vulputate ac dui quis tempor.
+
+Aliquam eu tempor augue, ut aliquet tortor. Aenean dictum, purus congue pretium mollis, sapien sapien aliquam tortor, id elementum nisi magna sed augue. Duis hendrerit mauris sit amet nisi euismod consequat. Suspendisse mollis massa lorem, sit amet gravida velit luctus eu. Quisque a pharetra arcu. Mauris aliquam erat eu arcu rhoncus fermentum. Aliquam malesuada euismod finibus. Suspendisse potenti. Curabitur aliquet laoreet ex, ac vulputate tellus laoreet at.
+
+Fusce maximus, quam vitae commodo porttitor, arcu nisi hendrerit purus, vel tincidunt sem est sit amet quam. Nunc porta diam ut risus finibus, ac tincidunt tellus aliquet. Donec tellus erat, iaculis vitae porttitor sagittis, vulputate id eros. Nulla facilisi. Curabitur velit metus, ornare et tellus ut, cursus convallis nibh. Quisque convallis pellentesque augue, ac placerat ligula auctor sit amet. Pellentesque bibendum nunc id rhoncus fringilla. Duis sed urna tortor.
+
+Ut id dignissim ligula, nec euismod nibh. In diam sapien, pulvinar sit amet tempus ac, scelerisque vel lorem. Proin condimentum gravida leo sit amet elementum. In turpis libero, sollicitudin quis rutrum at, volutpat ut lacus. Duis accumsan eleifend velit, et feugiat erat semper vitae. Aliquam at suscipit quam. Ut cursus ante diam, ac ullamcorper mi interdum quis. Morbi luctus, nunc eget interdum vestibulum, lacus leo facilisis metus, eu euismod risus turpis eu lorem. Integer varius ipsum eget nisl egestas, ac egestas leo faucibus. Praesent varius augue tempor turpis aliquam, ac pulvinar ante molestie. Phasellus dapibus semper nulla id imperdiet. Sed non orci nunc.
+
+Sed at libero ut mi dapibus suscipit. Morbi sit amet dolor sodales, elementum lorem vel, euismod urna. Praesent eget risus est. Sed rutrum interdum turpis quis semper. Curabitur nec quam sollicitudin nulla hendrerit tincidunt. Suspendisse consectetur placerat ipsum vel tincidunt. Cras ornare rutrum eros in egestas. Ut laoreet eros tellus. Donec efficitur, sapien id cursus ornare, metus massa pellentesque felis, quis varius lacus felis at lorem. Nullam tincidunt lacus at nunc iaculis, vitae interdum libero tristique. Curabitur magna nulla, scelerisque eget fermentum finibus, viverra id felis. Nulla a urna tempor, aliquet libero at, ullamcorper dui. Vivamus mattis justo ut nisl gravida, vitae imperdiet ex fermentum. Vestibulum placerat, mauris posuere tristique pretium, velit orci tristique magna, ut dictum ligula urna nec nisi. Morbi id finibus nunc.
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center pt-3 pb-2">
+        <p>Apache License 2.0 Tedir Ghazali</p>
+    </footer>
+    
+    <script>
+        var colorArray = [
+            '#ff0000', '#ff5e00', '#ffe400', '#abf200', '#00d8ff', '#0055ff', '#6600ff', '#ff00dd', '#000000',
+            '#ffd8d8', '#fae0d4', '#faf4c0', '#e4f7ba', '#d4f4fa', '#d9e5ff', '#e8d9ff', '#ffd9fa', '#ffffff',
+            '#ffa7a7', '#ffc19e', '#faed7d', '#cef279', '#b2ebf4', '#b2ccff', '#d1b2ff', '#ffb2f5', '#bdbdbd',
+            '#f15f5f', '#f29661', '#e5d85c', '#bce55c', '#5cd1e5', '#6699ff', '#a366ff', '#f261df', '#8c8c8c',
+            '#980000', '#993800', '#998a00', '#6b9900', '#008299', '#003399', '#3d0099', '#990085', '#353535',
+            '#670000', '#662500', '#665c00', '#476600', '#005766', '#002266', '#290066', '#660058', '#222222'
+        ];
+        let colorItem = '';
+        colorArray.forEach(function(color){
+            colorItem += '<button type="button" class="pd-color-btn" data-color="'+color+'" style="background-color: '+color+';"></button>';
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.pd-dropdown'), function(elem){
+            let dropdownToggle = elem.querySelector('.dropdown-toggle');
+            let dropdownMenu = elem.querySelector('.dropdown-menu');
+            let dropdownColor = dropdownMenu.querySelector('.pd-color-list');
+            dropdownToggle.onclick = function(e){
+                e.preventDefault();
+                dropdownMenu.classList.toggle('show');
+            }
+            dropdownColor.innerHTML = colorItem;
+            let colorText = elem.querySelector('.pd-color-text');
+            let colorFill = elem.querySelector('.pd-color-fill');
+            let colorType = dropdownColor.getAttribute('data-type');
+            Array.prototype.forEach.call(dropdownColor.querySelectorAll('.pd-color-btn'), function(element){
+                element.onclick = function(e){
+                    e.preventDefault();
+                    var colorElem = element.getAttribute('data-color');
+                    if(colorType == 'text'){
+                        document.execCommand('foreColor', false, colorElem);
+                        colorText.style.color = colorElem;
+                        colorText.setAttribute('data-color', colorElem);
+                        dropdownMenu.classList.remove('show');
+                    } else if(colorType == 'fill'){
+                        document.execCommand('backColor', false, colorElem);
+                        colorFill.style.color = colorElem;
+                        colorFill.setAttribute('data-color', colorElem);
+                        dropdownMenu.classList.remove('show');
+                    }
+                }
+            })
+            if(colorText){
+                colorText.onclick = function(e){
+                    e.preventDefault();
+                    document.execCommand('foreColor', false, colorText.getAttribute('data-color'));
+                }
+            }
+            if(colorFill){
+                colorFill.onclick = function(e){
+                    e.preventDefault();
+                    document.execCommand('backColor', false, colorFill.getAttribute('data-color'));
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>
