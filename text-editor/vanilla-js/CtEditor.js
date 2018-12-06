@@ -1,46 +1,27 @@
 /*!
-* Text Editor
-* 2019
-* Tedir Ghazali
-* Apache License 2.0
+* CtEditor v0.0.1
+* (c) 2018-2019 Tedir Ghazali
+* Released under the Apache License 2.0
 */
 
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) : (factory((global.cteditor = {})));
-}(this, (function(exports) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.CtEditor = factory());
+}(this, (function () { 'use strict';
 
-    'use strict';
-    
-    function _defineProperties(target, props) {
-        for (var i = 0; i < props.length; i++) {
-            var descriptor = props[i];
-            descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true;
-            if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor);
-        }
-    }
-
-    function _createClass(Constructor, protoProps, staticProps) {
-        if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-        if (staticProps) _defineProperties(Constructor, staticProps);
-        return Constructor;
-    }
-    
     var defaults = {
         name: 'editor',
         version: '0.0.1',
         el: '.ct-text-editor'
     }
      
-    var Editor = function () {
-        function Editor(element) {
-            this.element = element;
-        }
+    function Editor(element) {
+        this.element = element;
+    }
         
-        Editor.prototype.toolbar = function () {
-            var txtEditor = document.querySelector(this.element);
+    Editor.prototype.toolbar = function () {
+        var txtEditor = document.querySelector(this.element);
             var barEditor = document.createElement('div');
             barEditor.classList.add('ct-editor-toolbar');
             var toolEditor = '';
@@ -93,7 +74,7 @@
             txtEditor.insertBefore(barEditor, txtEditor.childNodes[0]);
         }
         
-        Editor.prototype.toolaction = function () {
+    Editor.prototype.toolaction = function () {
             Array.prototype.forEach.call(document.querySelectorAll('.ct-editor-button'), function(elem){
                 elem.onclick = function(e) {
                     e.preventDefault();
@@ -102,22 +83,10 @@
             })
         }
         
-        var editor = new Editor(defaults.el);
-        editor.toolbar();
-        editor.toolaction();
-        
-        _createClass(Editor, null, [{
-            key: "VERSION",
-            get: function get() {
-                return defaults.version;
-            }
-        }]);
+    var editor = new Editor(defaults.el);
+    editor.toolbar();
+    editor.toolaction();
         
         return Editor;
-    }();
     
-    exports.Editor = Editor;
-    
-    Object.defineProperty(exports, '__esModule', { value: true });
-
 })));
