@@ -10,18 +10,12 @@
 	(global.CtEditor = factory());
 }(this, (function () { 'use strict';
 
-    var defaults = {
-        name: 'editor',
-        version: '0.0.1',
-        el: '.ct-text-editor'
-    }
-     
-    function Editor(element) {
-        this.element = element;
+    function CtEditor(options = {}) {
+        this.el = options.el;
     }
         
-    Editor.prototype.toolbar = function () {
-        var txtEditor = document.querySelector(this.element);
+    CtEditor.prototype.toolbar = function () {
+        var txtEditor = document.querySelector(this.el);
             var barEditor = document.createElement('div');
             barEditor.classList.add('ct-editor-toolbar');
             var toolEditor = '';
@@ -74,19 +68,26 @@
             txtEditor.insertBefore(barEditor, txtEditor.childNodes[0]);
         }
         
-    Editor.prototype.toolaction = function () {
-            Array.prototype.forEach.call(document.querySelectorAll('.ct-editor-button'), function(elem){
-                elem.onclick = function(e) {
-                    e.preventDefault();
-                    document.execCommand(elem.getAttribute('data-button'));
-                }
-            })
-        }
+    CtEditor.prototype.toolaction = function () {
+        Array.prototype.forEach.call(document.querySelectorAll('.ct-editor-button'), function(elem){
+            elem.onclick = function(e) {
+                e.preventDefault();
+                document.execCommand(elem.getAttribute('data-button'));
+            }
+        })
+    }
+    
+    CtEditor.prototype.init = function () {
+        this.toolbar();
+        this.toolaction();
+    }
+    
+    window.onload = function () {
+        new CtEditor({
+            el: '.ct-text-editor'
+        }).init();
+    }
         
-    var editor = new Editor(defaults.el);
-    editor.toolbar();
-    editor.toolaction();
-        
-        return Editor;
+    return CtEditor;
     
 })));
