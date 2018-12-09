@@ -1,11 +1,13 @@
 /*!
-* CtEditor v0.0.1
+* CtEditor v0.0.2
 * (c) 2018-2019 Tedir Ghazali
 * Released under the Apache License 2.0
 */
 
-.ct-text-editor{
+.ct-editor{
     border:1px solid #aaa;
+    width: 100%;
+    min-height: 400px;
 }
 .ct-editor-toolbar{
     padding: 10px 20px;
