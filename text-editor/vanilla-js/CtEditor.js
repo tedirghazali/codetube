@@ -18,6 +18,7 @@
         this.buttonDropdowns = options.buttonDropdowns;
         this.classDropdowns = options.classDropdowns;
         this.classDropdownItems = options.classDropdownItems;
+        this.init();
     }
     
     CtEditor.prototype.saveSelection = function () {
@@ -170,6 +171,35 @@
         })
     }
     
+    CtEditor.prototype.keyboardShortcut = function (txtEditor) {
+        txtEditor.addEventListener('keypress', function(e){
+            e.preventDefault();
+            if(e.key == "Enter"){
+                document.execCommand('insertParagraph');
+            } else if(e.key == "Backspace"){
+                document.execCommand('delete');
+            } else if(e.key == "Delete"){
+                document.execCommand('forwardDelete');
+            } else if(e.ctrlKey && e.key == "b"){
+                document.execCommand('bold');
+            } else if(e.ctrlKey && e.key == "i"){
+                document.execCommand('italic');
+            } else if(e.ctrlKey && e.key == "u"){
+                document.execCommand('underline');
+            } else if(e.ctrlKey && e.key == "m"){
+                document.execCommand('removeFormat');
+            } else if(e.ctrlKey && e.key == "l"){
+                document.execCommand('justifyLeft');
+            } else if(e.ctrlKey && e.key == "e"){
+                document.execCommand('justifyCenter');
+            } else if(e.ctrlKey && e.key == "r"){
+                document.execCommand('justifyRight');
+            } else if(e.ctrlKey && e.key == "j"){
+                document.execCommand('justifyFull');
+            }
+        })
+    }
+    
     CtEditor.prototype.init = function () {
         var areaEditor = document.querySelector(this.el);
         var wrapEditor = document.createElement('div');
@@ -202,7 +232,9 @@
         this.actionButton(allButtons, false, false);
         
         var allViews = toolbarEditorRight.querySelectorAll('button');
-        this.viewContent(allViews, contentEditor, areaEditor)
+        this.viewContent(allViews, contentEditor, areaEditor);
+        
+        this.keyboardShortcut(wrapEditor);
     }
     
     window.onload = function () {
@@ -269,7 +301,7 @@
                 { id: 1, name: 'text', icon: '<i class="fa fa-pencil-square-o"></i>'},
                 { id: 2, name: 'html', icon: '<i class="fa fa-code"></i>'}
             ]
-        }).init();
+        });
     }
         
     return CtEditor;
