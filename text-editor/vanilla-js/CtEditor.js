@@ -234,7 +234,7 @@
         var allViews = toolbarEditorRight.querySelectorAll('button');
         this.viewContent(allViews, contentEditor, areaEditor);
         
-        this.keyboardShortcut(wrapEditor);
+        this.keyboardShortcut(contentEditor);
     }
     
     window.onload = function () {
