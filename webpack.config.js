@@ -15,10 +15,13 @@ function recursiveIssuer(m) {
 
 module.exports = {
     entry: {
-        texteditor: path.resolve(__dirname, 'src/texteditor'),
-        datatable: path.resolve(__dirname, 'src/datatable'),
+        cteditor: path.resolve(__dirname, 'src/cteditor'),
+        cttable: path.resolve(__dirname, 'src/cttable'),
     },
     output: {
+        library: "[name]",
+        libraryTarget: 'window',
+        libraryExport: 'default',
         filename: "[name]/[name].js",
         path: path.resolve(__dirname, 'dist')
     },
@@ -57,14 +60,14 @@ module.exports = {
         splitChunks: {
           cacheGroups: {
             texteditorStyles: {
-              name: 'texteditor',
-              test: (m,c,entry = 'texteditor') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+              name: 'cteditor',
+              test: (m,c,entry = 'cteditor') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
               chunks: 'all',
               enforce: true
             },
             datatableStyles: {
-              name: 'datatable',
-              test: (m,c,entry = 'datatable') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+              name: 'cttable',
+              test: (m,c,entry = 'cttable') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
               chunks: 'all',
               enforce: true
             },

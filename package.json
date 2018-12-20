@@ -12,7 +12,13 @@
     "webpack-cli": "^3.1.2",
     "webpack": "^4.28.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/plugin-transform-modules-umd": "^7.2.0",
+    "@babel/preset-env": "^7.2.0"
+  },
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack --mode development",
