@@ -59,6 +59,9 @@ bower_components
 node_modules
 adsense
 
+laravel6/vendor
+laravel6/node_modules
+
 # Special files
 update_builder.bat
 Update_Builder.js
