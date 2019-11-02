@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+
+Route::get('/nexmo', 'NexmoController@show')->name('nexmo');
+Route::post('/nexmo', 'NexmoController@verify')->name('nexmo');
+
+Route::get('/factor', 'FactorController@show')->name('factor');
+Route::post('/factor', 'FactorController@verify')->name('factor');

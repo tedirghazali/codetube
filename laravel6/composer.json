@@ -11,7 +11,9 @@
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "nexmo/client": "^2.0",
+        "nexmo/laravel": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

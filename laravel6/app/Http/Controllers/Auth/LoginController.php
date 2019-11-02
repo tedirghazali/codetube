@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Nexmo;
+
 class LoginController extends Controller
 {
     /*
@@ -19,6 +24,18 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+
+    public function authenticated(Request $request, Authenticatable $user)
+    {
+        Auth::logout();
+        $request->session()->put('nexmo:user:id', $user->id);
+        $verification = Nexmo::verify()->start([
+            'number' => $user->phone_number,
+            'brand' => '2-FA',
+        ]);
+        $request->session()->put('nexmo:request_id', $verification->getRequestId());
+        return redirect('/factor');
+    }
 
     /**
      * Where to redirect users after login.
