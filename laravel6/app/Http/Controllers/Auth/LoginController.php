@@ -25,7 +25,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    public function authenticated(Request $request, Authenticatable $user)
+    /*public function authenticated(Request $request, Authenticatable $user)
     {
         Auth::logout();
         $request->session()->put('nexmo:user:id', $user->id);
@@ -35,7 +35,7 @@ class LoginController extends Controller
         ]);
         $request->session()->put('nexmo:request_id', $verification->getRequestId());
         return redirect('/factor');
-    }
+    }*/
 
     /**
      * Where to redirect users after login.
