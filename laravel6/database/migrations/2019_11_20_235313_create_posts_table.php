@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
             $table->foreign('author')->references('id')->on('users')->onDelete('cascade');
             $table->enum('status', ['Draft', 'Publish', 'Private']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

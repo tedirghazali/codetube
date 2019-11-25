@@ -21,6 +21,10 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 
 Route::resource('posts', 'PostController');
 
+Route::get('/recycle-posts', 'PostController@trash')->name('posts.trash');
+Route::get('/recycle-posts/{id}', 'PostController@restore')->name('posts.restore');
+Route::post('/recycle-posts', 'PostController@remove')->name('posts.remove');
+
 Route::get('/nexmo', 'NexmoController@show')->name('nexmo');
 Route::post('/nexmo', 'NexmoController@verify')->name('nexmo');
 

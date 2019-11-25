@@ -10,7 +10,12 @@
                         <h2 class="mb-1">{{ __('Posts') }}</h2>
                     </div>
                     <div class="float-right">
-                        <a class="btn btn-primary" href="{{ route('posts.create') }}">{{ __('Add New') }}</a>
+                        @if($trash)
+                            <a class="btn btn-primary" href="{{ route('posts.index') }}">{{ __('View All') }}</a>
+                        @else
+                            <a class="btn btn-primary" href="{{ route('posts.create') }}">{{ __('Add New') }}</a>
+                            <a class="btn btn-danger" href="{{ route('posts.trash') }}">{{ __('Recycle Bins') }}</a>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
@@ -35,16 +40,25 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->category }}</td>
                                 <td>{{ $post->tags }}</td>
-                                <td>{{ $post->author }}</td>
+                                <td>{{ $post->user->name }}</td>
                                 <td>{{ $post->status }}</td>
                                 <td>
-                                    <a class="btn btn-info btn-sm" href="{{ route('posts.show', $post) }}">{{ __('View') }}</a>
-                                    <a class="btn btn-warning btn-sm" href="{{ route('posts.edit', $post) }}">{{ __('Edit') }}</a>
-                                    <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">
-                                        @csrf 
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="submit">{{ __('Delete') }}</a>
-                                    </form>
+                                    @if($trash)
+                                        <a class="btn btn-success btn-sm" href="{{ route('posts.restore', $post) }}">{{ __('Restore') }}</a>
+                                        <form action="{{ route('posts.remove') }}" method="POST" class="d-inline">
+                                            @csrf 
+                                            <input type="hidden" name="id" value="{{ $post->id }}">
+                                            <button class="btn btn-danger btn-sm" type="submit">{{ __('Delete') }}</a>
+                                        </form>
+                                    @else
+                                        <a class="btn btn-info btn-sm" href="{{ route('posts.show', $post) }}">{{ __('View') }}</a>
+                                        <a class="btn btn-warning btn-sm" href="{{ route('posts.edit', $post) }}">{{ __('Edit') }}</a>
+                                        <form action="{{ route('posts.destroy', $post) }}" method="POST" class="d-inline">
+                                            @csrf 
+                                            @method('DELETE')
+                                            <button class="btn btn-danger btn-sm" type="submit">{{ __('Trash') }}</a>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

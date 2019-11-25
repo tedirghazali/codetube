@@ -20,8 +20,26 @@ class PostController extends Controller
      */
     public function index()
     {
-        $models = Post::orderBy('created_at', 'desc')->get();
-        return view('post.index', ['posts'=>$models]);
+        $models = Post::orderBy('created_at', 'desc')->with('user:id,name')->get();
+        return view('post.index', ['posts'=>$models, 'trash'=> false]);
+    }
+
+    public function trash()
+    {
+        $models = Post::onlyTrashed()->orderBy('deleted_at', 'asc')->with('user:id,name')->get();
+        return view('post.index', ['posts'=>$models, 'trash'=> true]);
+    }
+
+    public function restore($id)
+    {
+        Post::withTrashed()->where('id', $id)->restore();
+        return redirect(route('posts.trash'));
+    }
+
+    public function remove(Request $request)
+    {
+        Post::onlyTrashed()->where('id', $request->get('id'))->forceDelete();
+        return redirect(route('posts.trash'));
     }
 
     /**
