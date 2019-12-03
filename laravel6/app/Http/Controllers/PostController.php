@@ -21,13 +21,13 @@ class PostController extends Controller
     public function index()
     {
         $models = Post::orderBy('created_at', 'desc')->with('user:id,name')->get();
-        return view('post.index', ['posts'=>$models, 'trash'=> false]);
+        return view('post.table', ['posts'=>$models, 'trash'=> false]);
     }
 
     public function trash()
     {
         $models = Post::onlyTrashed()->orderBy('deleted_at', 'asc')->with('user:id,name')->get();
-        return view('post.index', ['posts'=>$models, 'trash'=> true]);
+        return view('post.table', ['posts'=>$models, 'trash'=> true]);
     }
 
     public function restore($id)
@@ -40,6 +40,11 @@ class PostController extends Controller
     {
         Post::onlyTrashed()->where('id', $request->get('id'))->forceDelete();
         return redirect(route('posts.trash'));
+    }
+
+    public function assign($url)
+    {
+        return redirect(route($url));
     }
 
     /**
@@ -69,6 +74,10 @@ class PostController extends Controller
             'thumbnail' => 'required',
             'author' => 'required',
             'status' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'title.max' => 'The maximum value of title field is no more than 255 character.',
+            'title.unique' => 'The title must be unique for posts.',
         ])->validate();
 
         $model = Post::create($request->all());
@@ -122,6 +131,9 @@ class PostController extends Controller
             'thumbnail' => 'required',
             'author' => 'required',
             'status' => 'required',
+        ], [
+            'required' => 'The :attribute field is required.',
+            'title.max' => 'The maximum value of title field is no more than 255 character.',
         ])->validate();
 
         $model = Post::where('id', $post->id)->update($request->except(['_token', '_method']));
