@@ -6272,6 +6272,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['posts'],
@@ -6280,6 +6282,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      mySelections: [],
       myPosts: [],
       myOptions: {
         search: true,
@@ -6288,12 +6291,14 @@ __webpack_require__.r(__webpack_exports__);
         showPrint: true,
         showExport: true,
         filterControl: true,
-        toolbar: '#toolbar'
+        toolbar: '#toolbar',
+        clickToSelect: true,
+        idField: 'id',
+        selectItemName: 'id'
       },
       myColumns: [{
-        field: 'id',
-        title: 'ID',
-        sortable: true
+        field: 'state',
+        checkbox: true
       }, {
         field: 'title',
         title: 'Title',
@@ -6324,6 +6329,7 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Actions',
         align: 'center',
         width: '140px',
+        clickToSelect: false,
         formatter: function formatter(e, value, row) {
           return '<button class="btn btn-sm btn-success mr-1 restore"><i class="fas fa-trash-restore"></i></button><button class="btn btn-sm btn-danger mr-1 remove"><i class="fas fa-times-circle"></i></button>';
         },
@@ -6343,6 +6349,38 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.myPosts = JSON.parse(this.posts);
+  },
+  methods: {
+    checkPosts: function checkPosts(type) {
+      this.mySelections = [];
+      var checkBoxes = document.getElementsByName('id');
+
+      for (var index = 0; index < checkBoxes.length; index++) {
+        if (checkBoxes[index].type == 'checkbox' && checkBoxes[index].checked == true) {
+          this.mySelections.push(checkBoxes[index].value);
+        }
+      }
+
+      if (type == 'delete') {
+        this.deletePosts();
+      } else {
+        this.restorePosts();
+      }
+
+      return window.location.replace('/assign-posts/posts.trash');
+    },
+    restorePosts: function restorePosts() {
+      this.mySelections.forEach(function (item) {
+        axios.get('/recycle-posts/' + item);
+      });
+    },
+    deletePosts: function deletePosts() {
+      this.mySelections.forEach(function (item) {
+        axios.post('/recycle-posts', {
+          id: item
+        });
+      });
+    }
   }
 });
 
@@ -6369,6 +6407,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['posts'],
@@ -6377,6 +6416,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      mySelections: [],
       myPosts: [],
       myOptions: {
         search: true,
@@ -6385,12 +6425,14 @@ __webpack_require__.r(__webpack_exports__);
         showPrint: true,
         showExport: true,
         filterControl: true,
-        toolbar: '#toolbar'
+        toolbar: '#toolbar',
+        clickToSelect: true,
+        idField: 'id',
+        selectItemName: 'id'
       },
       myColumns: [{
-        field: 'id',
-        title: 'ID',
-        sortable: true
+        field: 'state',
+        checkbox: true
       }, {
         field: 'title',
         title: 'Title',
@@ -6421,6 +6463,7 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Actions',
         align: 'center',
         width: '140px',
+        clickToSelect: false,
         formatter: function formatter(e, value, row) {
           return '<button class="btn btn-sm btn-info mr-1 show"><i class="fas fa-eye"></i></button><button class="btn btn-sm btn-warning mr-1 edit"><i class="fas fa-edit"></i></button><button class="btn btn-sm btn-danger mr-1 destroy"><i class="fas fa-trash"></i></button>';
         },
@@ -6443,6 +6486,28 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.myPosts = JSON.parse(this.posts);
+  },
+  methods: {
+    checkPosts: function checkPosts() {
+      this.mySelections = [];
+      var checkBoxes = document.getElementsByName('id');
+
+      for (var i = 0; i < checkBoxes.length; i++) {
+        if (checkBoxes[i].type == 'checkbox' && checkBoxes[i].checked == true) {
+          this.mySelections.push(checkBoxes[i].value);
+        }
+      }
+
+      this.trashPosts();
+      return window.location.replace('/assign-posts/posts.index');
+    },
+    trashPosts: function trashPosts() {
+      this.mySelections.forEach(function (item) {
+        axios["delete"]('/posts/' + item, {
+          id: item
+        });
+      });
+    }
   }
 });
 
@@ -49646,7 +49711,41 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
+      _c("div", { attrs: { id: "toolbar" } }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-success",
+            on: {
+              click: function($event) {
+                return _vm.checkPosts("restore")
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "fas fa-trash-restore" }),
+            _vm._v(" Restore Selected")
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-danger",
+            on: {
+              click: function($event) {
+                return _vm.checkPosts("delete")
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "fas fa-times-circle" }),
+            _vm._v(" Delete Permanently")
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("bootstrap-table", {
         attrs: {
@@ -49664,12 +49763,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "toolbar" } }, [
-      _c("a", { staticClass: "btn btn-primary", attrs: { href: "/posts" } }, [
-        _c("i", { staticClass: "fas fa-list-alt" }),
-        _vm._v(" View All")
-      ])
-    ])
+    return _c(
+      "a",
+      { staticClass: "btn btn-primary", attrs: { href: "/posts" } },
+      [_c("i", { staticClass: "fas fa-list-alt" }), _vm._v(" View All")]
+    )
   }
 ]
 render._withStripped = true
@@ -49696,7 +49794,20 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
+      _c("div", { attrs: { id: "toolbar" } }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "button",
+          { staticClass: "btn btn-danger", on: { click: _vm.checkPosts } },
+          [
+            _c("i", { staticClass: "fas fa-minus-circle" }),
+            _vm._v(" Delete Selected")
+          ]
+        )
+      ]),
       _vm._v(" "),
       _c("bootstrap-table", {
         attrs: {
@@ -49714,19 +49825,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "toolbar" } }, [
-      _c(
-        "a",
-        { staticClass: "btn btn-primary", attrs: { href: "/posts/create" } },
-        [_c("i", { staticClass: "fas fa-plus-circle" }), _vm._v(" Add New")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        { staticClass: "btn btn-danger", attrs: { href: "/recycle-posts" } },
-        [_c("i", { staticClass: "fas fa-trash-alt" }), _vm._v(" Recycle Bins")]
-      )
-    ])
+    return _c(
+      "a",
+      { staticClass: "btn btn-primary", attrs: { href: "/posts/create" } },
+      [_c("i", { staticClass: "fas fa-plus-circle" }), _vm._v(" Add New")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "btn btn-danger", attrs: { href: "/recycle-posts" } },
+      [_c("i", { staticClass: "fas fa-trash-alt" }), _vm._v(" Recycle Bins")]
+    )
   }
 ]
 render._withStripped = true
