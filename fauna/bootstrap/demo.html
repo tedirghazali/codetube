@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Image Expander</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="jquery.gridder.min.css" rel="stylesheet">
+    <style>
+        /* style.css from oriongunning.github.io or github.com/tedirghazali/codetube */
+        .gridder { margin: 0px; padding: 0px; list-style-type: none; font-size: 0; text-align: center; }
+        .gridder .gridder-list { display: inline-block; vertical-align: top; cursor: pointer; position: relative; width: 240px; margin-bottom: 0.5%; margin-right: 0.5%; }
+        .gridder .gridder-list .image { background-color: #313131; background-size: cover; background-position: center; width: 240px; height: 163px; position: relative; }
+        .gridder .overlay { position: absolute; left: 0; bottom: 0; color: #FFF; line-height: 130%; text-align: left; visibility: hidden; }
+        .gridder .gridder-list:hover .overlay { visibility: visible; }
+        .gridder .overlay .size { background-color: rgba(255,255,255,0.9); color: #70757A; font-size: 11px; border-radius: 0 6px 0 0; box-shadow: 0 0 1px 0 rgba(0,0,0,.16); padding: 6px; }
+        .gridder .overlay .description { font-weight: 300; font-size: 14px; color: #FFF; }
+        .gridder .gridder-list, .gridder .gridder-show { font-size: 14px; }
+        .gridder .selectedItem .card { background-color: #e8f0fe; border-color: #4285f4; border-radius: 6px; }
+        .gridder.hasSelectedItem .gridder-list:not(.selectedItem) {  }
+        .gridder.hasSelectedItem { width: 744px; padding-left: 10px; text-align: left; }
+        .gridder-show { padding: 4%; background: #222; position: fixed; display: block; width: 590px; min-height: 635px; top: 0; right: 0; z-index: 2; overflow-y: scroll; margin-bottom: 0.5%; text-align: left; color: #CCC; }
+        .gridder-show img { width: 100%; box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.2); }
+        .gridder-content { display: none; }
+        .gridder-navigation .gridder-nav { height: 30px; padding: 0; position: absolute; width: 30px; z-index: 1; background-color: #454545; background-image: linear-gradient(top, #3e3e3e, #333); border: 1px solid #141414; border-radius: 50%; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 1px 1px 0 rgba(255, 255, 255, 0.03), -1px -1px 0 rgba(0, 0, 0, 0.02), inset 1px 1px 0 rgba(255, 255, 255, 0.05); color: #aaa !important; cursor: pointer !important; display: inline-block; filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#303030',EndColorStr='#262626'); font-size: 11px; font-weight: bold; margin: 0 5px; outline: 0; text-align: center; text-decoration: none !important; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5); -webkit-user-select: none; user-select: none; vertical-align: middle; white-space: normal; word-wrap: normal; top: 15px; overflow: hidden; }
+        .gridder-navigation .gridder-nav span { display: block; bottom: 0; height: 15px; left: 0; margin: auto; position: absolute; right: 0; top: 0; width: 14px; }
+        .gridder-navigation .gridder-nav.prev { right: 45px; }
+        .gridder-navigation .gridder-nav.prev span { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAXBAMAAADJv2OxAAAAMFBMVEX///+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZnHHh8xAAAAD3RSTlMAESIzRFVmd4iZqrvM3e5GKvWZAAAAdElEQVQI12NgAAH2v2CKsf83mJb8vxBEMe3/KQCitf83gLn3n4Flff8FgCjW90/A3Pw/BiBK4v0lMHf+bwUw/R/CZVj/SwBq5kaIQD1UAfv7yxCBuH8OYJrl/VWIgM3/AjDNdP45REDq/0SI+9b/gghw/AUAn68l+4HFkZUAAAAASUVORK5CYII=) center no-repeat; }
+        .gridder-navigation .gridder-nav.next { right: 10px; -webkit-transform: scaleX(-1); transform: scaleX(-1); }
+        .gridder-navigation .gridder-nav.next span { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAXBAMAAADJv2OxAAAAMFBMVEX///+ZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZnHHh8xAAAAD3RSTlMAESIzRFVmd4iZqrvM3e5GKvWZAAAAdElEQVQI12NgAAH2v2CKsf83mJb8vxBEMe3/KQCitf83gLn3n4Flff8FgCjW90/A3Pw/BiBK4v0lMHf+bwUw/R/CZVj/SwBq5kaIQD1UAfv7yxCBuH8OYJrl/VWIgM3/AjDNdP45REDq/0SI+9b/gghw/AUAn68l+4HFkZUAAAAASUVORK5CYII=) center no-repeat; }
+        .gridder-navigation .gridder-nav:hover { background: #3d3d3d; }
+        .gridder-navigation .gridder-close { background: url(data:image/gif;base64,R0lGODlhFAAUAJEAAE1NTf///////wAAACH5BAEHAAIALAAAAAAUABQAAAIzBISpK+YMm5Enpodw1HlCfnkKOIqU1VXk55goVb2hi7Y0q95lfG70uurNaqLgTviyyUoFADs=) no-repeat center center; cursor: pointer; height: 10px; padding: 7px; position: absolute; left: 10px; top: 20px; outline: 0; width: 30px; z-index: 2; }
+        .gridder-navigation .gridder-close:hover { color: #3d3d3d; }
+        .gridder-navigation .gridder-nav.disabled { pointer-events: none; cursor: default; background-color: #222; }
+        .gridder-show .url { line-height: 1.35; padding-top: .25em; padding-bottom: .25em;margin: 0; }
+        .gridder-show .title a, .gridder-show .url a { color: #fff; }
+        .card-body .title { margin: 0; }
+        .card-body .url { line-height: 1.35; padding-top: .25em; padding-bottom: .25em;margin: 0; }
+        a.card-body { color: #313131; text-decoration-color: #313131; }
+    </style>
+</head>
+<body>
+
+    <div class="mt-5 mb-5" style="overflow-x: hidden;">
+        <ul class="gridder clearfix">
+            <li class="gridder-list" data-griddercontent="#content1">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=1');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="https://loremflickr.com" class="card-body text-left">
+                        <h6 class="title">Lorem ipsum dolor sit...</h6>
+                        <span class="url">loremflickr.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content2">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1500/1000?lock=2');">
+                        <div class="overlay">
+                            <div class="size">1500 x 1000</div>
+                        </div>
+                    </div>
+                    <a href="http://lipsum.com" class="card-body text-left">
+                        <h6 class="title">Donec ultricies rhoncus...</h6>
+                        <span class="url">lipsum.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content3">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=3');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://indrascript.js.org" class="card-body text-left">
+                        <h6 class="title">Aenean consectetur...</h6>
+                        <span class="url">indrascript.js.org</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content4">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=4');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://kautube.com" class="card-body text-left">
+                        <h6 class="title">Vivamus auctor lacinia...</h6>
+                        <span class="url">kautube.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content5">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=5');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://siswakode.net" class="card-body text-left">
+                        <h6 class="title">Aliquam pulvinar nec...</h6>
+                        <span class="url">siswakode.net</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content6">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=6');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://codetube.xyz" class="card-body text-left">
+                        <h6 class="title">Cras fringilla aliquam...</h6>
+                        <span class="url">codetube.xyz</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content7">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=7');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://tedian.com" class="card-body text-left">
+                        <h6 class="title">Nam commodo purus...</h6>
+                        <span class="url">tedian.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content8">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=8');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://tedian.org" class="card-body text-left">
+                        <h6 class="title">Phasellus in nisl...</h6>
+                        <span class="url">tedian.org</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content9">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=9');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://ghazali.com" class="card-body text-left">
+                        <h6 class="title">Fusce luctus ex...</h6>
+                        <span class="url">ghazali.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content10">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=10');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://zulkifli.com" class="card-body text-left">
+                        <h6 class="title">Maecenas congue pla...</h6>
+                        <span class="url">zulkifli.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content11">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=11');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://utsman.com" class="card-body text-left">
+                        <h6 class="title">Quisque in rutrum...</h6>
+                        <span class="url">utsman.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content12">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=12');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://disdikda.net" class="card-body text-left">
+                        <h6 class="title">Vestibulum vitae condi...</h6>
+                        <span class="url">disdikda.net</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content13">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=13');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://linuxmint.com" class="card-body text-left">
+                        <h6 class="title">Mauris tellus magna...</h6>
+                        <span class="url">linuxmint.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content14">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=14');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://ubuntu.com" class="card-body text-left">
+                        <h6 class="title">Praesent a dignissim...</h6>
+                        <span class="url">ubuntu.com</span>
+                    </a>
+                </div>
+            </li>
+            <li class="gridder-list" data-griddercontent="#content15">
+                <div class="card">
+                    <div class="image card-img-top w-100" style="background-image: url('https://loremflickr.com/1200/700?lock=15');">
+                        <div class="overlay">
+                            <div class="size">1200 x 700</div>
+                        </div>
+                    </div>
+                    <a href="http://debian.org" class="card-body text-left">
+                        <h6 class="title">Nullam pulvinar tellus...</h6>
+                        <span class="url">debian.org</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        
+        <div id="content1" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=1" class="d-block w-100" alt="Lorem" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="https://loremflickr.com">Lorem ipsum dolor sit amet</a></h5>
+                        <p class="url"><a href="https://loremflickr.com">loremflickr.com</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=1" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content2" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1500/1000?lock=2" class="d-block w-100" alt="Donec" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://lipsum.com">Donec ultricies rhoncus enim</a></h5>
+                        <p class="url"><a href="http://lipsum.com">lipsum.com</a></p>
+                        <div>1500 x 1000</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1500/1000?lock=2" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content3" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=3" class="d-block w-100" alt="Aenean" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://indrascript.js.org">Aenean consectetur convallis commodo</a></h5>
+                        <p class="url"><a href="http://indrascript.js.org">indrascript.js.org</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=3" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content4" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=4" class="d-block w-100" alt="Vivamus" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://kautube.com">Vivamus auctor lacinia cursus</a></h5>
+                        <p class="url"><a href="http://kautube.com">kautube.com</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=4" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content5" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=5" class="d-block w-100" alt="Aliquam" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://siswakode.net">Aliquam pulvinar nec est in placerat</a></h5>
+                        <p class="url"><a href="http://siswakode.net">siswakode.net</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=5" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content6" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=6" class="d-block w-100" alt="Cras" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://codetube.xyz">Cras fringilla aliquam libero</a></h5>
+                        <p class="url"><a href="http://codetube.xyz">codetube.xyz</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=6" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content7" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=7" class="d-block w-100" alt="Nam" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://tedian.com">Nam commodo purus id arcu fringilla</a></h5>
+                        <p class="url"><a href="http://tedian.com">tedian.com</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=7" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content8" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=8" class="d-block w-100" alt="Phasellus" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://tedian.org">Phasellus in nisl accumsan</a></h5>
+                        <p class="url"><a href="http://tedian.org">tedian.org</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=8" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content9" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=9" class="d-block w-100" alt="Fusce" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://ghazali.com">Fusce luctus ex id malesuada volutpat</a></h5>
+                        <p class="url"><a href="http://ghazali.com">ghazali.com</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=9" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content10" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=10" class="d-block w-100" alt="Maecenas" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://zulkifli.com">Maecenas congue placerat ultricies</a></h5>
+                        <p class="url"><a href="http://zulkifli.com">zulkifli.com</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=10" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content11" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=11" class="d-block w-100" alt="Quisque" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://utsman.com">Quisque in rutrum purus</a></h5>
+                        <p class="url"><a href="http://utsman.com">utsman.com</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=11" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content12" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=12" class="d-block w-100" alt="Vestibulum" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://disdikda.net">Vestibulum vitae condimentum libero</a></h5>
+                        <p class="url"><a href="http://disdikda.net">disdikda.net</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=12" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content13" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=13" class="d-block w-100" alt="Mauris" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://linuxmint.com">Mauris tellus magna</a></h5>
+                        <p class="url"><a href="http://linuxmint.com">linuxmint.com</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=13" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content14" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=14" class="d-block w-100" alt="Praesent" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://ubuntu.com">Praesent a dignissim felis</a></h5>
+                        <p class="url"><a href="http://ubuntu.com">ubuntu.com</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=14" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content15" class="gridder-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <img src="https://loremflickr.com/1200/700?lock=15" class="d-block w-100" alt="Nullam" />
+                </div>
+                <div class="col-sm-12 mt-3">
+                    <div>
+                        <h5 class="title"><a href="http://debian.org">Nullam pulvinar tellus vel odio tristique egestas</a></h5>
+                        <p class="url"><a href="http://debian.org">debian.org</a></p>
+                        <div>1200 x 700</div>
+                        <a class="btn btn-dark mt-3" href="https://loremflickr.com/1200/700?lock=15" target="_blank">View file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="jquery.gridder.min.js"></script>
+    <script>
+        $('.gridder').gridderExpander({
+            scroll: true,
+            scrollOffset: 30,
+            scrollTo: "panel", // panel or listitem
+            animationSpeed: 400,
+            animationEasing: "easeInOutExpo",
+            showNav: true, // Show Navigation
+            nextText: "<span></span>", // Next button text
+            prevText: "<span></span>", // Previous button text
+            closeText: "", // Close button text
+            onStart: function () {
+                //Gridder Inititialized
+                console.log('On Gridder Initialized...');
+            },
+            onContent: function () {
+                //Gridder Content Loaded
+                console.log('On Gridder Expand...');
+                $('.carousel').carousel();
+            },
+            onClosed: function () {
+                //Gridder Closed
+                console.log('On Gridder Closed...');
+            }
+        });
+    </script>
+</body>
+</html>
