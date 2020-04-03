@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Neumorphism Design</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <link href="neumorph.min.css" rel="stylesheet">
+    <style>
+        .np-element {
+            padding: 0;
+        }
+        .card-body,
+        .card-radius,
+        .card-radius:hover {
+            font-size: 10pt;
+        }
+        .card-radius {
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col">
+                <div class="card np-element">
+                    <img class="card-img-top" src="https://picsum.photos/1920/1080">
+                    <div class="card-body">
+                        <h6>The Pedir Regular<br/><small><i class="far fa-star"></i>  Best Seller</small></h6>
+                        <p>
+                            <i class="fas fa-map-marker"></i> Baroh 2400, Grong-grong, Pidie<br/>
+                            <i class="fas fa-dollar-sign"></i> 2.345<br/>
+                            <i class="far fa-calendar"></i> Mar 15, 2020<br/>
+                            <i class="far fa-clock"></i> 9AM-7PM<br/>
+                        </p>
+                        <p class="text-center mb-0">
+                            <button class="np-btn card-radius"><i class="fas fa-phone-volume"></i> GUIDELINE</button>
+                            <button class="np-btn card-radius"><i class="fas fa-map-signs"></i> DIRECTIONS</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card np-element mb-3">
+                    <div class="card-body row">
+                        <div class="col-md-4">
+                            <button class="np-element np-circle-md np-hover np-shadow"><i class="fas fa-fingerprint fa-2x"></i></button>
+                        </div>
+                        <div class="col-md-8 text-center" style="font-size: 14pt">
+                            <strong>Confirm With<br/>Touch ID</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="card np-element mb-3">
+                    <div class="card-body row">
+                        <div class="col-md-4">
+                            <button class="np-element np-circle-md np-hover-inverse np-shadow-inverse"><i class="fas fa-bus-alt fa-2x"></i></button>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col">Sigli</div>
+                                <div class="col text-right"><strong>$3.456</strong></div>
+                            </div>
+                            <strong>Origin Express - Sigli<br/>Mar 16, 2020</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="card np-element">
+                    <div class="card-body row">
+                        <div class="col-md-4">
+                            <button class="np-element np-square-md np-hover np-shadow-border-square-push"><i class="fas fa-plane fa-2x"></i></button>
+                        </div>
+                        <div class="col-md-8 text-center" style="font-size: 14pt">
+                            <strong>Airplane Mode<br/>Inactive</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card np-element p-3 card-radius">
+                    <img class="w-100 card-radius" src="https://picsum.photos/1920/1080">
+                    <div class="mt-3">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6>Baju Olahraga</h6>
+                                <strong>$2.78</strong>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <button class="np-btn np-circle-md"><i class="fas fa-shopping-basket fa-2x"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card np-element p-3 card-radius mt-3">
+                    <img class="w-100 card-radius" src="https://picsum.photos/1920/1080">
+                    <div class="mt-3">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6>Celana Panjang</h6>
+                                <strong>$4.25</strong>
+                            </div>
+                            <div class="col-md-4 text-right">
+                                <button class="np-btn np-circle-md"><i class="fas fa-shopping-cart fa-2x"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card np-element">
+                    <div class="card-body">
+                        <h3 class="text-center">Sign in</h3>
+                        <div class="form-group">
+                            <label for="np-element">Username</label>
+                            <input type="text" class="np-form-element card-radius w-100" placeholder="Your username" style="font-size: 10pt;">
+                        </div>
+                        <div class="form-group">
+                            <label for="np-element">Password</label>
+                            <input type="password" class="np-form-element card-radius w-100" placeholder="Your password" style="font-size: 10pt;">
+                        </div>
+                        <div class="form-group">
+                            <button class="np-btn card-radius w-100"><i class="fas fa-key"></i> Login</button>
+                        </div>
+                        <div class="text-center mb-0">
+                            <p>OR</p>
+                            <button class="np-btn card-radius mr-3"><i class="fab fa-facebook"></i> Facebook</button>
+                            <button class="np-btn card-radius"><i class="fab fa-google"></i> Google</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script>
+        
+    </script>
+</body>
+</html>

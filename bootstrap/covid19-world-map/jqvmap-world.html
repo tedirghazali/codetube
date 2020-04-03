@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 by Country and Territory</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <!-- github.com/bjornd/jvectormap -->
+    <!-- github.com/10bestdesign/jqvmap -->
+    <link href="asset/vmap/jqvmap.css" rel="stylesheet">
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    <div class="container mt-2 mb-5">
+        <h3>Populations (Winkel Triple Projection)</h3>
+        <div id="vmap" style="width: 100%; height: 550px;"></div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="asset/vmap/jquery.vmap.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.world.js"></script>
+    <script src="dataset.js"></script>
+    <script>
+        console.log(populationVMap);
+        $('#vmap').vectorMap({
+            map: 'world_en',
+            values: populationVMap,
+            showTooltip: true,
+            enableZoom: false,
+            scaleColors: ['#C8EEFF', '#006491'],
+            backgroundColor: '#ffffff',
+            color: '#ffffff',
+            hoverOpacity: 0.7,
+            selectedColor: '#666666',
+            normalizeFunction: 'polynomial'
+        });
+    </script>
+</body>
+</html>

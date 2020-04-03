@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 by Country and Territory</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <!-- github.com/bjornd/jvectormap -->
+    <!-- github.com/10bestdesign/jqvmap -->
+    <link href="asset/vmap/jqvmap.css" rel="stylesheet">
+    <style>
+        .jqvmap-zoomin,
+        .jqvmap-zoomout {
+            width: 20px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-2" style="width: 730px;">
+        <div class="form-group">
+            <label for="country">Select Country or Region</label>
+            <select id="country" class="form-control">
+                <option value="usa_en">US States</option>
+                <option value="usa_counties_en">US Counties</option>
+                <option value="usa_districts_en">US Districts</option>
+                <option value="dz_fr">Algeria</option>
+                <option value="argentina_en">Argentina</option>
+                <option value="brazil_br">Brazil</option>
+                <option value="canada_en">Canada</option>
+                <option value="croatia">Croatia</option>
+                <option value="europe_en">European Union</option>
+                <option value="germany_en">Germany</option>
+                <option value="greece">Greece</option>
+                <option value="indonesia_id">Indonesia</option>
+                <option value="iran_ir">Iran</option>
+                <option value="iraq">Iraq</option>
+                <option value="russia_en">Russia</option>
+                <option value="serbia">Serbia</option>
+                <option value="tunisia">Tunisia</option>
+                <option value="turkey">Turkey</option>
+                <option value="ukraine_ua">Ukraine</option>
+                <option value="france_fr">France</option>
+                <option value="new-france_fr">France Regions</option>
+            </select>
+        </div>
+        <div id="usa_en"></div>
+        <div id="usa_counties_en"></div>
+        <div id="usa_districts_en"></div>
+        <div id="dz_fr"></div>
+        <div id="argentina_en"></div>
+        <div id="brazil_br"></div>
+        <div id="canada_en"></div>
+        <div id="croatia"></div>
+        <div id="europe_en"></div>
+        <div id="germany_en"></div>
+        <div id="greece"></div>
+        <div id="indonesia_id"></div>
+        <div id="iran_ir"></div>
+        <div id="iraq"></div>
+        <div id="russia_en"></div>
+        <div id="serbia"></div>
+        <div id="tunisia"></div>
+        <div id="turkey"></div>
+        <div id="ukraine_ua"></div>
+        <div id="france_fr"></div>
+        <div id="new-france_fr"></div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="asset/vmap/jquery.vmap.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.usa.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.usa.counties.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.usa.districts.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.algeria.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.argentina.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.brazil.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.canada.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.croatia.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.europe.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.germany.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.greece.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.indonesia.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.iran.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.iraq.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.russia.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.serbia.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.tunisia.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.turkey.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.ukraine.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.france.js"></script>
+    <script src="asset/vmap/maps/jquery.vmap.new_regions_france.js"></script>
+    <script src="dataset.js"></script>
+    <script>
+        var country = 'usa_en';
+        countryVMap(country);
+        $('select').on('change', function(e) {
+            country = $(this).val();
+            hideVMap();
+            countryVMap(country);
+        });
+        
+        function countryVMap(country) {
+            $('#'+country).css({'width': '700px', 'height': '500px', 'display': 'block'});
+            $('#'+country).vectorMap({
+                map: country,
+                values: regionVMapData(country),
+                showTooltip: true,
+                enableZoom: true,
+                scaleColors: ['#ffdfe0', '#900000'],
+                backgroundColor: '#cddee0',
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#666666',
+                normalizeFunction: 'polynomial'
+            });
+        }
+        
+        function hideVMap() {
+            var hideCountry = ['usa_en', 'usa_counties_en', 'usa_districts_en', 'dz_fr', 'argentina_en', 'brazil_br', 'canada_en', 'croatia', 'europe_en', 'germany_en', 'greece', 'indonesia_id', 'iran_ir', 'iraq', 'russia_en', 'serbia', 'tunisia', 'turkey', 'ukraine_ua', 'france_fr', 'new-france_fr'];
+            hideCountry.forEach(function(item) {
+                $('#'+item).css('display', 'none');
+            });
+        }
+        
+        function regionVMapData(region) {
+            var regionData;
+            if(region == 'indonesia_id') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'ID');
+            } else if(region == 'dz_fr') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'DZ');
+            } else if(region == 'argentina_en') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'AR');
+            } else if(region == 'brazil_br') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'BR');
+            } else if(region == 'canada_en') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'CA');
+            } else if(region == 'europe_en') {
+                regionData = groupVMap(countryData, 'cases');
+            } else if(region == 'germany_en') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'DE');
+            } else if(region == 'greece') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'GR');
+            } else if(region == 'iran_ir') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'IR');
+            } else if(region == 'iraq') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'IQ');
+            } else if(region == 'russia_en') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'RU');
+            } else if(region == 'serbia') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'RS');
+            } else if(region == 'tunisia') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'TU');
+            } else if(region == 'turkey') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'TR');
+            } else if(region == 'ukraine_ua') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'UA');
+            } else if(region == 'france_fr') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'FR');
+            } else if(region == 'new-france_fr') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'FR');
+            } else if(region == 'usa_counties_en') {
+                regionData = groupVMapRegion(countyData, 'cases', 'US');
+            } else if(region == 'usa_districts_en') {
+                regionData = groupVMapRegion(divisionData, 'cases', 'US');
+            } else {
+                regionData = groupVMapRegion(divisionData, 'cases', 'US');
+            }
+            return regionData;
+        }
+    </script>
+</body>
+</html>

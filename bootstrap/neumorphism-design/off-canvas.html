@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Neumorphism Design</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <link href="neumorph.min.css" rel="stylesheet">
+    <link href="jquery.bootstrap.year.calendar.css" rel="stylesheet">
+    <!-- github.com/frontendfunn/bootstrap-4-sidebar -->
+    <link href="bootstrap-4-sidebar.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg np-element justify-content-sm-start fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand order-1 order-lg-0 ml-lg-0 ml-2 mr-auto" href="#">Off-Canvas</a>
+            
+            <button class="navbar-toggler np-btn align-self-start" type="button">
+                <span class="navbar-toggler-icon">+</span>
+            </button>
+
+            <div class="collapse navbar-collapse np-bg-background p-3 p-lg-0 mt-5 mt-lg-0 d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end mobileMenu" id="navbarSupportedContent">
+                <ul class="navbar-nav align-self-stretch">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                
+                <form class="form-inline my-2 my-lg-0 align-self-stretch">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                    <button class="np-btn my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="overlay"></div>
+
+    <div class="container-fluid my-5">
+        <div id="calendar"></div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="jquery.bootstrap.year.calendar.js"></script>
+    <script src="bootstrap-4-sidebar.js"></script>
+    <script>
+         $('#calendar').calendar();
+    </script>
+</body>
+</html>

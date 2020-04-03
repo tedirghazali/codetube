@@ -1,0 +1,64 @@
+/**
+ * jQuery  Bootstrap year calendar 1.0.0
+ * Copyright 2018, Allset
+ * Licensed under the MIT license.
+
+ * @author Piotr Zatorski
+ */
+.jqyc {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.jqyc-months .table td, .jqyc-months .table th {
+    border-top: 0px;
+    text-align: center;
+}
+
+.jqyc-month .np-element {
+    height: 350px;
+    margin-bottom: 20px;
+}
+
+.jqyc-not-empty-td:hover {
+    cursor: pointer;
+    /*background-color: #157EFB;
+    color: #FFF;*/
+    border-radius: 0.25rem;
+}
+
+.jqyc-not-empty-td:hover .text-danger {
+    color: #FFF !important;
+}
+
+.jqyc-year-chooser .jqyc-year {
+    text-align: center;
+}
+
+.jqyc-year-chooser {
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+
+.jqyc-appended{
+    background-color: #f6f7f8;
+}
+
+.jqyc-start-day-of-month {
+    background-color: #157EFB;
+    color: #FFF;
+    border-radius: 0.25rem;
+}
+
+.jqyc-end-day-of-month {
+    background-color: #157EFB;
+    color: #FFF;
+    border-radius: 0.25rem;
+}
+
+
+.jqyc-range-choosen-between{
+    background-color: #157EFB;
+    color: #FFF;
+    border-radius: 0.25rem;
+}

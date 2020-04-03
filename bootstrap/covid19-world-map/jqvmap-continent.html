@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 by Country and Territory</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <!-- github.com/bjornd/jvectormap -->
+    <!-- github.com/10bestdesign/jqvmap -->
+    <link href="asset/vmap/jqvmap.css" rel="stylesheet">
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    <div class="container mt-2 mb-5">
+        <h3>Continents (Wagner VII Projection)</h3>
+        <p>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="as" value="asia_en" name="continent" class="custom-control-input" checked>
+                <label class="custom-control-label" for="as">Asia</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="af" value="africa_en" name="continent" class="custom-control-input">
+                <label class="custom-control-label" for="af">Africa</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="na" value="north-america_en" name="continent" class="custom-control-input">
+                <label class="custom-control-label" for="na">North America</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="sa" value="south-america_en" name="continent" class="custom-control-input">
+                <label class="custom-control-label" for="sa">South America</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="eu" value="europe_en" name="continent" class="custom-control-input">
+                <label class="custom-control-label" for="eu">Europe</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="oc" value="australia_en" name="continent" class="custom-control-input">
+                <label class="custom-control-label" for="oc">Oceania</label>
+            </div>
+        </p>
+        <div id="asia_en"></div>
+        <div id="africa_en"></div>
+        <div id="north-america_en"></div>
+        <div id="south-america_en"></div>
+        <div id="europe_en"></div>
+        <div id="australia_en"></div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="asset/vmap/jquery.vmap.js"></script>
+    <script src="asset/vmap/maps/continents/jquery.vmap.asia.js"></script>
+    <script src="asset/vmap/maps/continents/jquery.vmap.africa.js"></script>
+    <script src="asset/vmap/maps/continents/jquery.vmap.north-america.js"></script>
+    <script src="asset/vmap/maps/continents/jquery.vmap.south-america.js"></script>
+    <script src="asset/vmap/maps/continents/jquery.vmap.europe.js"></script>
+    <script src="asset/vmap/maps/continents/jquery.vmap.australia.js"></script>
+    <script src="dataset.js"></script>
+    <script>
+        var continent = 'asia_en';
+        continentVMap(continent);
+        $('input[type=radio]').on('change', function(e) {
+            continent = $(this).val();
+            hideVMap();
+            continentVMap(continent);
+        });
+        
+        function continentVMap(continent) {
+            $('#'+continent).css({'width': '800px', 'height': '550px', 'display': 'block'});
+            $('#'+continent).vectorMap({
+                map: continent,
+                values: populationVMap,
+                showTooltip: true,
+                enableZoom: false,
+                scaleColors: ['#C8EEFF', '#006491'],
+                backgroundColor: '#ffffff',
+                color: '#ffffff',
+                hoverOpacity: 0.7,
+                selectedColor: '#666666',
+                normalizeFunction: 'polynomial'
+            });
+        }
+        
+        function hideVMap() {
+            var hideContinent = ['asia_en', 'africa_en', 'north-america_en', 'south-america_en', 'europe_en', 'australia_en'];
+            hideContinent.forEach(function(item) {
+                $('#'+item).css('display', 'none');
+            });
+        }
+    </script>
+</body>
+</html>

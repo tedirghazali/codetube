@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 by Country and Territory</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .mapael .mapTooltip {
+            position: absolute;
+            background-color: #474c4b;
+            moz-opacity: 0.70;
+            opacity: 0.70;
+            filter: alpha(opacity=70);
+            border-radius: 10px;
+            padding: 10px;
+            z-index: 1000;
+            max-width: 200px;
+            display: none;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <h3>Deaths (Mercator Projection)</h3>
+        <div class="cases d-flex flex-row">
+            <div class="map col-8"></div>
+            <div class="areaLegend col-4"></div>
+            <div class="plotLegend" style="margin-left:-430px; margin-top: 250px;"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/raphael@2.3.0/raphael.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-mousewheel@3.1.13/jquery.mousewheel.min.js"></script>
+    <!-- github.com/neveldo/jQuery-Mapael -->
+    <script src="asset/mapael/jquery.mapael.js"></script>
+    <script src="asset/mapael/maps/world_countries_mercator.min.js"></script>
+    <script src="dataset.js"></script>
+    <script>
+        $(".cases").mapael({
+            map: {
+                name : "world_countries_mercator",
+			    defaultArea: {
+				    attrs : {
+					    stroke : "#fff", 
+					    "stroke-width" : 1
+				    }
+			    }
+            },
+		    legend: {
+			    area: {
+				    display : true,
+				    title :"Territory of total deaths as of 1 April 2020", 
+				    slices : deathLegendAreaColors
+			    },
+			    plot: {
+				    display : true,
+				    title :"Region of total deaths as of 1 April 2020", 
+				    slices : deathLegendPlotColors
+			    } 
+		    },
+		    plots : deathCityPlots,
+		    areas: deathCountryAreas
+        });
+    </script>
+</body>
+</html>
