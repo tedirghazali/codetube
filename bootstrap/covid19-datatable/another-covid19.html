@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 by Country and Territory</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container my-2">
+        <h3>COVID-19 by Country and Territory</h3>
+        <table id="datatable" class="table table-striped table-bordered w-100"></table>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        axios.get('https://api.thevirustracker.com/free-api?countryTotals=ALL').then(function (response) {
+            var rawData = arrData(response.data.countryitems[0]);
+            myTable(rawData);
+        }).catch(function (error) {
+            console.log(error);
+        })
+        
+        function arrData(objData) {
+            var arrayData = Object.keys(objData).map(function(key) {
+                return objData[key]
+            });
+            return myData(arrayData);
+        }
+        
+        function myData(data) {
+            var list = [];
+            data.forEach(function(item) {
+                list.push([
+                    item.title,
+                    item.total_cases,
+                    item.total_deaths,
+                    item.total_recovered,
+                    item.total_active_cases
+                ]);
+            });
+            console.log(list.slice(0, 182));
+            return list.slice(0, 182);
+        }
+      
+        function myTable(dataSet) {
+            var myDataTable = $('#datatable').DataTable({
+                data: dataSet,
+                columns: [
+                    { title: "Countries and territories" },
+                    { title: "Cases" },
+                    { title: "Deaths" },
+                    { title: "Recoveries" },
+                    { title: "Active" }
+                ],
+                order: [[ 1, "desc" ]]
+            });
+            return myDataTable;
+        }
+    </script>
+</body>
+</html>
