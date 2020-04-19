@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 by Country and Territory</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-4 mr-auto form-group">
+                <select id="country" class="form-control"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="ct-chart ct-golden-section" id="myChart1"></div>
+            </div>
+            <div class="col-6">
+                <div class="ct-chart ct-golden-section" id="myChart2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment.min.js"></script> <!-- moment-with-locales.min.js -->
+    <!-- github.com/gionkunz/chartist-js -->
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script>
+        $('#country').html('<option disabled selected>-- Select country or region --</option>');
+        axios.get('https://api.covid19api.com/countries').then(function(res) {
+            res.data.forEach(function(row) {
+                $('#country').append('<option value="'+row.ISO2+'">'+row.Country+'</option>');
+            });
+        });
+        
+        var store = localStorage;
+        var getStore = store.getItem('myCountryCode') ? store.getItem('myCountryCode') : 'IT';
+        
+        getCountryData(getStore);
+        
+        $('#country').on('change', function() {
+            store.setItem('myCountryCode', $(this).val());
+            window.location.reload();
+        });
+        
+        function getCountryData(country) {
+            axios.get('https://api.thevirustracker.com/free-api?countryTotal='+country).then(function(response) {
+                new Chartist.Pie('#myChart1', {
+                    labels: ['Confirmed Infections', 'Deaths', 'Recoveries'],
+                    series: formatData(response.data.countrydata)
+                }, {
+                    chartPadding: 30,
+                    labelOffset: 100,
+                    labelDirection: 'explode',
+                    labelInterpolationFnc: function(value) {
+                        return value
+                    }
+                });
+                
+                new Chartist.Pie('#myChart2', {
+                    series: formatData(response.data.countrydata)
+                }, {
+                    donut: true,
+                    donutWidth: 100,
+                    donutSolid: true,
+                    startAngle: 270,
+                    showLabel: true
+                });
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+        
+        function formatData(data) {
+            var list = [];
+            data.forEach(function(item) {
+                list.push(item.total_cases);
+                list.push(item.total_deaths);
+                list.push(item.total_recovered);
+            });
+            return list;
+        }
+    </script>
+</body>
+</html>

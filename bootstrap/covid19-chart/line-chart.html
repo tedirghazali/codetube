@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 by Country and Territory</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.css" rel="stylesheet">
+    <style>
+        
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-4 mr-auto form-group">
+                <select id="status" class="form-control">
+                    <option disabled selected>-- Select Status --</option>
+                    <option value="confirmed">Confirmed Cases</option>
+                    <option value="deaths">Deaths</option>
+                    <option value="recovered">Recoveries</option>
+                </select>
+            </div>
+        </div>
+        <div class="card card-body">
+            <canvas id="myChart" style="width:100%; height:500px;"></canvas>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- github.com/chartjs/Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script> <!-- Chart.bundle.min.js -->
+    <script>
+        var countries = [
+            {title: 'United States', slug: 'united-states', backgroundColor: '#ffb0c1', borderColor: '#ff6384'}, 
+            {title: 'Spain', slug: 'spain', backgroundColor: '#ffcf9f', borderColor: '#ff9f40'}, 
+            {title: 'Italy', slug: 'italy', backgroundColor: '#ffe6aa', borderColor: '#ffcd56'}, 
+            {title: 'Germany', slug: 'germany', backgroundColor: '#a4dfdf', borderColor: '#4bc0c0'}, 
+            {title: 'France', slug: 'france', backgroundColor: '#9ad0f5', borderColor: '#36a2eb'}, 
+            {title: 'China', slug: 'china', backgroundColor: '#e4e5e7', borderColor: '#c9cbcf'}, 
+            {title: 'Iran', slug: 'iran', backgroundColor: '#b99cf2', borderColor: '#9562fb'}, 
+            {title: 'United Kingdom', slug: 'united-kingdom', backgroundColor: '#8aff80', borderColor: '#43b339'}, 
+            {title: 'Turkey', slug: 'turkey', backgroundColor: '#f29292', borderColor: '#b33939'}, 
+            {title: 'Belgium', slug: 'belgium', backgroundColor: '#887ef7', borderColor: '#3c31bb'}
+        ];
+        var store = localStorage;
+        var getStore = store.getItem('myStatus') ? store.getItem('myStatus') : 'confirmed';
+        
+        var mychart = myChart();
+        statusData(getStore, countries, mychart);
+        
+        $('#status').on('change', function() {
+            store.setItem('myStatus', $(this).val());
+            window.location.reload();
+        });
+        
+        function statusData(status, country, chart) {
+            getLabelData(chart);
+            country.forEach(function(item, index) {
+                getCountryData(item.slug, status, chart, index);
+            });
+        }
+        
+        function getLabelData(chart) {
+            axios.get('https://api.covid19api.com/total/country/italy/status/confirmed').then(function(response) {
+                chart.data.labels = formatData(response.data, 'label');
+                chart.update();
+            })
+        }
+        
+        function getCountryData(country, status, chart, index) {
+            axios.get('https://api.covid19api.com/total/country/'+country+'/status/'+status).then(function(response) {
+                chart.data.datasets[index].data = formatData(response.data, 'data');
+                chart.update();
+            }).catch(function(error) {
+                console.log(error);
+            });
+        }
+        
+        function formatData(data, type) {
+            var list = [];
+            data.forEach(function(item) {
+                if(type == 'data') {
+                    list.push(item.Cases);
+                } else if(type == 'label') {
+                    list.push(new Date(item.Date).getDate());
+                }
+            });
+            return list.slice(data.length - 30, data.length);
+        }
+        
+        function myChart() {
+            var myBasicChart = new Chart('myChart', {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: dataSets(countries)
+                },
+                options: {
+			        responsive: true,
+			        title: {
+				        display: true,
+				        text: 'COVID-19 by Country and Territory'
+			        },
+                    scales: {
+                        xAxes: [{
+					        display: true,
+				        }],
+				        yAxes: [{
+					        display: true,
+				        }]
+                    }
+                }
+            });
+            return myBasicChart;
+        }
+        
+        function dataSets(data) {
+            var sets = [];
+            data.forEach(function(item) {
+                sets.push({
+                    label: item.title,
+                    data: [],
+                    backgroundColor: item.backgroundColor,
+                    borderColor: item.borderColor,
+                    borderWidth: 3,
+                    fill: false
+                });
+            });
+            return sets;
+        }
+    </script>
+</body>
+</html>
