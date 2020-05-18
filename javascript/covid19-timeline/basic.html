@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Timeline Map of COVID-19</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container my-2">
+        <h3>Timeline Map of COVID-19</h3>
+        <!-- github.com/raphaellepuschitz/SVG-World-Map -->
+        <object id="myWorldMap" data="world-states.svg" type="image/svg+xml"></object>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var countryArrays = [];
+        var countryObject = {};
+        var svg = document.getElementById('myWorldMap');
+        var svgNode = svg.getSVGDocument().children[0];
+        
+        svgNode.childNodes.forEach(function(node) {
+            if (node.id != undefined && node.id.substr(0, 1) != '_' && (node.tagName == 'g' || node.tagName == 'path' || node.tagName == 'rect')) { 
+                countryObject[node.id] = node;
+            }
+        });
+        
+        axios.get('https://corona.lmao.ninja/v2/countries').then(function(response) {
+            response.data.forEach(function(country) {
+                var obj = {
+                    iso2: country.countryInfo.iso2,
+                    country: country.country,
+                    color: legendColor(country.cases)
+                };
+                countryArrays.push(obj);
+            })
+            customMap(countryArrays)
+        }).catch(function(error) {
+            console.log(error)
+        })
+        
+        function legendColor(number) {
+            var color;
+            if(number >= 1000000) {
+                color = '#510000';
+            } else if(number >= 100000 && number <= 999999) {
+                color = '#900000';
+            } else if(number >= 10000 && number <= 99999) {
+                color = '#c80200';
+            } else if(number >= 1000 && number <= 9999) {
+                color = '#ee7070';
+            } else if(number >= 100 && number <= 999) {
+                color = '#ffc0c0';
+            } else if(number >= 1 && number <= 99) {
+                color = '#ffdfe0';
+            } else {
+                color = '#e0e0e0';
+            }
+            return color;
+        }
+        
+        function customMap(array) {
+            array.forEach(function(country) {
+                if(countryObject[country.iso2]) {
+                    var countryPaths = countryObject[country.iso2].childNodes;
+                    countryPaths.forEach(function(path) {
+                        if(path.tagName == 'path') {
+                            path.style.fill = country.color
+                        }
+                        if(path.tagName == 'g') {
+                            path.childNodes.forEach(function(child) {
+                                if(child.tagName == 'path') {
+                                    child.style.fill = country.color
+                                }
+                            })
+                        }
+                        if(path.tagName == 'circle') {
+                            path.style.fill = country.color
+                            path.style.fillOpacity = "1"
+                            path.style.stroke = "#500000" 
+                            path.style.strokeWidth="0.2"
+                        }
+                    })
+                }
+            })
+        }
+    </script>
+</body>
+</html>

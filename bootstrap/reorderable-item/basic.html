@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reorderable Item</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container my-2">
+        <h3>Basic Reorderable</h3>
+        <div class="row">
+            <div class="col">
+                <div id="order-left" class="list-group">
+				    <div class="list-group-item">Item 1</div>
+				    <div class="list-group-item">Item 2</div>
+				    <div class="list-group-item">Item 3</div>
+				    <div class="list-group-item">Item 4</div>
+				    <div class="list-group-item">Item 5</div>
+				    <div class="list-group-item">Item 6</div>
+			    </div>
+            </div>
+            <div class="col">
+                <div id="order-right" class="list-group">
+				    <div class="list-group-item bg-warning">Item 1</div>
+				    <div class="list-group-item bg-warning">Item 2</div>
+				    <div class="list-group-item bg-warning">Item 3</div>
+				    <div class="list-group-item bg-warning">Item 4</div>
+				    <div class="list-group-item bg-warning">Item 5</div>
+				    <div class="list-group-item bg-warning">Item 6</div>
+			    </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <!-- github.com/SortableJS/Sortable -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
+        new Sortable(document.getElementById('order-left'), {
+            group: 'shared',
+            animation: 150,
+            ghostClass: 'bg-info'
+        });
+
+        new Sortable(document.getElementById('order-right'), {
+            group: 'shared',
+            animation: 150,
+            ghostClass: 'text-info'
+        });
+    </script>
+</body>
+</html>

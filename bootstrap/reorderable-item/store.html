@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reorderable Item</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container my-2">
+        <h3>Store Reorderable</h3>
+        <div id="grid-card" class="row">
+            <div class="card col-2 m-2 p-0" data-id="1">
+                <img class="card-img-top" src="https://picsum.photos/id/11/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 1</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="2">
+                <img class="card-img-top" src="https://picsum.photos/id/12/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 2</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="3">
+                <img class="card-img-top" src="https://picsum.photos/id/13/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 3</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="4">
+                <img class="card-img-top" src="https://picsum.photos/id/14/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 4</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="5">
+                <img class="card-img-top" src="https://picsum.photos/id/15/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 5</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="6">
+                <img class="card-img-top" src="https://picsum.photos/id/16/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 6</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="7">
+                <img class="card-img-top" src="https://picsum.photos/id/17/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 7</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="8">
+                <img class="card-img-top" src="https://picsum.photos/id/18/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 8</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="9">
+                <img class="card-img-top" src="https://picsum.photos/id/19/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 9</strong>
+                </div>
+            </div>
+            <div class="card col-2 m-2 p-0" data-id="10">
+                <img class="card-img-top" src="https://picsum.photos/id/10/640/480.webp">
+                <div class="card-body">
+                    <strong class="card-title">Card 10</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <!-- github.com/SortableJS/Sortable -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
+        new Sortable(document.getElementById("grid-card"), {
+            animation: 200,
+            multiDrag: true,
+	        selectedClass: 'bg-info',
+	        fallbackTolerance: 3,
+	        group: 'storeOrder',
+	        store: {
+                get: function(order) {
+                    var sortable = localStorage.getItem(order.options.group.name);
+                    return sortable ? sortable.split(',') : [];
+                },
+                set: function(order) {
+                    var sortable = order.toArray();
+                    localStorage.setItem(order.options.group.name, sortable.join(','));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

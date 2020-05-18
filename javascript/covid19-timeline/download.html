@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Timeline Map of COVID-19</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <link href="rSlider.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container my-2">
+        <h3>
+            Timeline Map of COVID-19 
+            <div class="float-right">
+                <span id="sliderdate"></span> &nbsp; 
+                <i class="fas fa-file-code" onclick="downloadMap('svg')"></i>
+                <i class="fas fa-file-image" onclick="downloadMap('png')"></i>
+            </div>
+        </h3>
+        <!-- github.com/raphaellepuschitz/SVG-World-Map -->
+        <object id="myWorldMap" data="world-states.svg" type="image/svg+xml"></object>
+        <div id="slider" class="slider"></div>
+    </div>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- github.com/ariutta/svg-pan-zoom -->
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- github.com/slawomir-zaziablo/range-slider -->
+    <script src="rSlider.min.js"></script>
+    <script>
+        var countryArrays = [];
+        var countryObject = {};
+        var svg = document.getElementById('myWorldMap');
+        var svgNode = svg.getSVGDocument().children[0];
+        
+        svgNode.childNodes.forEach(function(node) {
+            if (node.id != undefined && node.id.substr(0, 1) != '_' && (node.tagName == 'g' || node.tagName == 'path' || node.tagName == 'rect')) { 
+                countryObject[node.id] = node;
+            }
+        });
+        
+        svgPanZoom('#myWorldMap', {
+            zoomEnabled: true,
+            controlIconsEnabled: true
+        });
+        
+        countryObject['Ocean'].style.fill = '#e1ecfb'; //#e1ecfb
+        countryObject['AQ'].style.opacity = '1';
+        
+        var store = localStorage;
+        
+        axios.get('https://coronavirus-tracker-api.herokuapp.com/confirmed').then(function(response) {
+            var dateLabels = formatLabel(response.data.locations[0].history);
+            var dateStore = store.getItem('countryDate') || 'Apr 1';
+            mySlider(dateLabels, dateStore);
+            var myDate = moment(dateStore, 'MMM D').format('M/D/YY');
+            var mergeData = mergeObjects(response.data.locations, myDate);
+            var myArray = countryArrays.concat(mergeData);
+            customMap(myArray)
+        })
+        
+        function formatLabel(data) {
+            return Object.keys(data).map(function(key) {
+                return moment(key, 'MM/DD/YY').format("MMM D");
+            }, []).slice(39);
+        }
+        
+        function mySlider(labels, sets) {
+            return new rSlider({
+                target: '#slider',
+                values: labels,
+                range: false,
+                tooltip: true,
+                labels: false,
+                set: [sets],
+                onChange: function (vals) {
+                    document.querySelector('#sliderdate').innerText = vals+', 2020';
+                    store.setItem('countryDate', vals);
+                    if(vals != this.set) {
+                        window.location.reload();
+                    }
+                }
+            });
+        }
+        
+        function mergeObjects(array, property) {
+            var mapArray = new Map();
+            array.forEach(function(item) {
+                var propVal = item.country_code;
+                var historyVal = item.history[property];
+                if(mapArray.has(propVal)) {
+                    historyVal += item.history[property]
+                    mapArray.set(propVal, { 
+                        iso2: propVal,
+                        country: item.country,
+                        color: legendColor(historyVal),
+                        cases: historyVal
+                    })
+                } else {
+                    mapArray.set(propVal, {
+                        iso2: propVal,
+                        country: item.country,
+                        color: legendColor(item.history[property]),
+                        cases: item.history[property]
+                    })
+                }
+            });
+            return Array.from(mapArray.values());
+        }
+        
+        function legendColor(number) {
+            var color;
+            if(number >= 1000000) {
+                color = '#510000';
+            } else if(number >= 100000 && number <= 999999) {
+                color = '#900000';
+            } else if(number >= 10000 && number <= 99999) {
+                color = '#c80200';
+            } else if(number >= 1000 && number <= 9999) {
+                color = '#ee7070';
+            } else if(number >= 100 && number <= 999) {
+                color = '#ffc0c0';
+            } else if(number >= 1 && number <= 99) {
+                color = '#ffdfe0';
+            } else {
+                color = '#e0e0e0';
+            }
+            return color;
+        }
+        
+        function customMap(array) {
+            array.forEach(function(country) {
+                if(countryObject[country.iso2]) {
+                    var countryPaths = countryObject[country.iso2].childNodes;
+                    countryPaths.forEach(function(path) {
+                        if(path.tagName == 'path') {
+                            path.style.fill = country.color
+                        }
+                        if(path.tagName == 'g') {
+                            path.childNodes.forEach(function(child) {
+                                if(child.tagName == 'path') {
+                                    child.style.fill = country.color
+                                }
+                            })
+                        }
+                        if(path.tagName == 'circle') {
+                            path.style.fill = country.color
+                            path.style.fillOpacity = "1"
+                            path.style.stroke = "#500000" 
+                            path.style.strokeWidth="0.2"
+                        }
+                    })
+                }
+            })
+        }
+        
+        function downloadMap(type) {
+            var serializer = new XMLSerializer();
+            var svgXML = serializer.serializeToString(svgNode);
+            var blob = new Blob([svgXML], { type: "image/svg+xml;charset=utf-8" });
+            var url = URL.createObjectURL(blob);
+            if (type == 'svg') {
+                var downloadLink = document.createElement("a");
+                downloadLink.href = url;
+                downloadLink.download = "world-map." + type;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+            } else if (type == 'png') {
+                var canvas = document.createElement('canvas');
+                var context = canvas.getContext('2d');
+                canvas.width = 1000;
+                canvas.height = 507.224;
+                var data = new XMLSerializer().serializeToString(svgNode);
+                var win = window.URL || window.webkitURL || window;
+                var blob = new Blob([data], { type: 'image/svg+xml' });
+                var url = win.createObjectURL(blob);
+                var img = new Image();
+                img.onload = function () {
+                    context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    win.revokeObjectURL(url);
+                    var uri = canvas.toDataURL('image/png').replace('image/png', 'octet/stream');
+                    var a = document.createElement('a');
+                    document.body.appendChild(a);
+                    a.style = 'display: none';
+                    a.href = uri;
+                    a.download = "world-map." + type;
+                    a.click();
+                    window.URL.revokeObjectURL(uri);
+                    document.body.removeChild(a);
+                };
+                img.src = url;
+            } 
+        }
+    </script>
+</body>
+</html>

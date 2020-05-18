@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reorderable Item</title>
+    <link href="https://unpkg.com/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" rel="stylesheet">
+    <style>
+        .nested-1 {
+            background-color: #999999;
+        }
+        .nested-2 {
+            background-color: #bbbbbb;
+        }
+        .nested-3 {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <div class="container my-2">
+        <h3>Nested Reorderable</h3>
+        <div class="row">
+            <div class="col">
+                <div id="order-left" class="list-group">
+				    <div class="list-group-item">Item 1</div>
+				    <div class="list-group-item">Item 2</div>
+				    <div class="list-group-item">Item 3</div>
+				    <div class="list-group-item">Item 4</div>
+				    <div class="list-group-item">Item 5</div>
+				    <div class="list-group-item">Item 6</div>
+			    </div>
+            </div>
+            <div class="col">
+                <div class="list-group nested-sortable">
+				    <div class="list-group-item nested-1">Item 1.1
+					    <div class="list-group nested-sortable">
+						    <div class="list-group-item nested-2">Item 2.1</div>
+						    <div class="list-group-item nested-2">Item 2.2
+							    <div class="list-group nested-sortable">
+								    <div class="list-group-item nested-3">Item 3.1</div>
+								    <div class="list-group-item nested-3">Item 3.2</div>
+								    <div class="list-group-item nested-3">Item 3.3</div>
+								    <div class="list-group-item nested-3">Item 3.4</div>
+							    </div>
+						    </div>
+						    <div class="list-group-item nested-2">Item 2.3</div>
+						    <div class="list-group-item nested-2">Item 2.4</div>
+					    </div>
+				    </div>
+				    <div class="list-group-item nested-1">Item 1.2</div>
+				    <div class="list-group-item nested-1">Item 1.3</div>
+				    <div class="list-group-item nested-1">Item 1.4
+					    <div class="list-group nested-sortable">
+						    <div class="list-group-item nested-2">Item 2.1</div>
+						    <div class="list-group-item nested-2">Item 2.2</div>
+						    <div class="list-group-item nested-2">Item 2.3</div>
+						    <div class="list-group-item nested-2">Item 2.4</div>
+					    </div>
+				    </div>
+				    <div class="list-group-item nested-1">Item 1.5</div>
+			    </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+    <!-- github.com/SortableJS/Sortable -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <script>
+        new Sortable(document.getElementById('order-left'), {
+            group: 'nested',
+            animation: 150,
+            multiDrag: true,
+	        selectedClass: 'bg-success',
+	        fallbackTolerance: 3,
+        });
+        
+        var nestedSortables = [].slice.call(document.querySelectorAll('.nested-sortable'));
+        for (var i = 0; i < nestedSortables.length; i++) {
+	        new Sortable(nestedSortables[i], {
+		        group: 'nested',
+		        animation: 150,
+		        fallbackOnBody: true,
+		        swapThreshold: 0.65
+	        });
+        }
+    </script>
+</body>
+</html>
