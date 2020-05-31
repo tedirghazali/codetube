@@ -62,6 +62,8 @@ adsense
 laravel6/vendor
 laravel6/node_modules
 
+fauna/bootstrap
+
 # Special files
 update_builder.bat
 Update_Builder.js

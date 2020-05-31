@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Bar Chart Race for COVID-19</title>
+    <style>
+        text{ font-size: 16px; font-family: Open Sans, sans-serif; }
+        text.caption{ font-weight: 400; font-size: 14px; fill: #777777; }
+        text.label{ font-weight: 600; text-anchor: end; }
+        text.valueLabel{ font-weight: 300; }
+        .tick text { fill: #777777; }
+        .xAxis .tick:nth-child(2) text { text-anchor: start; }
+        .tick line { shape-rendering: CrispEdges; stroke: #dddddd; }
+        .tick line.origin{ stroke: #aaaaaa; }
+        path.domain{ display: none; }
+        svg.label{ overflow: visible }
+   </style>
+</head>
+<body>
+
+    <div id="racingbar"></div>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="barChartRace.js"></script>
+    <script>
+        axios.get('http://covid-tracker-us.herokuapp.com/confirmed').then(res => {
+            let racingbar = new barChartRace({
+                target: '#racingbar',
+                title: 'Bar Chart Race for COVID-19 by Country'
+            })
+            
+            let histories = formatHistory(res.data.locations[0].history)
+            histories.forEach(history => {
+                racingbar.sets.push(history)
+            })
+            
+            mergeData(res.data.locations).forEach(country => {
+                racingbar.sets.forEach(date => {
+                    const dateVal = moment(date, 'MMM D').format('M/D/YY')
+                    const dateDay = moment(dateVal, 'M/D/YY').dayOfYear()
+                    const dateBefore = moment().dayOfYear(dateDay - 1).format('M/D/YY')
+                    const colorVal = d3.hsl(Math.random() * 360, 0.75, 0.75)
+                    racingbar.series.push({
+                        date: date,
+                        value: country.history[dateVal],
+                        //code: country.country_code,
+                        name: country.country,
+                        img: "flags/"+country.country_code.toLowerCase()+".svg",
+                        color: colorVal,
+                        lastValue: country.history[dateBefore] ? country.history[dateBefore] : 0
+                    })
+                })
+                racingbar.scores[country.country] = country.latest
+            })
+            
+            let yIndex = racingbar.yIndex;
+            racingbar.date = racingbar.sets[yIndex];
+            racingbar.setSlice = racingbar.series.filter(d => d.date == racingbar.date && !isNaN(d.value))
+                .sort((a,b) => b.value - a.value)
+                .slice(0, 10);
+
+            racingbar.setSlice.forEach((d,i) => d.rank = i);
+            
+            racingbar.update()
+
+        }).catch(err => {
+            console.log(err);
+        })
+        
+        function formatHistory(history) {
+            return Object.keys(history).map(key => {
+                return moment(key, 'M/D/YY').format('MMM D')
+            }, [])
+        }
+        
+        function mergeData(arr) {
+            let mergeMap = new Map();
+            arr.forEach(item => {
+                let countryProp = item.country
+                let historyProp = item.history
+                if(mergeMap.has(countryProp)) {
+                    for(timeline in item.history) {
+                        historyProp[timeline] += item.history[timeline]
+                    }
+                    mergeMap.set(countryProp, {
+                        "country_code": item.country_code,
+                        country: item.country,
+                        history: historyProp,
+                        latest: item.latest
+                    })
+                } else {
+                    mergeMap.set(countryProp, {
+                        "country_code": item.country_code,
+                        country: item.country,
+                        history: item.history,
+                        latest: item.latest
+                    })
+                }
+            })
+            return Array.from(mergeMap.values());
+        }
+    </script>
+</body>
+</html>
