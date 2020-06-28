@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AltEditor DataTable (IndexedDB)</title>
+    <link href="https://unpkg.com/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet">
+    
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.min.css" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notiflix@2.2.0/dist/notiflix-2.2.0.min.css">
+</head>
+<body>
+
+    <div class="container my-3">
+        <h3 class="h3 text-center">AltEditor DataTable (IndexedDB)</h3>
+        <table id="tabeldata" class="table table-bordered table-striped"></table>
+    </div>
+
+    <script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js" ></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js" ></script>
+    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js" ></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js" ></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap4.min.js" ></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.js" ></script>>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/notiflix@2.2.0/dist/notiflix-2.2.0.min.js"></script>
+    <script src="dataTables.altEditor.free.js"></script>
+    <script>
+        let db = new Dexie("mydexiedb")
+        db.version(1).stores({
+            employees: 'id,name,position,office,extension,startdate,salary'
+        });
+        
+        var employeeOptions = {"Accountant": "Accountant", "Developer": "Developer", "Integration Specialist": "Integration Specialist", "Marketing Designer": "Marketing Designer", "Regional Director": "Regional Director", "Sales Assistant": "Sales Assistant", "Software Engineer": "Software Engineer", "System Architect": "System Architect"};
+        var officeOptions = {"Tokyo": "Tokyo", "Singapore": "Singapore", "Sidney": "Sidney", "San Francisco": "San Francisco", "New York": "New York", "London": "London", "Edinburgh": "Edinburgh"};
+        
+        var dataColumns = [
+            {
+                title: "ID", 
+                type: "text",
+                required: true,
+                unique: true
+            }, 
+            {
+                title: "Name", 
+                type: "text",
+                required: true,
+                unique: true
+            }, 
+            {
+                title: "Position", 
+                type: "select",
+                options: employeeOptions,
+                select2: {width: "100%"},
+                /*render: function (dt, type, row, meta) {
+                    if (dt == null || !(dt in employeeOptions)) return null;
+                    return employeeOptions[dt];
+                }*/
+            }, 
+            {
+                title: "Office", 
+                type: "select",
+                options: officeOptions,
+                select2: {width: "100%"},
+                /*multiple: true,
+                render: function (dt, type, row, meta) {
+                    if (dt == null || !(dt in officeOptions)) return null;
+                    return dt.map(function(dti) {return officeOptions[dti];});
+                }*/
+            },
+            {
+                title: "Extn.", 
+                type: "text",
+                required: true
+            }, 
+            {
+                title: "Start date", 
+                datetimepicker: { timepicker: false, format : "Y/m/d"}
+            }, 
+            {
+                title: "Salary", 
+                type: "text",
+                pattern: "\\$[0-9]*,[0-9]{3}",
+                hoverMsg: "At least $1,000"
+            }
+        ];
+        
+        var myTable = $('#tabeldata').DataTable({
+            sPaginationType: "full_numbers",
+            columns: dataColumns,
+            order: [[ 0, "desc" ]],
+		    dom: "<'row mb-0'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'B>>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'<'col-sm-12 col-md-3'<'mt-2'l>><'col-sm-12 col-md-3'i><'col-sm-12 col-md-6'p>>",
+            select: 'single',
+            responsive: true,
+            altEditor: true,     // Enable altEditor
+            buttons: [
+                {
+                    text: '<i class="fas fa-plus mr-1"></i> Add', 
+                    name: 'add', //don't change the name
+                    className: 'btn-success btn-sm mr-1 mb-1'
+                }, 
+                {
+                    extend: 'selected', // Bind to Selected row 
+                    text: '<i class="fas fa-edit mr-1"></i> Edit', 
+                    name: 'edit',
+                    className: 'btn-warning btn-sm mr-1 mb-1'
+                },
+                {
+                    extend: 'selected', 
+                    text: '<i class="fas fa-times mr-1"></i> Delete', 
+                    name: 'delete',
+                    className: 'btn-danger btn-sm mr-1 mb-1'
+                }
+            ],
+            onAddRow: function(datatable, rowdata, success, error) {
+                db.employees.add({id: parseInt(rowdata[0]), name: rowdata[1], position: rowdata[2], office: rowdata[3], extension: rowdata[4], startdate: rowdata[5], salary: rowdata[6]});
+                success(rowdata);
+                Notiflix.Notify.Success(rowdata[1]+' has been added');
+            },
+            onEditRow: function(datatable, rowdata, success, error) {
+                db.employees.update(parseInt(rowdata[0]), {name: rowdata[1], position: rowdata[2], office: rowdata[3], extension: rowdata[4], startdate: rowdata[5], salary: rowdata[6]});
+                success(rowdata);
+                Notiflix.Notify.Warning(rowdata[1]+' has been edited');
+            },
+            onDeleteRow: function(datatable, rowdata, success, error) {
+                Notiflix.Confirm.Show(
+                    'Delete Data', 'Are you sure about this?', 'Yes', 'No', 
+                    function(){
+                        db.employees.delete(rowdata[0]);
+                        success(rowdata);
+                        Notiflix.Notify.Failure(rowdata[1]+' has been deleted');
+                    }, 
+                    function(){
+                        Notiflix.Report.Success('Canceling Delete Data', 'Thank you for not deleting this data', 'Close'); 
+                    } 
+                );
+            },
+        });
+        
+        db.employees.toArray(dataEmployees => {
+            if(dataEmployees.length <= 0) {
+                Notiflix.Confirm.Show(
+                    'Sample Data', 'Do you want to add 36 sample data?', 'Yes', 'No', 
+                    function(){
+                        addAllEmployees()
+                    }, 
+                    function(){
+                        Notiflix.Report.Failure('Canceling Sample Data', 'You need to add new data manually by adding them one by one', 'Close');
+                    } 
+                ); 
+            }
+            dataEmployees.forEach(item => {
+                myTable.row.add([item.id, item.name, item.position, item.office, item.extension, item.startdate, item.salary]).draw()
+            })
+        })
+        
+        function addAllEmployees() {
+            db.employees.bulkAdd([
+                {id: 1, name: "Tiger Nixon", position: "System Architect", office: "Edinburgh", extension: "5421", startdate: "2011/04/25", salary: "$320,800"},
+                {id: 2, name: "Garrett Winters", position: "Accountant", office: "Tokyo", extension: "8422", startdate: "2011/07/25", salary: "$170,750"},
+                {id: 3, name: "Ashton Cox", position: "Junior Technical Author", office: "San Francisco", extension: "1562", startdate: "2009/01/12", salary: "$86,000"},
+                {id: 4, name: "Cedric Kelly", position: "Senior Javascript Developer", office: "Edinburgh", extension: "6224", startdate: "2012/03/29", salary: "$433,060"},
+                {id: 5, name: "Airi Satou", position: "Accountant", office: "Tokyo", extension: "5407", startdate: "2008/11/28", salary: "$162,700"},
+                {id: 6, name: "Brielle Williamson", position: "Integration Specialist", office: "New York", extension: "4804", startdate: "2012/12/02", salary: "$372,000"},
+                {id: 7, name: "Herrod Chandler", position: "Sales Assistant", office: "San Francisco", extension: "9608", startdate: "2012/08/06", salary: "$137,500"},
+                {id: 8, name: "Rhona Davidson", position: "Integration Specialist", office: "Tokyo", extension: "6200", startdate: "2010/10/14", salary: "$327,900"},
+                {id: 9, name: "Colleen Hurst", position: "Javascript Developer", office: "San Francisco", extension: "2360", startdate: "2009/09/15", salary: "$205,500"},
+                {id: 10, name: "Sonya Frost", position: "Software Engineer", office: "Edinburgh", extension: "1667", startdate: "2008/12/13", salary: "$103,600"},
+                {id: 11, name: "Jena Gaines", position: "Office Manager", office: "London", extension: "3814", startdate: "2008/12/19", salary: "$90,560"},
+                {id: 12, name: "Quinn Flynn", position: "Support Lead", office: "Edinburgh", extension: "9497", startdate: "2013/03/03", salary: "$342,000"},
+                {id: 13, name: "Charde Marshall", position: "Regional Director", office: "San Francisco", extension: "6741", startdate: "2008/10/16", salary: "$470,600"},
+                {id: 14, name: "Haley Kennedy", position: "Senior Marketing Designer", office: "London", extension: "3597", startdate: "2012/12/18", salary: "$313,500"},
+                {id: 15, name: "Tatyana Fitzpatrick", position: "Regional Director", office: "London", extension: "1965", startdate: "2010/03/17", salary: "$385,750"},
+                {id: 16, name: "Michael Silva", position: "Marketing Designer", office: "London", extension: "1581", startdate: "2012/11/27", salary: "$198,500"},
+                {id: 17, name: "Paul Byrd", position: "Chief Financial Officer (CFO)", office: "New York", extension: "3059", startdate: "2010/06/09", salary: "$725,000"},
+                {id: 18, name: "Gloria Little", position: "Systems Administrator", office: "New York", extension: "1721", startdate: "2009/04/10", salary: "$237,500"},
+                {id: 19, name: "Bradley Greer", position: "Software Engineer", office: "London", extension: "2558", startdate: "2012/10/13", salary: "$132,000"},
+                {id: 20, name: "Dai Rios", position: "Personnel Lead", office: "Edinburgh", extension: "2290", startdate: "2012/09/26", salary: "$217,500"},
+                {id: 21, name: "Jenette Caldwell", position: "Development Lead", office: "New York", extension: "1937", startdate: "2011/09/03", salary: "$345,000"},
+                {id: 22, name: "Yuri Berry", position: "Chief Marketing Officer (CMO)", office: "New York", extension: "6154", startdate: "2009/06/25", salary: "$675,000"},
+                {id: 23, name: "Caesar Vance", position: "Pre-Sales Support", office: "New York", extension: "8330", startdate: "2011/12/12", salary: "$106,450"},
+                {id: 24, name: "Doris Wilder", position: "Sales Assistant", office: "Sidney", extension: "3023", startdate: "2010/09/20", salary: "$85,600"},
+                {id: 25, name: "Angelica Ramos", position: "Chief Executive Officer (CEO)", office: "London", extension: "5797", startdate: "2009/10/09", salary: "$1,200,000"},
+                {id: 26, name: "Gavin Joyce", position: "Developer", office: "Edinburgh", extension: "8822", startdate: "2010/12/22", salary: "$92,575"},
+                {id: 27, name: "Jennifer Chang", position: "Regional Director", office: "Singapore", extension: "9239", startdate: "2010/11/14", salary: "$357,650"},
+                {id: 28, name: "Brenden Wagner", position: "Software Engineer", office: "San Francisco", extension: "1314", startdate: "2011/06/07", salary: "$206,850"},
+                {id: 29, name: "Fiona Green", position: "Chief Operating Officer (COO)", office: "San Francisco", extension: "2947", startdate: "2010/03/11", salary: "$850,000"},
+                {id: 30, name: "Shou Itou", position: "Regional Marketing", office: "Tokyo", extension: "8899", startdate: "2011/08/14", salary: "$163,000"},
+                {id: 31, name: "Michelle House", position: "Integration Specialist", office: "Sidney", extension: "2769", startdate: "2011/06/02", salary: "$95,400"},
+                {id: 32, name: "Suki Burks", position: "Developer", office: "London", extension: "6832", startdate: "2009/10/22", salary: "$114,500"},
+                {id: 33, name: "Prescott Bartlett", position: "Technical Author", office: "London", extension: "3606", startdate: "2011/05/07", salary: "$145,000"},
+                {id: 34, name: "Gavin Cortez", position: "Team Leader", office: "San Francisco", extension: "2860", startdate: "2008/10/26", salary: "$235,500"},
+                {id: 35, name: "Martena Mccray", position: "Post-Sales support", office: "Edinburgh", extension: "8240", startdate: "2011/03/09", salary: "$324,050"},
+                {id: 36, name: "Unity Butler", position: "Marketing Designer", office: "San Francisco", extension: "5384", startdate: "2009/12/09", salary: "$85,675"}
+            ]);
+            Notiflix.Notify.Info('36 data has been added to the dexie database and wait for this page to be automatically reload again');
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
+        }
+        
+    </script>
+</body>
+</html>
