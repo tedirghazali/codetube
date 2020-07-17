@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multilevel Dropdown</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <style>
+        .navbar.is-danger .navbar-item.has-dropdown .has-subdropdown,
+        .navbar.is-danger .navbar-item.has-dropdown.is-hoverable .has-subdropdown,
+        .navbar.is-danger .navbar-item.has-dropdown.is-active .has-subdropdown {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+        
+        .navbar.is-danger .navbar-item.has-dropdown .has-subdropdown > a.navbar-link,
+        .navbar.is-danger .navbar-item.has-dropdown.is-hoverable .has-subdropdown > a.navbar-link,
+        .navbar.is-danger .navbar-item.has-dropdown.is-active .has-subdropdown > a.navbar-link {
+            background-color: transparent;
+            color: #4a4a4a;
+            width: 100%;
+            padding: .375rem 1rem;
+            white-space: nowrap;
+        }
+        
+        .navbar.is-danger .navbar-item.has-dropdown .has-subdropdown:hover > a.navbar-link,
+        .navbar.is-danger .navbar-item.has-dropdown.is-hoverable .has-subdropdown:hover > a.navbar-link,
+        .navbar.is-danger .navbar-item.has-dropdown.is-active .has-subdropdown:hover > a.navbar-link {
+            background-color: #f5f5f5;
+            color: #0a0a0a;
+        }
+
+        .navbar.is-danger .navbar-item.has-dropdown.is-hoverable .has-subdropdown > a.navbar-link:after,
+        .navbar.is-danger .navbar-item.has-dropdown.is-active .has-subdropdown > a.navbar-link:after {
+            border-color: #4a4a4a;
+            transform: rotate(-135deg);
+        }
+
+        .navbar.is-danger .navbar-item.has-dropdown .has-subdropdown > .navbar-dropdown,
+        .navbar.is-danger .navbar-item.has-dropdown.is-hoverable .has-subdropdown > .navbar-dropdown,
+        .navbar.is-danger .navbar-item.has-dropdown.is-active .has-subdropdown > .navbar-dropdown {
+            top: 0;
+            left: 100%;
+            margin-top: 0px;
+            margin-left: 0px;
+            display: none;
+        }
+        
+        .navbar.is-danger .navbar-item.has-dropdown.is-hoverable .has-subdropdown:hover > .navbar-dropdown,
+        .navbar.is-danger .navbar-item.has-dropdown.is-active .has-subdropdown.is-active > .navbar-dropdown {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar is-danger">
+        <div class="navbar-brand">
+            <a href="#" class="navbar-item is-size-4 has-text-weight-bold">Multilevel Dropdown</a>
+            <a href="#" class="navbar-burger burger" data-target="mynavbarmenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+
+        <div id="mynavbarmenu" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="#" class="navbar-item">Home</a>
+                <a href="#" class="navbar-item">Link</a>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a href="#" class="navbar-link">Level 1</a>
+                    <div class="navbar-dropdown is-boxed">
+                        <a href="#" class="navbar-item">Action</a>
+                        <a href="#" class="navbar-item">Another action</a>
+                        <hr class="navbar-divider">
+                        <a href="#" class="navbar-item">Something else here</a>
+                        <div class="navbar-item has-subdropdown">
+                            <a href="#" class="navbar-link">Level 1.1</a>
+                            <div class="navbar-dropdown is-boxed">
+                                <a href="#" class="navbar-item">Action</a>
+                                <a href="#" class="navbar-item">Another action</a>
+                                <hr class="navbar-divider">
+                                <a href="#" class="navbar-item">Something else here</a>
+                                <div class="navbar-item has-subdropdown">
+                                    <a href="#" class="navbar-link">Level 1.1.1</a>
+                                    <div class="navbar-dropdown is-boxed">
+                                        <a href="#" class="navbar-item">Action</a>
+                                        <a href="#" class="navbar-item">Another action</a>
+                                        <hr class="navbar-divider">
+                                        <a href="#" class="navbar-item">Something else here</a>
+                                        <div class="navbar-item has-subdropdown">
+                                            <a href="#" class="navbar-link">Level 1.1.1.1</a>
+                                            <div class="navbar-dropdown is-boxed">
+                                                <a href="#" class="navbar-item">Action</a>
+                                                <a href="#" class="navbar-item">Another action</a>
+                                                <hr class="navbar-divider">
+                                                <a href="#" class="navbar-item">Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a href="#" class="navbar-link">Level 2</a>
+
+                    <div class="navbar-dropdown is-boxed">
+                        <div class="navbar-item has-subdropdown">
+                            <a href="#" class="navbar-link">Level 2.1</a>
+
+                            <div class="navbar-dropdown is-boxed">
+                                <a href="#" class="navbar-item">Level 2.1.1</a>
+                                <a href="#" class="navbar-item">Level 2.1.2</a>
+                                <div class="navbar-item has-subdropdown">
+                                    <a href="#" class="navbar-link">Level 2.1.3</a>
+
+                                    <div class="navbar-dropdown is-boxed">
+                                        <div class="navbar-item has-subdropdown">
+                                            <a href="#" class="navbar-link">Level 2.1.3.1</a>
+
+                                            <div class="navbar-dropdown is-boxed">
+                                                <a href="#" class="navbar-item">Action</a>
+                                                <a href="#" class="navbar-item">Another action</a>
+                                                <hr class="navbar-divider">
+                                                <a href="#" class="navbar-item">Something else here</a>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="navbar-item">Level 2.1.3.2</a>
+                                        <a href="#" class="navbar-item">Level 2.1.3.3</a>
+                                        <a href="#" class="navbar-item">Level 2.1.3.4</a>
+                                        <div class="navbar-item has-subdropdown">
+                                            <a href="#" class="navbar-link">Level 2.1.3.5</a>
+
+                                            <div class="navbar-dropdown is-boxed">
+                                                <a href="#" class="navbar-item">Action</a>
+                                                <a href="#" class="navbar-item">Another action</a>
+                                                <hr class="navbar-divider">
+                                                <a href="#" class="navbar-item">Something else here</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#" class="navbar-item">Level 2.1.4</a>
+                                <a href="#" class="navbar-item">Level 2.1.5</a>
+                            </div>
+                        </div>
+                        <a href="#" class="navbar-item">Level 2.2</a>
+                        <a href="#" class="navbar-item">Level 2.3</a>
+                        <div class="navbar-item has-subdropdown">
+                            <a href="#" class="navbar-link">Level 2.4</a>
+
+                            <div class="navbar-dropdown is-boxed">
+                                <a href="#" class="navbar-item">Level 2.4.1</a>
+                                <div class="navbar-item has-subdropdown">
+                                    <a href="#" class="navbar-link">Level 2.4.2</a>
+
+                                    <div class="navbar-dropdown is-boxed">
+                                        <a href="#" class="navbar-item">Level 2.4.2.1</a>
+                                        <a href="#" class="navbar-item">Level 2.4.2.2</a>
+                                        <div class="navbar-item has-subdropdown">
+                                            <a href="#" class="navbar-link">Level 2.4.2.3</a>
+
+                                            <div class="navbar-dropdown is-boxed">
+                                                <a href="#" class="navbar-item">Action</a>
+                                                <a href="#" class="navbar-item">Another action</a>
+                                                <hr class="navbar-divider">
+                                                <a href="#" class="navbar-item">Something else here</a>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="navbar-item">Level 2.4.2.2</a>
+                                    </div>
+                                </div>
+                                <div class="navbar-item has-subdropdown">
+                                    <a href="#" class="navbar-link">Level 2.4.3</a>
+
+                                    <div class="navbar-dropdown is-boxed">
+                                        <a href="#" class="navbar-item">Action</a>
+                                        <a href="#" class="navbar-item">Another action</a>
+                                        <hr class="navbar-divider">
+                                        <a href="#" class="navbar-item">Something else here</a>
+                                    </div>
+                                </div>
+                                 <div class="navbar-item has-subdropdown">
+                                    <a href="#" class="navbar-link">Level 2.4.4</a>
+
+                                    <div class="navbar-dropdown is-boxed">
+                                        <a href="#" class="navbar-item">Action</a>
+                                        <a href="#" class="navbar-item">Another action</a>
+                                        <hr class="navbar-divider">
+                                        <a href="#" class="navbar-item">Something else here</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="navbar-item">Level 2.5</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        const dropdown = Array.prototype.slice.call(document.querySelectorAll('.has-dropdown'), 0);
+        if(dropdown.length > 0) {
+            dropdown.forEach(dd => {
+                dd.querySelector('.navbar-link').onclick = e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropdown.forEach(dd2 => {
+                        if(dd2 != e.target.parentElement) {
+                            dd2.classList.remove('is-active');
+                        }
+                    })
+                    dd.classList.toggle('is-active');
+                    closeSubDropdown(dd);
+                }
+                subDropdown(dd);
+            })
+        }
+
+        function subDropdown(dropdown) {
+            const subdd = dropdown.querySelector('.navbar-dropdown').children;
+            if(subdd.length > 0) {
+                for(let i = 0; i < subdd.length; i++) {
+                    if(subdd[i].classList.contains('has-subdropdown')) {
+                        subdd[i].querySelector('.navbar-link').onclick = e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            for(let j = 0; j < subdd.length; j++) {
+                                if(subdd[j] != e.target.parentElement) {
+                                    subdd[j].classList.remove('is-active');
+                                }
+                            }
+                            subdd[i].classList.toggle('is-active');
+                            subDropdown(subdd[i]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        function closeSubDropdown(dropdown) {
+            const closesubdd = dropdown.querySelector('.navbar-dropdown').children;
+            if(closesubdd.length > 0) {
+                for(let i = 0; i < closesubdd.length; i++) {
+                    if(closesubdd[i].classList.contains('is-active')) {
+                        closesubdd[i].classList.remove('is-active');
+                        closeSubDropdown(closesubdd[i]);
+                    }
+                }
+            }
+        }
+        
+        window.onclick = () => {
+            const cd = document.querySelector('.has-dropdown.is-active');
+            if(cd) {
+                cd.classList.remove('is-active');
+            }
+        }
+
+        const navbar = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        if(navbar.length > 0) {
+            navbar.forEach(el => {
+                el.addEventListener('click', () => {
+                    const target = el.dataset.target;
+                    const collapse = document.getElementById(target);
+                    el.classList.toggle('is-active');
+                    collapse.classList.toggle('is-active');
+                })
+            })
+        }
+    </script>
+    
+</body>
+</html>
