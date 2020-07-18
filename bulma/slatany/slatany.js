@@ -41,6 +41,17 @@ document.getElementById('sidebar-collapse').onclick = e => {
             }
 }
 
+const collapsibleMenu = [].slice.call(document.querySelectorAll('.is-collapsible'));
+if(collapsibleMenu.length > 0) {
+            collapsibleMenu.forEach(cm => {
+                cm.querySelector('a').onclick = e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    cm.querySelector('ul').classList.toggle('show');
+                }
+            });
+}
+
 // Window Events
 window.onclick = () => {
             const cd = document.querySelector('.has-dropdown.is-active');
