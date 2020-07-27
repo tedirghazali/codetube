@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slatany Admin Template</title>
     <link rel="stylesheet" href="assets/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/tui-chart/tui-chart.min.css">
     <link rel="stylesheet" href="slatany.css">
 </head>
 <body>
@@ -44,7 +45,7 @@
                             <article class="media">
                                 <figure class="media-left">
                                     <p class="image">
-                                        <img style="border-radius: 20px" src="assets/images/tedirghazali.jpeg">
+                                        <img src="assets/images/tedirghazali.jpeg">
                                     </p>
                                 </figure>
                                 <div class="media-content">
@@ -58,7 +59,7 @@
                             <article class="media">
                                 <figure class="media-left">
                                     <p class="image">
-                                        <img style="border-radius: 20px" src="assets/images/tedirghazali.jpeg">
+                                        <img src="assets/images/tedirghazali.jpeg">
                                     </p>
                                 </figure>
                                 <div class="media-content">
@@ -72,7 +73,7 @@
                             <article class="media">
                                 <figure class="media-left">
                                     <p class="image">
-                                        <img style="border-radius: 20px" src="assets/images/tedirghazali.jpeg">
+                                        <img src="assets/images/tedirghazali.jpeg">
                                     </p>
                                 </figure>
                                 <div class="media-content">
@@ -86,7 +87,7 @@
                             <article class="media">
                                 <figure class="media-left">
                                     <p class="image">
-                                        <img style="border-radius: 20px" src="assets/images/tedirghazali.jpeg">
+                                        <img src="assets/images/tedirghazali.jpeg">
                                     </p>
                                 </figure>
                                 <div class="media-content">
@@ -116,7 +117,7 @@
                             <article class="media">
                                 <figure class="media-left">
                                     <p class="image">
-                                        <img style="border-radius: 20px" src="assets/images/tedirghazali.jpeg">
+                                        <img src="assets/images/tedirghazali.jpeg">
                                     </p>
                                 </figure>
                                 <div class="media-content">
@@ -131,7 +132,7 @@
                             <article class="media">
                                 <figure class="media-left">
                                     <p class="image">
-                                        <img style="border-radius: 20px" src="assets/images/tedirghazali.jpeg">
+                                        <img src="assets/images/tedirghazali.jpeg">
                                     </p>
                                 </figure>
                                 <div class="media-content">
@@ -146,7 +147,7 @@
                             <article class="media">
                                 <figure class="media-left">
                                     <p class="image">
-                                        <img style="border-radius: 20px" src="assets/images/tedirghazali.jpeg">
+                                        <img src="assets/images/tedirghazali.jpeg">
                                     </p>
                                 </figure>
                                 <div class="media-content">
@@ -561,10 +562,174 @@
                 </div>
             </div>
             <!-- end article widget -->
+            
+            <div class="card mx-5 mb-5">
+                <div class="card-content">
+                    <h5 class="is-size-5 has-text-weight-bold mt-0">Analytics overview</h5>
+                    <div id="chart-area"></div>
+                </div>
+            </div>
+            
+            <!-- open article widget -->
+            <div class="columns mx-3">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h5 class="is-size-5 has-text-weight-bold mt-0">Latest Actions</h5>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="flex-grow-1 w-70">User tedirghazali logged in to admin</span>
+                                        <span class="w-30">2020-06-18 13:08</span>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="flex-grow-1 w-70">User tedirghazali logged in to site</span>
+                                        <span class="w-30">2020-06-18 03:25</span>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="flex-grow-1 w-70">User tedirghazali performed a check in to table #__content</span>
+                                        <span class="w-30">2020-06-17 05:44</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-content">
+                            <h5 class="is-size-5 has-text-weight-bold mt-0">Logged-in Users</h5>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="w-10"><span class="tag is-primary px-2">&times;</span></span>
+                                        <span class="flex-grow-1 w-60">Super User <small>Site</small></span>
+                                        <span class="w-30">2020-06-18 13:08</span>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="flex-grow-1 w-70">Super User <small>Administration</small></span>
+                                        <span class="w-30">2020-06-17 06:54</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h5 class="is-size-5 has-text-weight-bold mt-0">Site Information</h5>
+                            <div class="list-group list-group-flush">
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="w-10">
+                                            <svg class="bi bi-terminal-fill mr-2" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354L4.793 6.5 3.146 4.854a.5.5 0 1 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="w-30">OS</span>
+                                        <span class="flex-grow-1">Linux t</span>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="w-10">
+                                            <svg class="bi bi-plug mr-2" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M4 5h8v3a4 4 0 0 1-8 0V5z"/>
+                                                <path fill-rule="evenodd" d="M6 1.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V2a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V2a.5.5 0 0 1 .5-.5zM7.115 13.651c.256-.511.385-1.408.385-2.651h1c0 1.257-.121 2.36-.49 3.099-.191.381-.47.707-.87.877-.401.17-.845.15-1.298-.002-.961-.32-1.534-.175-1.851.046-.33.23-.491.615-.491.98h-1c0-.635.278-1.353.918-1.8.653-.456 1.58-.561 2.74-.174.297.099.478.078.592.03.115-.05.244-.161.365-.405z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="w-30">PHP</span>
+                                        <span class="flex-grow-1">7.4.7</span>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="w-10">
+                                            <svg class="bi bi-server mr-2" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13 2c0-1.105-2.239-2-5-2S3 .895 3 2s2.239 2 5 2 5-.895 5-2z"/>
+                                                <path d="M13 3.75c-.322.24-.698.435-1.093.593C10.857 4.763 9.475 5 8 5s-2.857-.237-3.907-.657A4.881 4.881 0 0 1 3 3.75V6c0 1.105 2.239 2 5 2s5-.895 5-2V3.75z"/>
+                                                <path d="M13 7.75c-.322.24-.698.435-1.093.593C10.857 8.763 9.475 9 8 9s-2.857-.237-3.907-.657A4.881 4.881 0 0 1 3 7.75V10c0 1.105 2.239 2 5 2s5-.895 5-2V7.75z"/>
+                                                <path d="M13 11.75c-.322.24-.698.435-1.093.593-1.05.42-2.432.657-3.907.657s-2.857-.237-3.907-.657A4.883 4.883 0 0 1 3 11.75V14c0 1.105 2.239 2 5 2s5-.895 5-2v-2.25z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="w-30">MySQL (PDO)</span>
+                                        <span class="flex-grow-1 w-60">5.5.5-10.3.23-MariaDB-1:10.3.23+maria~bionic</span>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="w-10">
+                                            <svg class="bi bi-stopwatch-fill mr-2" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H9v1.07A7.002 7.002 0 0 1 8 16 7 7 0 0 1 7 2.07V1H6a.5.5 0 0 1-.5-.5zm3 4.5a.5.5 0 0 0-1 0v3.5h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="w-30">Time</span>
+                                        <span class="flex-grow-1">03:25</span>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="w-10">
+                                            <svg class="bi bi-calendar3-fill mr-2" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2H0z"/>
+                                                <path fill-rule="evenodd" d="M0 3h16v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm6.5 4a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm4-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm2 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-8 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm2 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm4-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm2 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-8 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm2 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm4-1a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="w-30">Caching</span>
+                                        <span class="flex-grow-1">Disabled</span>
+                                    </div>
+                                </div>
+                                <div class="list-group-item">
+                                    <div class="d-flex">
+                                        <span class="w-10">
+                                            <svg class="bi bi-cone-striped mr-2" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M7.879 11.015a.5.5 0 0 1 .242 0l6 1.5a.5.5 0 0 1 .037.96l-6 2a.499.499 0 0 1-.316 0l-6-2a.5.5 0 0 1 .037-.96l6-1.5z"/>
+                                                <path d="M11.885 12.538l-.72-2.877C10.303 9.873 9.201 10 8 10s-2.303-.127-3.165-.339l-.72 2.877c-.073.292-.002.6.256.756C4.86 13.589 5.916 14 8 14s3.14-.411 3.63-.706c.257-.155.328-.464.255-.756zM9.97 4.88l.953 3.811C10.159 8.878 9.14 9 8 9c-1.14 0-2.159-.122-2.923-.309L6.03 4.88C6.635 4.957 7.3 5 8 5s1.365-.043 1.97-.12zm-.245-.978L8.97.88C8.718-.13 7.282-.13 7.03.88L6.275 3.9C6.8 3.965 7.382 4 8 4c.618 0 1.2-.036 1.725-.098z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="w-30">Gzip</span>
+                                        <span class="flex-grow-1">Disabled</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end article widget -->
+            
+            <!-- open chart widget -->
+            <div class="columns mx-3">
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h5 class="is-size-5 has-text-weight-bold mt-0">Demographic</h5>
+                            <div id="chart-demographic"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <div class="card-content">
+                            <h5 class="is-size-5 has-text-weight-bold mt-0">Views by Country</h5>
+                            <div id="chart-country"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end chart widget -->
         </div>
     </div>
     
+    <script src="assets/tui-chart/tui-chart-all.min.js"></script>
+    <script src="assets/tui-chart/maps/world.js"></script>
     <script src="slatany.js"></script>
+    <script src="slatany-chart.js"></script>
     
 </body>
 </html>
