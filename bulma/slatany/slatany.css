@@ -336,14 +336,6 @@ a img {
     background-color: #fff;
     border: 1px solid rgba(0,0,0,.125);
 }
-.d-flex {
-    display: -ms-flexbox !important;
-    display: flex !important;
-}
-.flex-grow-1 {
-    -ms-flex-positive: 1 !important;
-    flex-grow: 1 !important;
-}
 .w-60 {
     width: 60%;
 }

@@ -2,24 +2,20 @@
 // Chart area
 var container = document.getElementById('chart-area');
 var data = {
-    categories: ['Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct'],
+    categories: ['27 Aug', '28 Aug', '29 Aug', '30 Aug', '31 Aug', '1 Aug', '2 Aug'],
     series: {
         column: [
             {
-                name: 'Seoul',
+                name: 'Page View',
                 data: [11.3, 17.0, 21.0, 24.4, 25.2, 20.4, 13.9]
             },
             {
-                name: 'NewYork',
+                name: 'Visitor',
                 data: [9.9, 16.0, 21.2, 24.2, 23.2, 19.4, 13.3]
             },
             {
-                name: 'Sydney',
+                name: 'Unique',
                 data: [18.3, 15.2, 12.8, 11.8, 13.0, 15.2, 17.6]
-            },
-            {
-                name: 'Moskva',
-                data: [4.4, 12.2, 16.3, 18.5, 16.7, 10.9, 4.2]
             }
         ],
         line: [
@@ -36,12 +32,12 @@ var options = {
         height: 540
     },
     yAxis: [{
-       title: 'Temperature (Celsius)',
+       title: 'Amout',
        chartType: 'column',
        labelMargin: 15
     }],
     xAxis: {
-        title: 'Month'
+        title: 'The last seven days'
     },
     series: {
         line: {
@@ -62,7 +58,7 @@ var theme = {
     series: {
         column: {
             colors: [
-                '#00d1b2', '#458a3f', '#295ba0', '#2a4175', '#289399'
+                '#33ffe0', '#00d1b2', '#00947e', '#3273dc', '#48c774'
             ]
         },
         line: {
@@ -79,15 +75,11 @@ var chart = tui.chart.comboChart(container, data, options);
 
 var container3 = document.getElementById('chart-country');
 var data3 = {
-    categories: ['June', 'July', 'Aug', 'Sep', 'Oct', 'Nov'],
+    categories: ['India', 'United States', 'Indonesia', 'Brazil', 'Mexico', 'Pakistan'],
     series: [
         {
-            name: 'Budget',
+            name: 'Views',
             data: [5000, 3000, 5000, 7000, 6000, 4000]
-        },
-        {
-            name: 'Income',
-            data: [8000, 1000, 7000, 2000, 5000, 3000]
         }
     ]
 };
@@ -95,17 +87,17 @@ var options3 = {
     chart: {
         width: 465,
         height: 400,
-        title: 'Monthly Revenue',
+        //title: 'Monthly Revenue',
         format: '1,000'
     },
     yAxis: {
-        title: 'Month'
+        title: 'Country'
     },
     xAxis: {
         title: 'Amount',
         min: 0,
         max: 9000,
-        suffix: '$'
+        suffix: ''
     },
      series: {
          showLabel: true
@@ -118,7 +110,7 @@ var options3 = {
 var hbartheme = {
     series: {
         colors: [
-            '#00d1b2', '#458a3f', '#295ba0', '#2a4175', '#289399',
+            '#00d1b2', '#33ffe0', '#3298dc', '#3273dc', '#48c774',
             '#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
         ]
     }
@@ -806,7 +798,7 @@ var options2 = {
     chart: {
         width: 468,
         height: 400,
-        title: 'Population density of World (per ㎢)',
+        //title: 'Population density of World (per ㎢)',
         format: '0.00'
     },
     map: 'world',
@@ -817,8 +809,8 @@ var options2 = {
 };
 var maptheme = {
     series: {
-        startColor: '#ffefef',
-        endColor: '#ac4142',
+        startColor: '#33ffe0',
+        endColor: '#00947e',
         overColor: '#75b5aa'
     }
 };

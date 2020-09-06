@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slatany Admin Template</title>
     <link rel="stylesheet" href="assets/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-utilities.min.css">
     <link rel="stylesheet" href="assets/tui-chart/tui-chart.min.css">
     <link rel="stylesheet" href="slatany.css">
 </head>
@@ -236,21 +237,26 @@
                 </div>
                 <p class="menu-label">General</p>
                 <ul class="menu-list">
-                    <li>
-                        <a href="#" class="is-active">
+                    <li class="is-collapsible">
+                        <a href="#">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M8 3.293l6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
                                 <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
                             </svg>
                             <span>Dashboard</span>
                         </a>
+                        <ul class="show">
+                            <li><a href="index.html" class="is-active">Blog</a></li>
+                            <li><a>Ecommerce</a></li>
+                            <li><a>Cryptocurrency</a></li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2 3a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3zm6 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm5 2.755C12.146 11.825 10.623 11 8 11s-4.146.826-5 1.755V13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-.245z"/>
                             </svg>
-                            <span>Customers</span>
+                            <span>Analytics</span>
                         </a>
                     </li>
                     <li class="is-collapsible">

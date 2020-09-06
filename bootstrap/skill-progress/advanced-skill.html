@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Chart (Progress)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <style>
+        .tick line {
+            display: none;
+        }
+        .skill-background {
+            fill: #e9ecef;
+        }
+
+        .skill-progressbar {
+            animation: progress 3s ease-out forwards;
+        }
+        @keyframes progress {
+            0% { 
+                width: 0; 
+            }
+        }
+        .skill-progressbar:hover {
+            opacity: 0.7;
+        }
+        
+        .skill-text {
+            fill: white;
+            text-anchor: end;
+            font-family: sans-serif;
+            font-size: 8pt;
+            animation: hideshow 10s ease forwards;
+        }
+        @keyframes hideshow {
+            0% { 
+                opacity: 0; 
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-5">
+        <div id="skill-chart"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+        const skillData = [
+            {name: "Bootstrap 5", value: "89", color: "#6610f2"},
+            {name: "Vue", value: "65", color: "#28a745"},
+            {name: "React", value: "37", color: "#0d6efd"},
+            {name: "CodeIgniter 4", value: "76", color: "#fd7e14"},
+            {name: "Laravel 8", value: "80", color: "#FF5B5C"},
+            {name: "CakePHP", value: "24", color: "#dc3545"},
+            {name: "Symfony", value: "40", color: "#2178d1"},
+            {name: "Yii 3", value: "20", color: "#17a2b8"},
+            {name: "Laminas", value: "15", color: "#5A8DEE"},
+        ];
+
+        skillChart('#skill-chart', skillData, {
+            size: 600,
+            barSize: 25,
+            margin: {
+                top: 30, 
+                right: 0, 
+                bottom: 10, 
+                left: 80
+            }
+        })
+
+        function skillChart(el, data, options = {}) {
+            const width = options.size;
+            const height = Math.ceil((data.length + 0.1) * options.barSize) + options.margin.top + options.margin.bottom;
+
+            const svg = d3.create("svg").attr("viewBox", [0, 0, width, height]);
+
+            const x = d3.scaleLinear().domain([0, 100]).range([options.margin.left, width - options.margin.right]);
+
+            const y = d3.scaleBand().domain(d3.range(data.length)).rangeRound([options.margin.top, height - options.margin.bottom]).padding(0.25);
+            
+            svg.append("g")
+                .selectAll("rect")
+                .data(data)
+                .join("rect")
+                .attr("class", "skill-background")
+                .attr("fill", d => d.color)
+                .attr("x", x(0))
+                .attr("y", (d, i) => y(i))
+                .attr("rx", "8")
+                .attr("width", width - (options.margin.left + options.margin.right))
+                .attr("height", y.bandwidth());
+
+                svg.append("g")
+                .selectAll("rect")
+                .data(data)
+                .join("rect")
+                .attr("class", "skill-progressbar")
+                .attr("fill", d => d.color)
+                .attr("filter", d => "drop-shadow(0px 2px 3px "+d.color+")")
+                .attr("data-toggle", "tooltip")
+                .attr("data-placement", "top")
+                .attr("data-html", "true")
+                .attr("title", d => "<strong>"+d.name+"</strong><br/>Skill: "+d.value+"%")
+                .attr("x", x(0))
+                .attr("y", (d, i) => y(i))
+                .attr("rx", "8")
+                .attr("width", d => x(d.value) - x(0))
+                .attr("height", y.bandwidth());
+
+            svg.append("g")
+                .attr("class", "skill-text")
+                .selectAll("text")
+                .data(data)
+                .join("text")
+                .attr("x", d => x(d.value))
+                .attr("y", (d, i) => y(i) + y.bandwidth() / 2)
+                .attr("dy", "0.35em")
+                .attr("dx", -4)
+                .text(d => d.value +"%")
+                .call(text => text.filter(d => x(d.value) - x(0) < 20).attr("dx", +4).attr("fill", "black").attr("text-anchor", "start"));
+
+            const axis = g => g.attr("transform", "translate("+options.margin.left+",0)")
+                .call(d3.axisLeft(y).tickFormat(i => data[i].name).tickSizeOuter(0))
+                .call(g => g.select(".domain").remove());
+
+            svg.append("g").call(axis);
+
+            document.querySelector(el).appendChild(svg.node());
+        }
+
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'))
+        let tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+</body>
+</html>
