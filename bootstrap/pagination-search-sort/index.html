@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table, Grid and List API</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <style>
+        #mytableitem {
+            display: none;
+        }
+        .sort {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-info">
+
+    <div class="container my-4 w-50">
+        <div id="mylist" class="card">
+            <div class="mx-3 mt-3">
+                <input class="search form-control" type="search" placeholder="Search here...">
+            </div>
+            <div class="m-3">
+                Sort by <span class="badge bg-info sort" data-sort="name">name</span> or 
+                    <span class="badge bg-info sort" data-sort="city">city</span> or 
+                    <span class="badge bg-info sort" data-sort="ext">extension</span> or 
+                    <span class="badge bg-info sort" data-sort="date">start date</span>
+            </div>
+            <ul class="list list-group list-group-flush"></ul>
+            <div class="d-flex justify-content-center mt-2">
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+        <div style="display:none;">
+            <li id="myitem" class="list-group-item">
+                <h4 class="name mb-0"></h4>
+                <small class="city text-muted"></small>
+                <div class="d-flex justify-content-between">
+                    <div class="ext"></div>
+                    <div class="date"></div>
+                </div>
+            </li>
+        </div>
+    </div>
+
+    <div class="container my-4 w-75">
+        <div id="mytable" class="card p-3">
+            <div class="d-flex justify-content-end">
+                <input type="search" class="search form-control w-25" placeholder="Search here...">
+            </div>
+            <table class="table table-striped table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col" class="sort" data-sort="name">Name
+                            <svg style="float:right" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z"/>
+                                <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z"/>
+                            </svg>
+                        </th>
+                        <th scope="col" class="sort" data-sort="city">City
+                            <svg style="float:right" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z"/>
+                                <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z"/>
+                            </svg>
+                        </th>
+                        <th scope="col" class="sort" data-sort="ext">Extension
+                            <svg style="float:right" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z"/>
+                                <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z"/>
+                            </svg>
+                        </th>
+                        <th scope="col" class="sort" data-sort="date">Start date
+                            <svg style="float:right" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-sort-up-alt" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M3 14a.5.5 0 0 0 .5-.5v-10a.5.5 0 0 0-1 0v10a.5.5 0 0 0 .5.5z"/>
+                                <path fill-rule="evenodd" d="M5.354 5.854a.5.5 0 0 0 0-.708l-2-2a.5.5 0 0 0-.708 0l-2 2a.5.5 0 1 0 .708.708L3 4.207l1.646 1.647a.5.5 0 0 0 .708 0zM7 6.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5zm0 3a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7a.5.5 0 0 0-.5.5zm0-9a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0-.5.5z"/>
+                            </svg>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="list">
+                    <tr id="mytableitem">
+                        <th class="name" scope="row"></th>
+                        <td class="city"></td>
+                        <td class="ext"></td>
+                        <td class="date"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container my-4 w-100">
+        <div id="mygrid" class="card p-3">
+            <div class="row">
+                <div class="col-7">
+                    <input class="search form-control" type="search" placeholder="Search here...">
+                </div>
+                <div class="col-5 text-right">
+                    Sort by: 
+                    <button class="btn btn-primary sort" data-sort="name">name</button>
+                    <button class="btn btn-primary sort" data-sort="city">city</button>
+                    <button class="btn btn-primary sort" data-sort="ext">extension</button>
+                    <button class="btn btn-primary sort" data-sort="date">start date</button>
+                </div>
+            </div>
+            <div class="list row"></div>
+            <div class="d-flex justify-content-center mt-2">
+                <ul class="pagination"></ul>
+            </div>
+        </div>
+        <div style="display: none">
+            <div id="mygriditem" class="col-md-4">
+                <div class="card mt-3">
+                    <img src="https://picsum.photos/id/10/300/150.webp" class="card-img-top" height="150">
+                    <div class="card-body">
+                        <h5 class="name"></h5>
+                        <small class="city text-muted"></strong>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <div class="ext"></div>
+                        <div class="date"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    <script src="list.js"></script>
+    <script>
+        const data = [
+            {
+                name: "Unity Pugh",
+                city: "Curicó",
+                ext: 9958,
+                date: "2005/11/02"
+            },
+            {
+                name: "Theodore Duran",
+                city: "Dhanbad",
+                ext: 8971,
+                date: "1999/07/04"
+            },
+            {
+                name: "Kylie Bishop",
+                city: "Norman",
+                ext: 3147,
+                date: "2005/08/09"
+            },
+            {
+                name: "Willow Gilliam",
+                city: "Amqui",
+                ext: 3497,
+                date: "2009/11/29"
+            },
+            {
+                name: "Blossom Dickerson",
+                city: "Kempten",
+                ext: 5018,
+                date: "2006/09/11",
+            },
+            {
+                name: "Elliott Snyder",
+                city: "Enines",
+                ext: 3925,
+                date: "2006/08/03"
+            },
+            {
+                name: "Castor Pugh",
+                city: "Neath",
+                ext: 9488,
+                date: "2014/12/23"
+            },
+            {
+                name: "Pearl Carlson",
+                city: "Cobourg",
+                ext: 6231,
+                date: "2014/08/31"
+            },
+            {
+                name: "Deirdre Bridges",
+                city: "Eberswalde-Finow",
+                ext: 1579,
+                date: "2014/08/26"
+            },
+            {
+                name: "Daniel Baldwin",
+                city: "Moircy",
+                ext: 6095,
+                date: "2000/01/11"
+            },
+            {
+                name: "Phelan Kane",
+                city: "Germersheim",
+                ext: 9519,
+                date: "1999/04/16"
+            },
+            {
+                name: "Quentin Salas",
+                city: "Los Andes",
+                ext: 1339,
+                date: "2011/01/26"
+            },
+            {
+                name: "Armand Suarez",
+                city: "Funtua",
+                ext: 6583,
+                date: "1999/11/06"
+            },
+            {
+                name: "Gretchen Rogers",
+                city: "Moxhe",
+                ext: 5393,
+                date: "1998/10/26"
+            },
+            {
+                name: "Harding Thompson",
+                city: "Abeokuta",
+                ext: 2824,
+                date: "2008/08/06"
+            },
+            {
+                name: "Mira Rocha",
+                city: "Port Harcourt",
+                ext: 4393,
+                date: "2002/10/04"
+            },
+            {
+                name: "Drew Phillips",
+                city: "Goes",
+                ext: 2931,
+                date: "2011/10/18"
+            },
+            {
+                name: "Emerald Warner",
+                city: "Chiavari",
+                ext: 6205,
+                date: "2002/04/08"
+            },
+            {
+                name: "Colin Burch",
+                city: "Anamur",
+                ext: 7457,
+                date: "2004/01/02"
+            },
+            {
+                name: "Russell Haynes",
+                city: "Frascati",
+                ext: 8916,
+                date: "2015/04/28"
+            },
+            {
+                name: "Brennan Brooks",
+                city: "Olmué",
+                ext: 9011,
+                date: "2000/04/18",
+            },
+            {
+                name: "Kane Anthony",
+                city: "LaSalle",
+                ext: 8075,
+                date: "2006/05/21",
+            },
+            {
+                name: "Scarlett Hurst",
+                city: "Brampton",
+                ext: 1019,
+                date: "2015/01/07"
+            },
+            {
+                name: "James Scott",
+                city: "Meux",
+                ext: 3008,
+                date: "2007/05/30"
+            },
+            {
+                name: "Desiree Ferguson",
+                city: "Gojra",
+                ext: 9054,
+                date: "2009/02/15"
+            },
+            {
+                name: "Elaine Bishop",
+                city: "Petrópolis",
+                ext: 9160,
+                date: "2008/12/23"
+            },
+            {
+                name: "Hilda Nelson",
+                city: "Posina",
+                ext: 6307,
+                date: "2004/05/23"
+            },
+            {
+                name: "Evangeline Beasley",
+                city: "Caplan",
+                ext: 3820,
+                date: "2009/03/12"
+            },
+            {
+                name: "Wyatt Riley",
+                city: "Cavaion Veronese",
+                ext: 5694,
+                date: "2012/02/19"
+            },
+            {
+                name: "Wyatt Mccarthy",
+                city: "Patan",
+                ext: 3547,
+                date: "2014/06/23"
+            },
+            {
+                name: "Cairo Rice",
+                city: "Ostra Vetere",
+                ext: 6273,
+                date: "2016/02/27"
+            },
+            {
+                name: "Sylvia Peters",
+                city: "Arrah",
+                ext: 6829,
+                date: "2015/02/03"
+            },
+            {
+                name: "Kasper Craig",
+                city: "Firenze",
+                ext: 5515,
+                date: "2015/04/26"
+            },
+            {
+                name: "Leigh Ruiz",
+                city: "Lac Ste. Anne",
+                ext: 5112,
+                date: "2001/02/09"
+            },
+            {
+                name: "Athena Aguirre",
+                city: "Romeral",
+                ext: 5741,
+                date: "2010/03/24"
+            },
+            {
+                name: "Riley Nunez",
+                city: "Sart-Eustache",
+                ext: 5533,
+                date: "2003/02/26"
+            },
+            {
+                name: "Lois Talley",
+                city: "Dorchester",
+                ext: 9393,
+                date: "2014/01/05"
+            },
+            {
+                name: "Hop Bass",
+                city: "Westerlo",
+                ext: 1024,
+                date: "2012/09/25"
+            },
+            {
+                name: "Kalia Diaz",
+                city: "Ichalkaranji",
+                ext: 9184,
+                date: "2013/06/26"
+            },
+            {
+                name: "Maia Pate",
+                city: "Louvain-la-Neuve",
+                ext: 6682,
+                date: "2011/04/23"
+            },
+            {
+                name: "Macaulay Pruitt",
+                city: "Fraser-Fort George",
+                ext: 4457,
+                date: "2015/08/03"
+            },
+            {
+                name: "Danielle Oconnor",
+                city: "Neuwied",
+                ext: 9464,
+                date: "2001/10/05"
+            },
+            {
+                name: "Kato Carr",
+                city: "Faridabad",
+                ext: 4842,
+                date: "2012/05/11"
+            },
+            {
+                name: "Malachi Mejia",
+                city: "Vorst",
+                ext: 7133,
+                date: "2007/04/25"
+            },
+            {
+                name: "Dominic Carver",
+                city: "Pointe-aux-Trembles",
+                ext: 3476,
+                date: "2014/03/14"
+            },
+            {
+                name: "Paki Santos",
+                city: "Cache Creek",
+                ext: 4424,
+                date: "2001/11/18"
+            },
+            {
+                name: "Ross Hodges",
+                city: "Trazegnies",
+                ext: 1862,
+                date: "2010/09/19"
+            },
+            {
+                name: "Hilda Whitley",
+                city: "New Sarepta",
+                ext: 3514,
+                date: "2011/07/05"
+            },
+            {
+                name: "Roth Cherry",
+                city: "Flin Flon",
+                ext: 4006,
+                date: "2008/09/02"
+            },
+            {
+                name: "Lareina Jones",
+                city: "East Linton",
+                ext: 8642,
+                date: "2009/08/07"
+            },
+            {
+                name: "Joshua Weiss",
+                city: "Saint-L�onard",
+                ext: 2289,
+                date: "2010/01/15"
+            },
+            {
+                name: "Kiona Lowery",
+                city: "Inuvik",
+                ext: 5952,
+                date: "2002/12/17"
+            },
+            {
+                name: "Nina Rush",
+                city: "Bo‘lhe",
+                ext: 7567,
+                date: "2008/01/27"
+            },
+            {
+                name: "Palmer Parker",
+                city: "Stade",
+                ext: 2000,
+                date: "2012/07/24"
+            },
+            {
+                name: "Vielka Olsen",
+                city: "Vrasene",
+                ext: 3745,
+                date: "2016/01/08"
+            },
+            {
+                name: "Meghan Cunningham",
+                city: "Söke",
+                ext: 8604,
+                date: "2007/02/16"
+            },
+            {
+                name: "Iola Shaw",
+                city: "Albany",
+                ext: 6447,
+                date: "2014/03/05"
+            },
+            {
+                name: "Imelda Cole",
+                city: "Haasdonk",
+                ext: 4564,
+                date: "2007/11/16"
+            },
+            {
+                name: "Jerry Beach",
+                city: "Gattatico",
+                ext: 6801,
+                date: "1999/07/07",
+            },
+            {
+                name: "Garrett Rocha",
+                city: "Gavorrano",
+                ext: 3938,
+                date: "2000/08/06",
+            },
+            {
+                name: "Derek Kerr",
+                city: "Gualdo Cattaneo",
+                ext: 1724,
+                date: "2014/01/21"
+            },
+            {
+                name: "Shad Hudson",
+                city: "Salamanca",
+                ext: 5944,
+                date: "2014/12/10"
+            },
+            {
+                name: "Daryl Ayers",
+                city: "Barchi",
+                ext: 8276,
+                date: "2012/11/12"
+            },
+            {
+                name: "Caleb Livingston",
+                city: "Fatehpur",
+                ext: 3094,
+                date: "2014/02/13"
+            },
+            {
+                name: "Sydney Meyer",
+                city: "Neubrandenburg",
+                ext: 4576,
+                date: "2015/02/06"
+            },
+            {
+                name: "Lani Lawrence",
+                city: "Turnhout",
+                ext: 8501,
+                date: "2008/05/07"
+            },
+            {
+                name: "Allegra Shepherd",
+                city: "Meeuwen-Gruitrode",
+                ext: 2576,
+                date: "2004/04/19"
+            },
+            {
+                name: "Fallon Reyes",
+                city: "Monceau-sur-Sambre",
+                ext: 3178,
+                date: "2005/02/15"
+            },
+            {
+                name: "Karen Whitley",
+                city: "Sluis",
+                ext: 4357,
+                date: "2003/05/02"
+            },
+            {
+                name: "Stewart Stephenson",
+                city: "Villa Faraldi",
+                ext: 5350,
+                date: "2003/07/05"
+            },
+            {
+                name: "Ursula Reynolds",
+                city: "Southampton",
+                ext: 7544,
+                date: "1999/12/16"
+            },
+            {
+                name: "Adrienne Winters",
+                city: "Laguna Blanca",
+                ext: 4425,
+                date: "2014/09/15"
+            },
+            {
+                name: "Francesca Brock",
+                city: "Oban",
+                ext: 1337,
+                date: "2000/06/12"
+            },
+            {
+                name: "Ursa Davenport",
+                city: "New Plymouth",
+                ext: 7629,
+                date: "2013/06/27"
+            },
+            {
+                name: "Mark Brock",
+                city: "Veenendaal",
+                ext: 3310,
+                date: "2006/09/08"
+            },
+            {
+                name: "Dale Rush",
+                city: "Chicoutimi",
+                ext: 5050,
+                date: "2000/03/27"
+            },
+            {
+                name: "Shellie Murphy",
+                city: "Marlborough",
+                ext: 3845,
+                date: "2013/11/13"
+            },
+            {
+                name: "Porter Nicholson",
+                city: "Bismil",
+                ext: 4539,
+                date: "2012/10/22"
+            },
+            {
+                name: "Oliver Huber",
+                city: "Hannche",
+                ext: 1265,
+                date: "2002/01/11"
+            },
+            {
+                name: "Calista Maynard",
+                city: "Pozzuolo del Friuli",
+                ext: 3315,
+                date: "2006/03/23"
+            },
+            {
+                name: "Lois Vargas",
+                city: "Cumberland",
+                ext: 6825,
+                date: "1999/04/25"
+            },
+            {
+                name: "Hermione Dickson",
+                city: "Woodstock",
+                ext: 2785,
+                date: "2001/03/22"
+            },
+            {
+                name: "Dalton Jennings",
+                city: "Dudzele",
+                ext: 5416,
+                date: "2015/02/09"
+            },
+            {
+                name: "Cathleen Kramer",
+                city: "Crowsnest Pass",
+                ext: 3380,
+                date: "2012/07/27"
+            },
+            {
+                name: "Zachery Morgan",
+                city: "Collines-de-l'Outaouais",
+                ext: 6730,
+                date: "2006/09/04"
+            },
+            {
+                name: "Yoko Freeman",
+                city: "Lidköping",
+                ext: 4077,
+                date: "2002/12/27"
+            },
+            {
+                name: "Chaim Waller",
+                city: "North Shore",
+                ext: 4240,
+                date: "2010/07/25"
+            },
+            {
+                name: "Berk Johnston",
+                city: "Vergnies",
+                ext: 4532,
+                date: "2016/02/23"
+            },
+            {
+                name: "Tad Munoz",
+                city: "Saint-Nazaire",
+                ext: 2902,
+                date: "2010/05/09"
+            },
+            {
+                name: "Vivien Dominguez",
+                city: "Bargagli",
+                ext: 5653,
+                date: "2001/01/09"
+            },
+            {
+                name: "Carissa Lara",
+                city: "Sherborne",
+                ext: 3241,
+                date: "2015/12/07"
+            },
+            {
+                name: "Hammett Gordon",
+                city: "Wah",
+                ext: 8101,
+                date: "1998/09/06"
+            },
+            {
+                name: "Walker Nixon",
+                city: "Metz",
+                ext: 6901,
+                date: "2011/11/12"
+            },
+            {
+                name: "Nathan Espinoza",
+                city: "Strathcona County",
+                ext: 5956,
+                date: "2002/01/25"
+            },
+            {
+                name: "Kelly Cameron",
+                city: "Fontaine-Valmont",
+                ext: 4836,
+                date: "1999/07/02"
+            },
+            {
+                name: "Kyra Moses",
+                city: "Quenast",
+                ext: 3796,
+                date: "1998/07/07"
+            },
+            {
+                name: "Grace Bishop",
+                city: "Rodez",
+                ext: 8340,
+                date: "2012/10/02"
+            },
+            {
+                name: "Haviva Hernandez",
+                city: "Suwałki",
+                ext: 8136,
+                date: "2000/01/30"
+            },
+            {
+                name: "Alisa Horn",
+                city: "Ucluelet",
+                ext: 9853,
+                date: "2007/11/01"
+            },
+            {
+                name: "Zelenia Roman",
+                city: "Redwater",
+                ext: 7516,
+                date: "2012/03/03"
+            }
+        ]
+
+        const options = {
+            valueNames: ['name', 'city', 'ext', 'date'],
+            item: 'myitem',
+            page: 5,
+            pagination: true
+        }
+
+        new List('mylist', options, data);
+        new List('mytable', {
+            valueNames: ['name', 'city', 'ext', 'date'],
+            item: 'mytableitem',
+            page: 10,
+            pagination: true
+        }, data);
+        new List('mygrid', {
+            valueNames: ['name', 'city', 'ext', 'date'],
+            item: 'mygriditem',
+            page: 6,
+            pagination: true
+        }, data);
+    </script>
+</body>
+</html>
