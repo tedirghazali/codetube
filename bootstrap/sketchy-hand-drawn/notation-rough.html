@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sketchy or Hand-Drawn</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container my-4">
+        <h1 class="d-inline-block">Basic Rough Notation</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <em>Maecenas</em> quis magna nec arcu euismod pretium. In a condimentum mi, quis euismod orci. Duis et semper nibh, eget aliquam nisi. Curabitur sed ipsum sed quam ullamcorper vehicula. Nulla eleifend tincidunt diam, a egestas dolor blandit id. Curabitur ornare commodo varius. <span>Phasellus commodo tortor eget enim scelerisque sollicitudin sit amet auctor ex. Integer rutrum condimentum diam, sit amet interdum quam posuere id. Donec tempus tristique blandit. Proin vitae risus a justo dapibus viverra sit amet sit amet risus. Cras iaculis lobortis leo. Suspendisse et diam finibus, efficitur risus eu, eleifend turpis.</span> Mauris vitae metus congue, tincidunt arcu tincidunt, volutpat justo. Nullam sit amet odio ipsum. Morbi hendrerit nibh neque, ac vehicula nisl dictum at.
+        </p>
+        <p>
+            Quisque dapibus sit amet eros nec imperdiet. <strong>Cras dignissim</strong> vel dolor vitae pharetra. Proin tristique enim a leo semper, non commodo justo mattis. Integer mi dolor, ornare et pharetra ut, facilisis vitae libero. Phasellus gravida magna id justo gravida, nec sagittis enim molestie. Aenean accumsan convallis pretium. Sed luctus est et odio blandit, quis dignissim felis elementum.
+        </p>
+        <p id="block">
+            Mauris efficitur in ligula non ultricies. Cras consequat enim quam, sed luctus elit sodales et. Fusce sed suscipit odio. Nunc pellentesque imperdiet nibh, vitae mollis massa pharetra in. Vivamus faucibus orci quis venenatis ullamcorper. Mauris tempus leo vitae arcu pulvinar, ornare convallis tortor maximus. <i>Donec</i> laoreet cursus leo, vitae consectetur arcu mattis eu. Donec id bibendum tellus, imperdiet laoreet justo. Nunc pretium sollicitudin est, sed vulputate dui rhoncus non. Morbi aliquet sapien vel quam hendrerit, in fringilla enim tincidunt.
+        </p>
+        <h2 class="d-inline-block">Other Rough Notation</h2>
+        <p>
+            Phasellus purus quam, aliquet nec commodo quis, <u>pharetra ut orci</u>. Donec laoreet ligula nisl, placerat molestie mauris luctus id. Fusce dapibus non libero nec lobortis. Nullam iaculis nisl ac eros consequat, sit amet placerat massa vulputate. Maecenas euismod volutpat ultrices. Pellentesque felis ex, ullamcorper in felis finibus, feugiat dignissim augue. Integer malesuada non eros consectetur interdum. Mauris mollis non urna in porta.
+        </p>
+        <p>
+            Donec euismod nisl mauris, sed venenatis sapien semper eget. Fusce malesuada ipsum consectetur, sagittis nunc et, consectetur orci. Sed euismod efficitur eros, eget imperdiet neque iaculis nec. Nunc sodales mauris nibh, nec tincidunt orci feugiat sed. <s>Suspendisse ac mattis dui.</s> Sed eget erat quis augue iaculis tempus sed a nulla. Donec id quam sodales tortor lobortis aliquam vel at velit. Quisque pellentesque euismod augue, id molestie mauris luctus a. Suspendisse vulputate nisl non mauris vestibulum ullamcorper. In et pellentesque metus, nec fermentum dui. Suspendisse vestibulum dolor a commodo mollis.
+        </p>
+        <p>
+            Vivamus egestas interdum lobortis. Vestibulum mollis arcu ut dignissim fringilla. Etiam id ornare libero, vitae rutrum turpis. Sed at sem ut libero efficitur egestas et ac augue. Maecenas auctor efficitur sagittis. Cras sed finibus elit. Praesent fermentum tellus magna, a facilisis nisl mollis ac. Pellentesque imperdiet, est commodo imperdiet hendrerit, mauris risus fringilla tellus, laoreet cursus dolor turpis vel nisi. Sed lorem quam, maximus ut varius at, porttitor a quam. Aenean interdum, mauris sed commodo hendrerit, nulla nisl dictum neque, id eleifend neque urna eget odio.
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    <!--<script src="https://unpkg.com/roughjs@latest/bundled/rough.js"></script>
+    <script src="https://unpkg.com/rough-viz@1.0.6"></script>-->
+    <script type="module">
+        import { annotate, annotationGroup } from 'https://unpkg.com/rough-notation?module';
+        
+        const elements = [
+            {selector: "strong", option: {type:"underline", color:"orange"}},
+            {selector: "h1", option: {type:"box", color:"blue"}},
+            {selector: "em", option: {type:"circle", color:"red", padding:"10"}},
+            {selector: "span", option: {type:"highlight", color:"yellow", iterations:1, multiline:"true"}},
+            {selector: "#block", option: {type:"bracket", color:"red", padding:[2,10], brackets:["left","right"], strokeWidth:3}},
+            {selector: "i", option: {type:"crossed-off", color:"red", padding:10}},
+            {selector: "u", option: {type:"bracket", color:"green", brackets:["top","bottom"], strokeWidth:3}},
+            {selector: "h2", option: {type:"highlight", color:"gold", iterations:2, multiline:"true"}},
+            {selector: "s", option: {type:"box", color:"indigo", iterations:3, multiline:"true"}},
+        ]
+      
+        notation(elements)
+        
+        function notation(els) {
+            const elems = els
+            const lists = new Array()
+            if(elems.length > 0) {
+                elems.forEach(el => {
+                    lists.push(annotate(document.querySelector(el.selector), el.option))
+                })
+            }
+            annotationGroup(lists).show();
+        }
+    </script>
+</body>
+</html>

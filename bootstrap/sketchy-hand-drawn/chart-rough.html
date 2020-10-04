@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sketchy or Hand-Drawn</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container my-4">
+        <div id="chart"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    <!--<script src="https://unpkg.com/roughjs@latest/bundled/rough.js"></script>-->
+    <script src="https://unpkg.com/rough-viz@1.0.6"></script>
+    <script>
+        new roughViz.Line({
+            element: '#chart',
+            data: 'https://raw.githubusercontent.com/tedirghazali/codetube/master/bootstrap/sketchy-hand-drawn/covid19.csv',
+            y1: "usa",
+            y2: "india",
+            y3: "brazil",
+            y4: "russia",
+            y5: "colombia",
+            y6: "peru",
+            title: 'Test Line Chart',
+            highlight: 'red',
+            fillWeight: 2,
+            roughness: 1,
+            strokeWidth: 2,
+            width: 1108,
+            height: 600,
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sketchy or Hand-Drawn</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container my-4">
+        <h3>Sketching style</h3>
+        <div id="sketching" class="mt-2"></div>
+        <h3>or roughness</h3>
+        <div id="roughness" class="mt-2"></div>
+        <h3>Filling style</h3>
+        <div id="filling" class="mt-2"></div>
+        <h3>Filling weight</h3>
+        <div id="weight" class="mt-2"></div>
+        <h3>Custom icons</h3>
+        <div id="icon" class="mt-2 mb-5 float-left"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/roughjs@latest/bundled/rough.js"></script>
+    <script>
+        function svg() {
+            let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+            svg.setAttributeNS(null, 'width', '100%')
+            svg.setAttributeNS(null, 'height', '150')
+            return svg
+        }
+        function svgIcon() {
+            let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+            svg.setAttributeNS(null, 'width', '6em')
+            svg.setAttributeNS(null, 'height', '6em')
+            svg.setAttributeNS(null, 'viewBox', '0 0 16 16')
+            svg.setAttributeNS(null, 'class', 'mr-3')
+            return svg
+        }
+        
+        let svg1 = svg()
+        const rs1 = rough.svg(svg1)
+        svg1.appendChild(rs1.line(0, 100, 0, 0))
+        svg1.appendChild(rs1.line(100, 100, 100, 0, { roughness: 2.5 }))
+        svg1.appendChild(rs1.line(200, 100, 200, 0, { roughness: 4 }))
+        svg1.appendChild(rs1.line(300, 100, 300, 0, { roughness: 8 }))
+        svg1.appendChild(rs1.line(400, 100, 400, 0, { roughness: 12 }))
+        svg1.appendChild(rs1.line(500, 100, 500, 0, { roughness: 16 }))
+        svg1.appendChild(rs1.line(600, 100, 600, 0, { roughness: 20 }))
+        
+        document.getElementById("sketching").appendChild(svg1)
+        
+        let svg2 = svg()
+        const rs2 = rough.svg(svg2)
+        svg2.appendChild(rs2.rectangle(10, 10, 100, 100))
+        svg2.appendChild(rs2.rectangle(120, 10, 100, 100, { roughness: 2.5 }))
+        svg2.appendChild(rs2.rectangle(240, 10, 100, 100, { roughness: 4 }))
+        svg2.appendChild(rs2.rectangle(360, 10, 100, 100, { roughness: 8 }))
+        svg2.appendChild(rs2.rectangle(480, 10, 100, 100, { roughness: 12 }))
+        svg2.appendChild(rs2.rectangle(600, 10, 100, 100, { roughness: 16 }))
+        svg2.appendChild(rs2.rectangle(720, 10, 100, 100, { roughness: 20 }))
+        
+        document.getElementById("roughness").appendChild(svg2)
+        
+        let svg3 = svg()
+        const rs3 = rough.svg(svg3)
+        svg3.appendChild(rs3.rectangle(10, 10, 100, 100, { fill: 'red', bowing: 6, fillStyle: 'hachure' }))
+        svg3.appendChild(rs3.rectangle(120, 10, 100, 100, { fill: 'green', bowing: 6, fillStyle: 'solid' }))
+        svg3.appendChild(rs3.rectangle(240, 10, 100, 100, { fill: 'blue', bowing: 6, fillStyle: 'zigzag' }))
+        svg3.appendChild(rs3.rectangle(360, 10, 100, 100, { fill: 'cyan', bowing: 6, fillStyle: 'cross-hatch' }))
+        svg3.appendChild(rs3.rectangle(480, 10, 100, 100, { fill: 'magenta', bowing: 6, fillStyle: 'dots' }))
+        svg3.appendChild(rs3.rectangle(600, 10, 100, 100, { fill: 'yellow', bowing: 6, fillStyle: 'dashed' }))
+        svg3.appendChild(rs3.rectangle(720, 10, 100, 100, { fill: 'brown', bowing: 6, fillStyle: 'zigzag-line' }))
+        
+        document.getElementById("filling").appendChild(svg3)
+        
+        let svg4 = svg()
+        const rs4 = rough.svg(svg4)
+        svg4.appendChild(rs4.circle(60, 80, 100, { fill: 'red', fillStyle: 'zigzag', fillWeight: 1, strokeWidth: 1 }))
+        svg4.appendChild(rs4.circle(180, 80, 100, { fill: 'green', fillStyle: 'zigzag', fillWeight: 2, strokeWidth: 2 }))
+        svg4.appendChild(rs4.circle(300, 80, 100, { fill: 'blue', fillStyle: 'zigzag', fillWeight: 3, strokeWidth: 3 }))
+        svg4.appendChild(rs4.circle(420, 80, 100, { fill: 'cyan', fillStyle: 'zigzag', fillWeight: 4, strokeWidth: 4 }))
+        svg4.appendChild(rs4.circle(540, 80, 100, { fill: 'magenta', fillStyle: 'cross-hatch', fillWeight: 5, strokeWidth: 5 }))
+        svg4.appendChild(rs4.circle(660, 80, 100, { fill: 'yellow', fillStyle: 'dashed', fillWeight: 6, strokeWidth: 6 }))
+        svg4.appendChild(rs4.circle(780, 80, 100, { fill: 'brown', fillStyle: 'dots', fillWeight: 7, strokeWidth: 7 }))
+        
+        document.getElementById("weight").appendChild(svg4)
+        
+        let svg5 = svgIcon()
+        const rs5 = rough.svg(svg5)
+        svg5.appendChild(rs5.path('M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z', { fill: 'red', fillStyle: 'zigzag', roughness: 0.5, fillWeight: 3, strokeWidth: 1 }))
+        document.getElementById("icon").appendChild(svg5)
+        
+        let svg6 = svgIcon()
+        const rs6 = rough.svg(svg6)
+        svg6.appendChild(rs6.path('M1 2a1 1 0 0 1 1-1h11a1 1 0 0 1 1 1v1h.5A1.5 1.5 0 0 1 16 4.5v7a1.5 1.5 0 0 1-1.5 1.5h-.55a2.5 2.5 0 0 1-2.45 2h-8A2.5 2.5 0 0 1 1 12.5V2zm13 10h.5a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.5-.5H14v8z', { fill: 'green', fillStyle: 'zigzag', roughness: 0.5, fillWeight: 3, strokeWidth: 1 }))
+        document.getElementById("icon").appendChild(svg6)
+        
+        let svg7 = svgIcon()
+        const rs7 = rough.svg(svg7)
+        svg7.appendChild(rs7.path('M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z', { fill: 'blue', fillStyle: 'zigzag', roughness: 0.5, fillWeight: 3, strokeWidth: 1 }))
+        document.getElementById("icon").appendChild(svg7)
+        
+        let svg8 = svgIcon()
+        const rs8 = rough.svg(svg8)
+        svg8.appendChild(rs8.path('M4.98 1a.5.5 0 0 0-.39.188L1.54 5H6a.5.5 0 0 1 .5.5 1.5 1.5 0 0 0 3 0A.5.5 0 0 1 10 5h4.46l-3.05-3.812A.5.5 0 0 0 11.02 1H4.98zM3.81.563A1.5 1.5 0 0 1 4.98 0h6.04a1.5 1.5 0 0 1 1.17.563l3.7 4.625a.5.5 0 0 1 .106.374l-.39 3.124A1.5 1.5 0 0 1 14.117 10H1.883A1.5 1.5 0 0 1 .394 8.686l-.39-3.124a.5.5 0 0 1 .106-.374L3.81.563zM.125 11.17A.5.5 0 0 1 .5 11H6a.5.5 0 0 1 .5.5 1.5 1.5 0 0 0 3 0 .5.5 0 0 1 .5-.5h5.5a.5.5 0 0 1 .496.562l-.39 3.124A1.5 1.5 0 0 1 14.117 16H1.883a1.5 1.5 0 0 1-1.489-1.314l-.39-3.124a.5.5 0 0 1 .121-.393z', { fill: 'cyan', fillStyle: 'zigzag', roughness: 0.5, fillWeight: 3, strokeWidth: 1 }))
+        document.getElementById("icon").appendChild(svg8)
+        
+        let svg9 = svgIcon()
+        const rs9 = rough.svg(svg9)
+        svg9.appendChild(rs9.path('M16 .5a.5.5 0 0 0-.598-.49L10.5.99 5.598.01a.5.5 0 0 0-.196 0l-5 1A.5.5 0 0 0 0 1.5v14a.5.5 0 0 0 .598.49l4.902-.98 4.902.98a.502.502 0 0 0 .196 0l5-1A.5.5 0 0 0 16 14.5V.5zM5 14.09V1.11l.5-.1.5.1v12.98l-.402-.08a.498.498 0 0 0-.196 0L5 14.09zm5 .8V1.91l.402.08a.5.5 0 0 0 .196 0L11 1.91v12.98l-.5.1-.5-.1z', { fill: 'magenta', fillStyle: 'zigzag', roughness: 0.5, fillWeight: 3, strokeWidth: 1 }))
+        document.getElementById("icon").appendChild(svg9)
+        
+        let svg10 = svgIcon()
+        const rs10 = rough.svg(svg10)
+        svg10.appendChild(rs10.path('M1.333 2.667C1.333 1.194 4.318 0 8 0s6.667 1.194 6.667 2.667V4C14.665 5.474 11.68 6.667 8 6.667 4.318 6.667 1.333 5.473 1.333 4V2.667zm0 3.667v3C1.333 10.805 4.318 12 8 12c3.68 0 6.665-1.193 6.667-2.665V6.334c-.43.32-.931.58-1.458.79C11.81 7.684 9.967 8 8 8c-1.967 0-3.81-.317-5.21-.876a6.508 6.508 0 0 1-1.457-.79zm13.334 5.334c-.43.319-.931.578-1.458.789-1.4.56-3.242.876-5.209.876-1.967 0-3.81-.316-5.21-.876a6.51 6.51 0 0 1-1.457-.79v1.666C1.333 14.806 4.318 16 8 16s6.667-1.194 6.667-2.667v-1.665z', { fill: 'yellow', fillStyle: 'zigzag', roughness: 0.5, fillWeight: 3, strokeWidth: 1 }))
+        document.getElementById("icon").appendChild(svg10)
+        
+        let svg11 = svgIcon()
+        const rs11 = rough.svg(svg11)
+        svg11.appendChild(rs11.path('M3.5 0A1.5 1.5 0 0 0 2 1.5v13A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5V3.414a1.5 1.5 0 0 0-.44-1.06L11.647.439A1.5 1.5 0 0 0 10.586 0H3.5zM5 4.5a.5.5 0 0 1 .5-.5h2v2H5V4.5zM8.5 6V4h2a.5.5 0 0 1 .5.5V6H8.5zM5 7h6v2H5V7zm3.5 3H11v1.5a.5.5 0 0 1-.5.5h-2v-2zm-1 0v2h-2a.5.5 0 0 1-.5-.5V10h2.5zm-2-7A1.5 1.5 0 0 0 4 4.5v7A1.5 1.5 0 0 0 5.5 13h5a1.5 1.5 0 0 0 1.5-1.5v-7A1.5 1.5 0 0 0 10.5 3h-5z', { fill: 'brown', fillStyle: 'zigzag', roughness: 0.5, fillWeight: 3, strokeWidth: 1 }))
+        document.getElementById("icon").appendChild(svg11)
+    </script>
+</body>
+</html>

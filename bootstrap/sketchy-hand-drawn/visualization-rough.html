@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sketchy or Hand-Drawn</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-md-9">
+                <div id="vis1"></div>
+            </div>
+            <div class="col-md-3">
+                <div id="vis2"></div>
+                <div id="vis3"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div id="vis4"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="vis5"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    <!--<script src="https://unpkg.com/roughjs@latest/bundled/rough.js"></script>-->
+    <script src="https://unpkg.com/rough-viz@1.0.6"></script>
+    <script>
+        new roughViz.Bar({
+            element: '#vis1',
+            data: {
+                labels: ['India','Russia','Colombia','United States','Peru','Mexico','South Africa','Brazil',],
+                values: [5903932, 1143571, 2798317, 7120729, 3794584, 4720858, 668529, 4692579],
+            },
+            width: 825,
+            height: 566,
+            title: 'Test Confirmed Cases',
+            roughness: 1,
+            highlight: 'chocolate',
+            stroke: 'grey',
+            padding: 0.15,
+            color: 'tomato',
+            fillStyle: 'cross-hatch',
+        });
+        
+        new roughViz.Pie({
+            element: '#vis2',
+            data: {
+                labels: ['Infections', 'Deaths', 'Recoveries'],
+                values: [32747374, 992984, 22615494],
+            },
+            title: 'COVID-19 Pand.',
+            width: 283,
+            height: 283,
+            roughness: 2,
+            colors: ['red', 'orange', 'blue', 'skyblue', 'red', 'green', 'black', 'grey'],
+            stroke: 'black',
+            strokeWidth: 3,
+            fillStyle: 'zigzag',
+            fillWeight: 3.5,
+        });
+        
+        new roughViz.Donut({
+            element: '#vis3',
+            data: {
+                labels: ['America', 'South Asia', 'East Asia', 'Africa', 'Rest'],
+                values: [1006768099, 1814388744, 1752240948, 1233838784, 1783147508],
+            },
+            title: 'Population',
+            labels: 'region',
+            values: 'count',
+            roughness: 0,
+            colors: ['indigo', 'coral', 'teal', 'brown', 'grey'],
+            highlight: 'gold',
+            strokeWidth: 2,
+            titleFontSize: '25px',
+            fillWeight: 1.5,
+            fillStyle: 'zigzag-line',
+            width: 283,
+            height: 283,
+        });
+        
+        new roughViz.Scatter({
+            element: '#vis4',
+            data: {
+                x: [3.5, 3, 2.5, 1, 1.5, 2.1, 2.2, 2.3], 
+                y: [1.4, 1.4, 2.8, 2.5, 1.8, 1.9, 1.9, 2.5]
+            },
+            title: 'Percentage',
+            fillWeight: 9.1,
+            radius: 12,
+            colors: ['pink', 'coral', 'skyblue', 'green', 'tomato', 'violet', 'indigo', 'yellow', 'orange'],
+            stroke: 'black',
+            strokeWidth: 2,
+            roughness: 1,
+            width: 566,
+            height: 566,
+            font: 5,
+            curbZero: false,
+            fillStyle: 'cross-hatch',
+            highlight: 'blue'
+        })
+        
+        new roughViz.BarH({
+            element: '#vis5',
+            data: {
+                labels: ['Mexico','India','United Kingdom','Italy','Peru','Spain','France','Russia',],
+                values: [72085, 93379, 41936, 35801, 32037, 31232, 31700, 20225],
+            },
+            width: 566,
+            height: 566,
+            title: 'Death Toll',
+            roughness: 1,
+            highlight: 'teal',
+            stroke: 'grey',
+            padding: 0.15,
+            bowing: 6,
+            innerStrokeWidth: 0.5,
+            color: 'green',
+            fillStyle: 'cross-hatch',
+        });
+    </script>
+</body>
+</html>
