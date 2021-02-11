@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>PidieUi</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link href="pidie-0.0.8.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <p><br/></p>
+
+    <div class="container mt-4" style="width: 600px;">
+      <h2>Tooltip</h2>
+      <a href="#" class="btn btn-primary pd-tooltip" data-tooltip-align="left" data-tooltip-text="This is tooltips left">Left Tooltip</a>
+      <a href="#" class="btn btn-success pd-tooltip" data-tooltip-align="top" data-tooltip-text="This is tooltips top">Top Tooltip</a>
+      <a href="#" class="btn btn-warning pd-tooltip" data-tooltip-align="bottom" data-tooltip-text="This is tooltips bottom">Bottom Tooltip</a>
+      <a href="#" class="btn btn-danger pd-tooltip" data-tooltip-align="right" data-tooltip-text="This is tooltips right">Right Tooltip</a>
+    </div>
+    <!--hierarchy
+    communicator
+    └── src
+            ├── client.rs
+            ├── lib.rs
+            └── network
+                ├── mod.rs
+                └── server.rs-->
+  
+  <!--<footer class="pd-text-center pt-4 pb-3">
+    <p>Apache License 2.0 Tedir Ghazali</p>
+  </footer>-->
+
+  <script src="pidie-0.0.8.js"></script>
+  <script>
+    var pidie = new Pidie();
+  </script>
+</body>
+</html>

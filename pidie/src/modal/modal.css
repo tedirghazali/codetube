@@ -1,0 +1,18 @@
+.pd-social-bar {
+    position: fixed;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.pd-social-bar .pd-social-item a {
+    display: block;
+    text-align: center;
+    padding: 7px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 20px;
+}
+.pd-social-bar .pd-social-item a:hover {
+    background-color: #000;
+}
