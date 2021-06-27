@@ -40,8 +40,11 @@ foreach($result as $row)
 	$sub_array = array();
 	$sub_array[] = '';
 	$sub_array[] = $image;
-	$sub_array[] = $row["first_name"];
-	$sub_array[] = $row["last_name"];
+	$sub_array[] = $row["first_name"].' '.$row["last_name"];
+	$sub_array[] = $row["branch"];
+	$sub_array[] = $row["degree"];
+	$sub_array[] = $row["idno"].' '.$row["dept"];
+	$sub_array[] = $row["bloodtype"];
 	$sub_array[] = '<button type="button" name="update" id="'.$row["id"].'" class="btn btn-warning btn-xs update">Update</button>&nbsp;<button type="button" name="delete" id="'.$row["id"].'" class="btn btn-danger btn-xs delete">Delete</button>';
 	$data[] = $sub_array;
 }
