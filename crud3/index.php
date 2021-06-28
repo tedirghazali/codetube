@@ -36,7 +36,7 @@
 		<div class="container box">
 			<h1 align="center">PHP PDO Ajax CRUD with Data Tables and Bootstrap Modals</h1>
 			<br />
-			<div class="table-responsive">
+			<div class="table-responsive" style="overflow-x: hidden;">
 				<br />
 				<div id="buttons" align="right">
 					<button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-info btn-lg">Add</button>
@@ -45,14 +45,16 @@
 				<table id="user_data" class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th width="2%">#</th>
-							<th width="3%">Image</th>
-							<th width="15%">Full Name</th>
-							<th width="5%">Branch</th>
-							<th width="5%">Degree</th>
-							<th width="5%">ID/No Dept</th>
-							<th width="5%">Blood</th>
-							<th width="5%">Action</th>
+							<th width="40">#</th>
+							<th width="60">Image</th>
+							<th width="150">Full Name</th>
+							<th>Branch</th>
+							<th>Degree</th>
+							<th>ID/No</th>
+							<th>Department</th>
+							<th>Session</th>
+							<th>Blood</th>
+							<th width="90">Action</th>
 						</tr>
 					</thead>
 				</table>
@@ -76,6 +78,39 @@
 					<br />
 					<label>Enter Last Name</label>
 					<input type="text" name="last_name" id="last_name" class="form-control" />
+					<br />
+					<label>Enter Branch</label>
+					<select name="branch" id="branch" class="form-control">
+					  <option value="1">One</option>
+					  <option value="2">Two</option>
+					  <option value="3">Three</option>
+					</select>
+					<br />
+					<label>Enter Degree</label>
+					<select name="degree" id="degree" class="form-control">
+					  <option value="BS">BS</option>
+					  <option value="BA">BA</option>
+					  <option value="MS">MS</option>
+					  <option value="MA">MA</option>
+					  <option value="Phd">Phd</option>
+					</select>
+					<br />
+					<label>Enter ID or No</label>
+					<input type="text" name="idno" id="idno" class="form-control" />
+					<br />
+					<label>Enter Department</label>
+					<input type="text" name="dept" id="dept" class="form-control" />
+					<br />
+					<label>Enter Session</label>
+					<input type="text" name="session" id="session" class="form-control" />
+					<br />
+					<label>Enter Blood Type</label>
+					<select name="bloodtype" id="bloodtype" class="form-control">
+					  <option value="A">A</option>
+					  <option value="B">B</option>
+					  <option value="AB">AB</option>
+					  <option value="O">O</option>
+					</select>
 					<br />
 					<label>Select User Image</label>
 					<input type="file" name="user_image" id="user_image" />
@@ -138,6 +173,12 @@ $(document).ready(function(){
 		event.preventDefault();
 		var firstName = $('#first_name').val();
 		var lastName = $('#last_name').val();
+		var branch = $('#branch').val();
+		var degree = $('#degree').val();
+		var idno = $('#idno').val();
+		var dept = $('#dept').val();
+		var session = $('#session').val();
+		var bloodtype = $('#bloodtype').val();
 		var extension = $('#user_image').val().split('.').pop().toLowerCase();
 		if(extension != '')
 		{
@@ -183,6 +224,12 @@ $(document).ready(function(){
 				$('#userModal').modal('show');
 				$('#first_name').val(data.first_name);
 				$('#last_name').val(data.last_name);
+				$('#branch').val(data.branch);
+				$('#degree').val(data.degree);
+				$('#idno').val(data.idno);
+				$('#dept').val(data.dept);
+				$('#session').val(data.session);
+				$('#bloodtype').val(data.bloodtype);
 				$('.modal-title').text("Edit User");
 				$('#user_id').val(user_id);
 				$('#user_uploaded_image').html(data.user_image);

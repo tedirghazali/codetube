@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 27, 2021 at 05:46 PM
+-- Generation Time: Jun 28, 2021 at 03:11 PM
 -- Server version: 10.3.23-MariaDB-1:10.3.23+maria~bionic
 -- PHP Version: 7.4.7
 
@@ -45,7 +45,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `branch`, `degree`, `idno`, `dept`, `session`, `bloodtype`, `image`) VALUES
-(1, 'Tedir', 'Ghazali', 'x', 'BS', '8977678', 'dept2', 'sss', 'a', '83100307.jpeg');
+(1, 'Tedir', 'Ghazali', 'x', 'BS', '8977678', 'dept2', 'sss', 'a', '83100307.jpeg'),
+(2, 'Bukhari', 'Zulkifli', '2', 'BA', '099876677', 'test', '7866', 'A', '826294115.png'),
+(3, 'Boyhaki', 'Zulkifli', '3', 'MA', '786676', '45', 'gera', 'O', '702945626.png');
 
 --
 -- Indexes for dumped tables
@@ -65,7 +67,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -11,13 +11,19 @@ if(isset($_POST["operation"]))
 			$image = upload_image();
 		}
 		$statement = $connection->prepare("
-			INSERT INTO users (first_name, last_name, image) 
-			VALUES (:first_name, :last_name, :image)
+			INSERT INTO users (first_name, last_name, branch, degree, idno, dept, session, bloodtype, image) 
+			VALUES (:first_name, :last_name, :branch, :degree, :idno, :dept, :session, :bloodtype, :image)
 		");
 		$result = $statement->execute(
 			array(
 				':first_name'	=>	$_POST["first_name"],
 				':last_name'	=>	$_POST["last_name"],
+				':branch'	=>	$_POST["branch"],
+				':degree'	=>	$_POST["degree"],
+				':idno'	=>	$_POST["idno"],
+				':dept'	=>	$_POST["dept"],
+				':session'	=>	$_POST["session"],
+				':bloodtype'	=>	$_POST["bloodtype"],
 				':image'		=>	$image
 			)
 		);
@@ -39,7 +45,7 @@ if(isset($_POST["operation"]))
 		}
 		$statement = $connection->prepare(
 			"UPDATE users 
-			SET first_name = :first_name, last_name = :last_name, image = :image  
+			SET first_name = :first_name, last_name = :last_name, branch = :branch, degree = :degree, idno = :idno, dept = :dept, session = :session, bloodtype = :bloodtype, image = :image  
 			WHERE id = :id
 			"
 		);
@@ -47,6 +53,12 @@ if(isset($_POST["operation"]))
 			array(
 				':first_name'	=>	$_POST["first_name"],
 				':last_name'	=>	$_POST["last_name"],
+				':branch'	=>	$_POST["branch"],
+				':degree'	=>	$_POST["degree"],
+				':idno'	=>	$_POST["idno"],
+				':dept'	=>	$_POST["dept"],
+				':session'	=>	$_POST["session"],
+				':bloodtype'	=>	$_POST["bloodtype"],
 				':image'		=>	$image,
 				':id'			=>	$_POST["user_id"]
 			)
