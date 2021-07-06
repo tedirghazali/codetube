@@ -11,6 +11,11 @@
 		<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.bootstrap.min.css" />
 		<script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
 		<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+		<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 		
 		<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" />
 		<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
@@ -159,13 +164,14 @@ $(document).ready(function(){
     order: [[ 2, 'asc' ]],
     dom: 'Blfrtip',
     buttons: [
-      {
+      /*{
         text: 'Get selected data',
         action: function () {
           var count = dataTable.rows( { selected: true } ).data();
           alert('Our data: '+count);
         }
-      }
+      },*/
+      'copy', 'csv', 'excel', 'pdf', 'print'
     ]
 	});
 	
